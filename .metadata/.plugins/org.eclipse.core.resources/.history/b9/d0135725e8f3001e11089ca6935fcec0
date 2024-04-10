@@ -1,0 +1,23 @@
+package com.pbl3.service;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.pbl3.model.AccountModel;
+
+public class UserService extends BaseService{
+	// them nguoi dung
+		public static void add(AccountModel accountModel) {
+			try {
+				Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO user (AccountID, Name, Phone, Gmail, Gender) VALUES (?, ?, ?, ?, ?)"); 
+				preparedStatement.setInt(1, accountModel.getRoleID());
+				preparedStatement.setString(2, accountModel.getUserName());
+				preparedStatement.setString(3, accountModel.getPassword());
+				preparedStatement.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+}

@@ -1,0 +1,128 @@
+/* header */
+
+.container {
+    max-width: 1296px;
+}
+.header{
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+.header-top{
+    background-color: var(--color-one);
+    color: var(--color-two);
+    font-size: 18px;
+    padding: 8px;
+    text-align: center;
+}
+
+.header-main .inner-wrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+}
+
+.header-main .inner-logo img{
+    height: 48px;
+    width: auto;
+}
+
+.header-main .inner-logo a{
+    color: var(--color-one);
+    display: flex;
+    align-items: center;
+}
+
+.header-main .inner-logo span{
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.header-main .inner-box {
+    display: flex;
+    align-items: center;
+}
+
+.header-main .inner-box .button {
+    margin-left: 30px;
+}
+
+.header-main .inner-menu ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.header-main .inner-menu ul li{
+    margin-left: 17px;
+    margin-right: 17px;
+}
+
+.header-main .inner-menu ul li a{
+    color: var(--color-two);
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.header-main .inner-menu ul li a:hover {
+    color: var(--color-one);
+}
+
+.header-main .inner-contact{
+    font-size: 18px;
+    color: var(--color-one);
+}
+
+.header-main .inner-social ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.header-main .inner-social ul li{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.header-main .inner-social li a {
+    color: var(--color-one);
+    font-size: 22px;
+}
+/*end header */
+
+/* button */
+.button{
+    background-color: var(--color-text);
+    color: #fff;
+    padding: 10px 10px;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: solid 2px var(--color-text);
+    display: inline-block;
+}
+
+.button:hover{
+    color: var(--color-text);
+    background-color: #fff;
+}
+
+.button-one{
+    background-color: var(--color-one);
+    border-color: var(--color-one);
+}
+
+.button-one:hover{
+    color: var(--color-one);
+}
+
+.button-two{
+    background-color: var(--color-two);
+    border-color: var(--color-two);
+}
+
+.button-two:hover{
+    color: var(--color-two);
+}
+/*end button */

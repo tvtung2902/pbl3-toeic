@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+:root
+{
+    --color-one:  #0EDC8D;
+    --color-two: #04182B;
+    --color-text: #888886;
+    --font: 'Inria Serif', serif; 
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+body{
+    font-family: var(--font);
+    color: var(--color-text);
+}   
+
+*{
+    font-family: "Poppins", sans-serif;
+}

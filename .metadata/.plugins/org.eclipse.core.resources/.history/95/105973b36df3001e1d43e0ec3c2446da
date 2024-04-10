@@ -1,0 +1,35 @@
+package com.quyentv.controller;
+
+import java.io.IOException;
+
+import com.quyentv.model.Student;
+import com.quyentv.service.StudentService;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+@WebServlet (urlPatterns = {"/edit_student"})
+public class EditStudentController extends HttpServlet{
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.print("1111");
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/student/edit.jsp");
+		Student student = StudentService.find(Integer.parseInt(req.getParameter("id")));
+		req.setAttribute("student", student);
+		requestDispatcher.forward(req, resp);
+	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String name = req.getParameter("name");
+		String address = req.getParameter("address");
+		int gender = Integer.parseInt(req.getParameter("gender"));
+		float score = Float.parseFloat(req.getParameter("score"));
+		int id = Integer.parseInt(req.getParameter("id"));
+		Student student = new Student(id, name, gender, address, score);
+		StudentService.update(student);
+		resp.sendRedirect(req.getContextPath() + "/student");
+	}
+}

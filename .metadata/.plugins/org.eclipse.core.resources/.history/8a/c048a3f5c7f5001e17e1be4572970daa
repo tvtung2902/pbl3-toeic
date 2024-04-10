@@ -1,0 +1,49 @@
+package com.pbl3.model;
+
+import java.time.Year;
+import java.time.YearMonth;
+
+public class TestsModel {
+	private int testID;
+	private String testName;
+	private int year;
+	
+	public TestsModel(int testID, String testName, int year) {
+		super();
+		this.testID = testID;
+		this.testName = testName;
+		this.year = year;
+	}
+
+	public TestsModel(String testName, int year) {
+		super();
+		this.testName = testName;
+		this.year = year;
+	}
+
+	public int getTestID() {
+		return testID;
+	}
+
+	public void setTestID(int testID) {
+		this.testID = testID;
+	}
+
+	public String getTestName() {
+		return testName;
+	}
+
+	public void setTestName(String testName) {
+		this.testName = testName;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+	
+	
+}

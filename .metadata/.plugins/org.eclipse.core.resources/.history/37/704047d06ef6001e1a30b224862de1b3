@@ -1,0 +1,44 @@
+package com.pbl3.service;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
+
+import com.pbl3.model.QuestionModel;
+import com.pbl3.model.TestsModel;
+
+public class QuestionService extends BaseService{
+	// query all question in 1 test
+	public static LinkedList<QuestionModel> all(int testID) {
+		LinkedList<QuestionModel> questionModels = new LinkedList<QuestionModel>();
+		try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM question WHERE TestID = ? ORDER BY OrderNumber ASC;");
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				
+				int questionID = resultSet.getInt(1);
+				Integer assignmentID = resultSet.getInt(1);
+//				Integer testID;
+				int questionContent = resultSet.getInt(1);
+				String contentAnswerA = resultSet.getInt(1);
+				String contentAnswerB = resultSet.getInt(1);
+				String contentAnswerC = resultSet.getInt(1);
+				String ContentAnswerD = resultSet.getInt(1);
+				String AnswerCorrect = resultSet.getInt(1);
+				String AnswerExplain = resultSet.getInt(1) ;
+				int OrderNumber = resultSet.getInt(1);
+				
+				TestsModel testsModel = new TestsModel(testID, testsName, year);   
+				testsModels.add(testsModel);             
+			}
+			System.out.println("size cua tests: " + testsModels.size());
+			return testsModels; 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return testsModels;
+	}
+}

@@ -1,0 +1,15 @@
+package com.pbl3.model;
+
+public class QuestionModel {
+	private int questionID;
+	private int assignmentID;
+	private int testID;
+	private int questionContent;
+	private int contentAnswerA;
+	private int contentAnswerB;
+	private int contentAnswerC;
+	private int ContentAnswerD;
+	private int AnswerCorrect;
+	private int AnswerExplain;
+	private int OrderNumber;
+}

@@ -1,0 +1,36 @@
+package com.pbl3.service;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.pbl3.model.HistoryOfTestModel;
+
+public class HistoryOfTestModel_QuestionService extends BaseService{
+	// add
+	public static int add(int questionID, ) {
+		try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(
+					"INSERT INTO historyoftest (userID, testID, date, score) VALUES (?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setInt(1, historyOfTestModel.getUserID());
+			preparedStatement.setInt(2, historyOfTestModel.getTestID());
+			preparedStatement.setObject(3, historyOfTestModel.getDate());
+			preparedStatement.setInt(4, historyOfTestModel.getScore());
+			preparedStatement.executeUpdate();
+
+			ResultSet rs = preparedStatement.getGeneratedKeys();
+			int historyOfTestID = 0;
+			if (rs.next()) {
+				historyOfTestID = rs.getInt(1);
+			}
+			return historyOfTestID;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+}

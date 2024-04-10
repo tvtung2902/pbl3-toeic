@@ -1,0 +1,118 @@
+package com.controller.student;
+
+import java.io.IOException;
+
+import com.pbl3.libs.MD5;
+import com.pbl3.model.AccountModel;
+import com.pbl3.service.AccountService;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+@WebServlet (urlPatterns = {"/", "/register", "/login"})
+public class HomepageController extends HttpServlet{
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("goi doGet HomepageController user");
+//		RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/student/homepage.jsp");
+//		requestDispatcher.forward(req, resp);
+		HttpSession session = req.getSession();
+		String actionString = req.getServletPath(); // lấy ở phần sau
+		switch (actionString) {
+		
+		case "/register": {
+			System.out.println("goi doget register");
+			register(req, resp);
+			break;
+		}
+		
+		case "/login": {
+			System.out.println("goi doget login");
+			login(req, resp);
+			break;	
+		}
+		
+		case "/":
+			if(session.getAttribute("user")== null) {
+				System.out.println("chua dang nhap");
+			}
+			if(session.getAttribute("user")!= null) {
+				System.out.println("da dang nhap");
+			}
+			System.out.println("vao trang chu");
+			System.out.println(actionString);
+			RequestDispatcher  requestDispatcher = req.getRequestDispatcher("views/student/homepage.jsp");
+			requestDispatcher.forward(req, resp);
+			break;
+		}
+	}
+	
+	// chuyen den form dang ki
+	public void register (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		System.out.println("goi register");
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/student/register.jsp");
+		requestDispatcher.forward(req, resp);
+	}
+	
+	// an nut dang ki
+	public void submitRegister(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int roleID = 3;
+		String userName = req.getParameter("name");
+		String password = MD5.getMD5(req.getParameter("password"));
+		AccountModel accountModel = new AccountModel(roleID, userName, password);
+		AccountService.add(accountModel);
+		resp.sendRedirect(req.getContextPath() + "/login"); // getContextPath()
+	}
+	
+	// chuyen den form dang nhap
+	public void login (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/student/login.jsp");
+		requestDispatcher.forward(req, resp);
+	}
+	
+	// duoc goi khi an dang nhap
+	public void submitLogin (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		String emailString = req.getParameter("email");
+		String passwordString = req.getParameter("password"); 
+		String hashedPasswoString = MD5.getMD5(req.getParameter("password"));
+		AccountModel accountModel = AccountService.login(emailString, hashedPasswoString);
+		// ko dang nhap thanh cong
+		if (accountModel.getAccountID() == 0) {
+			req.setAttribute("loginSuccess", false);
+			login(req, resp);
+			
+		}
+		else {
+			HttpSession session = req.getSession();
+			session.setAttribute("account", accountModel);
+			// chuyen huonng ve trang sv
+			resp.sendRedirect(req.getContextPath() + "/"); // getContextPath() lấy đường dẫn cơ bản
+		}
+	}
+	
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("GOI DO POST");
+		String actionString = req.getServletPath();
+		switch (actionString) {
+		case "/register": {
+			System.out.println("GOI DO POST register");
+			submitRegister(req, resp);
+			break;
+		}
+		case "/login": {
+			System.out.println("GOI DO POST login");
+			submitLogin(req, resp);
+			break;
+		}
+		default:
+			System.out.println(actionString);
+			RequestDispatcher  requestDispatcher = req.getRequestDispatcher("view/home_temp.jsp");
+			requestDispatcher.forward(req, resp);
+		}	
+	}
+	
+}

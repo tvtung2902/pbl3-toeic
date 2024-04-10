@@ -1,0 +1,45 @@
+package com.quyentv.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import com.quyentv.model.Student;
+import com.quyentv.service.StudentService;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet (urlPatterns = {"/create_new_student"})
+public class CreateStudentController extends HttpServlet{
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("DO GET");
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/student/create.jsp"); 
+		ArrayList<Student> students = StudentService.all();
+		req.setAttribute("students", students);
+		requestDispatcher.forward(req, resp);
+	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("DOPOST");
+		PrintWriter printWriter = resp.getWriter();
+		String name = req.getParameter("name");
+		String address = req.getParameter("address");
+		int gender = Integer.parseInt(req.getParameter("gender"));
+		float score = Float.parseFloat(req.getParameter("score"));
+		Student student = new Student(name, gender, address, score);
+		StudentService.add(student);
+//		printWriter.write(name + "\n");
+//		printWriter.write(address + "\n"); 
+//		printWriter.write(gender + "\n");
+//		printWriter.write(score + "\n");
+//		printWriter.write(req.getContextPath());
+		resp.sendRedirect(req.getContextPath() + "/student");
+	}
+	
+}

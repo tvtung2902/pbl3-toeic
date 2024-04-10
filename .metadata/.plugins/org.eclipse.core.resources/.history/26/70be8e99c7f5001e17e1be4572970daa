@@ -1,0 +1,39 @@
+package com.pbl3.service;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
+
+import com.pbl3.model.VocabModel;
+
+public class TestsService extends BaseService {
+
+	// query all tests
+	public static LinkedList<VocabModel> all(int listID) {
+		LinkedList<VocabModel> vocabModels = new LinkedList<VocabModel>();
+		try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("SELECT * FROM vocabulary WHERE listID = ? ORDER BY vocabID DESC;");
+			preparedStatement.setInt(1, listID);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				int vocabID = resultSet.getInt(1);
+//						 int listID = resultSet.getInt(2);
+				String vocab = resultSet.getString(3);
+				String mean = resultSet.getString(4);
+				String wordType = resultSet.getString(5);
+				String example = resultSet.getString(6);
+				VocabModel vocabModel = new VocabModel(vocabID, listID, vocab, mean, wordType, example);
+				vocabModels.add(vocabModel);
+			}
+			System.out.println("size cua vocab in list: " + vocabModels.size());
+			return vocabModels;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vocabModels;
+	}
+}

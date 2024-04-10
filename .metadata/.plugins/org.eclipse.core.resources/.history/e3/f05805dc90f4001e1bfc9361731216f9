@@ -1,0 +1,26 @@
+package com.pbl3.service;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.pbl3.model.VocabListsModel;
+
+
+public class VocabListsService extends BaseService{
+	
+	public static void add(VocabListsModel vocabListsModel) {
+		try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO vocabularylist (ListID, UserID, CourseID, NameList, Description) VALUES (?, ?, ?, ?, ?)"); 
+			preparedStatement.setInt(1, vocabListsModel.getListID());
+			preparedStatement.setInt(2, vocabListsModel.getUserID());
+			preparedStatement.setInt(3, 1);
+			preparedStatement.setString(4, vocabListsModel.getNameList());
+			preparedStatement.setString(5, vocabListsModel.getDescription());
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+}

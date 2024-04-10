@@ -1,0 +1,30 @@
+package com.quyentv.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import com.quyentv.model.Student;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet (urlPatterns = {"/students"})
+public class HomeController extends HttpServlet{
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("GOI DOGET");
+		PrintWriter printWriter = resp.getWriter();
+		Student student = new Student (10, "Nguyễn Văn A", 1, "123 Đường ABC", 8.5f);
+		printWriter.write(student.getName());
+		req.setAttribute("student", student);
+		RequestDispatcher  requestDispatcher = req.getRequestDispatcher("view/home.jsp");
+		requestDispatcher.forward(req, resp);
+	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		PrintWriter printWriter = resp.getWriter();
+		System.out.println("GOI DO POST");
+	}
+}

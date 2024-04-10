@@ -1,0 +1,8 @@
+package com.pbl3.controller.admin;
+
+public class Snippet {
+	public static void main(String[] args) {
+		com.pbl3.controller.student
+	}
+}
+

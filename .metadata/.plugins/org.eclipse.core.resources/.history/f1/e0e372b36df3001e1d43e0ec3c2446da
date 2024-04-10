@@ -1,0 +1,34 @@
+package com.quyentv.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import com.quyentv.model.Student;
+import com.quyentv.service.StudentService;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet (urlPatterns = {"/"})
+public class PageController extends HttpServlet{
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String keyString = req.getParameter("keyword");
+		if (keyString == null) {
+			keyString = "";
+		}
+		int page = 1;
+		if (req.getParameter("page") != null && req.getParameter("page") != "") {
+			page = Integer.parseInt(req.getParameter("page"));
+		}
+		
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/view/homepage.jsp");
+		ArrayList<Student> students = StudentService.find(keyString, 5, page );
+		req.setAttribute("students", students);
+		requestDispatcher.forward(req, resp);
+	}
+} 
