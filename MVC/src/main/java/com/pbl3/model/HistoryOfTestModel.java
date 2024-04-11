@@ -12,7 +12,7 @@ public class HistoryOfTestModel {
     
     // Lay ngay thang nam
     public String showDate() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss ");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return simpleDateFormat.format(date);
     }
     

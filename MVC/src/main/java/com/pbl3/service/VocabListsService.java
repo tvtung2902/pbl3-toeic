@@ -59,7 +59,6 @@ public class VocabListsService extends BaseService{
 		}
 	}
 	
-	// delete 
 	// delete
 			public static void delete (int listID) {
 				try {

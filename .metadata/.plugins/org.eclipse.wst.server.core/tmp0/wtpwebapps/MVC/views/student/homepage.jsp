@@ -11,234 +11,287 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Study TOIEC</title>
+    <style type="text/css">
+    <%@include file="../../assets/css/base.css" %>
+    <%@include file="../../assets/css/style.css" %>
+    </style>
+    <style>
+      .header .inner-main ul .trang-chu {
+        color: var(--color-one);
+      }
+    </style>
   </head>
   <body>
-  
-  	<style>
-  	
-  	@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
-:root
-{
-    --color-one:  #0EDC8D;
-    --color-two: #04182B;
-    --color-text: #888886;
-    --font: 'Inria Serif', serif; 
-}
+    <%@include file="re-use/header.jsp" %>
 
-a{
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-body{
-    font-family: var(--font);
-    color: var(--color-text);
-}   
-
-*{
-    font-family: "Poppins", sans-serif;
-}
-		/* header */
-
-.container {
-    max-width: 1296px;
-}
-.header{
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-}
-.header-top{
-    background-color: var(--color-one);
-    color: var(--color-two);
-    font-size: 18px;
-    padding: 8px;
-    text-align: center;
-}
-
-.header-main .inner-wrap{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 24px 0;
-}
-
-.header-main .inner-logo img{
-    height: 48px;
-    width: auto;
-}
-
-.header-main .inner-logo a{
-    color: var(--color-one);
-    display: flex;
-    align-items: center;
-}
-
-.header-main .inner-logo span{
-    font-size: 22px;
-    font-weight: 600;
-}
-
-.header-main .inner-box {
-    display: flex;
-    align-items: center;
-}
-
-.header-main .inner-box .button {
-    margin-left: 30px;
-}
-
-.header-main .inner-menu ul{
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-
-.header-main .inner-menu ul li{
-    margin-left: 17px;
-    margin-right: 17px;
-}
-
-.header-main .inner-menu ul li a{
-    color: var(--color-two);
-    font-size: 17px;
-    font-weight: 600;
-}
-
-.header-main .inner-menu ul li a:hover {
-    color: var(--color-one);
-}
-
-.header-main .inner-contact{
-    font-size: 18px;
-    color: var(--color-one);
-}
-
-.header-main .inner-social ul{
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-
-.header-main .inner-social ul li{
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.header-main .inner-social li a {
-    color: var(--color-one);
-    font-size: 22px;
-}
-/*end header */
-
-/* button */
-.button{
-    background-color: var(--color-text);
-    color: #fff;
-    padding: 10px 10px;
-    font-size: 17px;
-    font-weight: 600;
-    border-radius: 10px;
-    border: solid 2px var(--color-text);
-    display: inline-block;
-}
-
-.button:hover{
-    color: var(--color-text);
-    background-color: #fff;
-}
-
-.button-one{
-    background-color: var(--color-one);
-    border-color: var(--color-one);
-}
-
-.button-one:hover{
-    color: var(--color-one);
-}
-
-.button-two{
-    background-color: var(--color-two);
-    border-color: var(--color-two);
-}
-
-.button-two:hover{
-    color: var(--color-two);
-}
-/*end button */
-
-
-	</style>
-    
-    <!-- Header -->
-   <!-- header -->
-   <header class="header">
-    <div class="header-main">
+    <div class="welcome">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="inner-main">
+              <h5 class="inner-welcome">Học Ngay Từ Hôm Nay</h5>
+              <h1 class="inner-title">Khóa Học Và Luyện Đề TOEIC Hàng Đầu</h1>
+              <p class="inner-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel reprehenderit molestiae perspiciatis asperiores. Qui assumenda nostrum ipsa quos ad excepturi alias, molestias fuga odit, repellendus laudantium eum consequuntur, quo velit!</p>
+              <div class="inner-button">
+                <div class="button-two button-1">
+                  <a href="#" class="button1">Khóa Học</a>
+                </div>
+                <div class="button-two button-2">
+                  <a href="tests" class="button2">Đề Thi</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+	    <div class="about-us">
         <div class="container">
-            <div class="inner-wrap">
-                <div class="inner-logo">
-                    <a href="#">
-                        <img src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/433753477_1478956322991228_8817898143870258149_n.png?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHOQ56a-PhYUvmg0U6zPAXD66iRjloPIg_rqJGOWg8iD5T35I3AeoGiHZnS-gexmUk8wy4flOwyMiI4q1HxpQTc&_nc_ohc=th6U7HCRyugAb4g9_EP&_nc_ht=scontent.fdad2-1.fna&oh=03_AdVriVWV4qHki7K7WO-GATc15X6Hf5KtCJKNTChvo4ZE3g&oe=66378D9F" alt="LOGO">
-                    </a>
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="inner-content">
+                        <div class="inner-tag">Về StudyTOEIC</div>
+                        <div class="inner-title">Chào Mừng Đến Với StudyTOEIC</div>
+                        <div class="inner-desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Inventore fugit, sit quis possimus nesciunt molestiae animi commodi molestias odio fuga, aperiam ex ullam repellat impedit, accusamus distinctio repellendus. Soluta, fugit!</div>
+                        <div class="inner-tick">
+                            <ul>
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <span>Đội ngũ giảng viên giàu kinh nghiệm</span>
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <span>Bài giảng hiệu quả đa dạng</span>
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <span>Cập nhập những đề thi mới nhất</span>
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <span>Kho từ vựng phong phú</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="inner-box">
-                  <div class="inner-menu">
-                    <ul>
-                        <li>
-                            <a href="">
-                                Trang Chủ
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Khóa Học
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/MVC/tests">
-                                Đề Thi
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/MVC/vocab-lists">
-                                Từ Vựng
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="inner-button">
-                   
-                  <% //lấy session
-                  UserModel userModel = (UserModel) session.getAttribute("user");
-                  // nếu session = null thì chưa đăng nhập nên dùng button đăng nhập
-                  if (userModel == null) {%>	
-                  	<a href="login">
-                  		<button class="button button-one">Đăng Nhập</button>
-                    </a>
-                  <%}
-                  
-               	  // ngược lại là khác sesstion khác null : đã đăng nhập nên dùng button trang cá nhân 		
-                  else {%>
-                  	<a href="my-account">
-                  		<button class="button button-one">Trang Cá Nhân</button>
-                    </a>
-                  <%} %>
-                </div>
+                <div class="col-xl-6">
+                    <div class="inner-img">
+                        <img src="https://demo.graygrids.com/themes/edugrids/assets/images/about/about-img2.png" alt="img1">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</header>
-<!-- end header -->
-    <!--End header -->
+
+
+    <div class="courses">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-a">
+                    <div class="inner-wrap">
+                        <div class="inner-icon">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h1 class="inner-title">
+                            Các Khóa Học Nổi Bật
+                        </h1>
+                        <div class="inner-bar"> </div>
+                        <p class="inner-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse cumque velit natus, tenetur earum quidem temporibus quibusdam dolore quo eos tempore delectus molestiae rerum magni repellat similique deserunt officiis sapiente?</p>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <a href="#">
+                        <div class="inner-main">
+                            <div class="inner-img">
+                                <img src="https://demo.graygrids.com/themes/edugrids/assets/images/courses/courses-1.jpg" alt="picCourses">
+                            </div>
+                            <h2 class="inner-title">Tên Khóa Học</h2>
+                            <p class="inner-desc">Mô tả khóa học</p>
+                            <div class="inner-quality">
+                                <p class="quality">Số lượng học viên</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-4">
+                    <a href="#">
+                        <div class="inner-main">
+                            <div class="inner-img">
+                                <img src="https://demo.graygrids.com/themes/edugrids/assets/images/courses/courses-1.jpg" alt="picCourses">
+                            </div>
+                            <h2 class="inner-title">Tên Khóa Học</h2>
+                            <p class="inner-desc">Mô tả khóa học</p>
+                            <div class="inner-quality">
+                                <p class="quality">Số lượng học viên</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-4">
+                    <a href="#">
+                        <div class="inner-main">
+                            <div class="inner-img">
+                                <img src="https://demo.graygrids.com/themes/edugrids/assets/images/courses/courses-1.jpg" alt="picCourses">
+                            </div>
+                            <h2 class="inner-title">Tên Khóa Học</h2>
+                            <p class="inner-desc">Mô tả khóa học</p>
+                            <div class="inner-quality">
+                                <p class="quality">Số lượng học viên</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+      <div class="teacher">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="inner-wrap">
+                        <div class="inner-icon">
+                            <i class="fa-solid fa-ranking-star"></i>
+                        </div>
+                        <h1 class="inner-title">
+                            Giảng Viên Giàu Kinh Nghiệm
+                        </h1>
+                        <div class="inner-bar"> </div>
+                        <p class="inner-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse cumque velit natus, tenetur earum quidem temporibus quibusdam dolore quo eos tempore delectus molestiae rerum magni repellat similique deserunt officiis sapiente?</p>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="inner-info">
+                        <div class="inner-img">
+                            <img src="https://technewsdaily.vn/uploads/2021/10/14/Eimi-Fukada-1-696x503.jpg" alt="eimi fukada">
+                        </div>
+                        <div class="inner-main">
+                            <div class="inner-name">Eimi Fukada</div>
+                            <div class="inner-desc">Fukada Eimi: top đầu giáo viên mơ ước của 99% nam sinh Việt Nam</div>
+                            <div class="inner-email">
+                                <i class="fa-regular fa-envelope"></i>
+                                <span>FukadaEimi.@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="inner-info">
+                        <div class="inner-img">
+                            <img src="https://technewsdaily.vn/uploads/2021/10/14/Eimi-Fukada-1-696x503.jpg" alt="eimi fukada">
+                        </div>
+                        <div class="inner-main">
+                            <div class="inner-name">Eimi Fukada</div>
+                            <div class="inner-desc">Fukada Eimi: top đầu giáo viên mơ ước của 99% nam sinh Việt Nam</div>
+                            <div class="inner-email">
+                                <i class="fa-regular fa-envelope"></i>
+                                <span>FukadaEimi.@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="inner-info">
+                        <div class="inner-img">
+                            <img src="https://technewsdaily.vn/uploads/2021/10/14/Eimi-Fukada-1-696x503.jpg" alt="eimi fukada">
+                        </div>
+                        <div class="inner-main">
+                            <div class="inner-name">Eimi Fukada</div>
+                            <div class="inner-desc">Fukada Eimi: top đầu giáo viên mơ ước của 99% nam sinh Việt Nam</div>
+                            <div class="inner-email">
+                                <i class="fa-regular fa-envelope"></i>
+                                <span>FukadaEimi.@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="inner-info">
+                        <div class="inner-img">
+                            <img src="https://technewsdaily.vn/uploads/2021/10/14/Eimi-Fukada-1-696x503.jpg" alt="eimi fukada">
+                        </div>
+                        <div class="inner-main">
+                            <div class="inner-name">Eimi Fukada</div>
+                            <div class="inner-desc">Fukada Eimi: top đầu giáo viên mơ ước của 99% nam sinh Việt Nam</div>
+                            <div class="inner-email">
+                                <i class="fa-regular fa-envelope"></i>
+                                <span>FukadaEimi.@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="utility">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="inner-wrap">
+                        <div class="inner-icon">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h1 class="inner-title">
+                            Tại Sao Bạn Nên Học Với StudyTOEIC
+                        </h1>
+                        <div class="inner-bar"> </div>
+                        <p class="inner-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse cumque velit natus, tenetur earum quidem temporibus quibusdam dolore quo eos tempore delectus molestiae rerum magni repellat similique deserunt officiis sapiente?</p>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="inner-box">
+                        <div class="inner-img">
+                            <img src="https://www.ngoaingu24h.vn/resources/images/Icon-NN24H/icon1.png" alt="">
+                        </div>
+                        <p class="inner-desc">
+                            Học từ vựng hiệu quả với Flash card độc quyền.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="inner-box">
+                        <div class="inner-img">
+                            <img src="https://www.ngoaingu24h.vn/resources/images/Icon-NN24H/icon2.png" alt="">
+                        </div>
+                        <p class="inner-desc">
+                            Luôn được hỗ trợ nhanh nhất bởi đội ngũ chuyên môn giỏi, nhiệt tình.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="inner-box">
+                        <div class="inner-img">
+                            <img src="https://www.ngoaingu24h.vn/resources/images/Icon-NN24H/icon4.png" alt="">
+                        </div>
+                        <p class="inner-desc">
+                            Nội dung khóa học luôn được cập nhật theo xu hướng ra đề.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Remainder of your HTML content -->
+
+     <%@include file="re-use/footer.jsp" %>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function(){
+        $(window).scroll(function(){
+          if($(this).scrollTop()){
+            $('header').addClass('hidentop');
+          } else {
+            $('header').removeClass('hidentop');
+          }
+        });
+      });
+    </script>
   </body>
 </html>

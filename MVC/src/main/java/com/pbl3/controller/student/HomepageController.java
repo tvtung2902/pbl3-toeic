@@ -100,7 +100,9 @@ public class HomepageController extends HttpServlet {
 			req.setAttribute("loginSuccess", false);
 			login(req, resp);
 
-		} else {
+		} 
+		// NEU DANG NHAP THANH CONG
+		else {
 			System.out.println("user da dang nhap co UserID: " + userModel.getUserID());
 			HttpSession session = req.getSession();
 			session.setAttribute("user", userModel);

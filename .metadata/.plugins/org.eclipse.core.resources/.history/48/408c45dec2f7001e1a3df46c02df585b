@@ -1,0 +1,48 @@
+package com.pbl3.libs;
+
+import java.util.LinkedList;
+
+import com.pbl3.model.HistoryOfTest_QuestionModel;
+import com.pbl3.model.QuestionModel;
+
+public class Count {
+	public Result count(LinkedList<QuestionModel> questionModels,
+			LinkedList<HistoryOfTest_QuestionModel> historyOfTest_QuestionModels) {
+		Result result = new Result();
+		int score = 0;
+		int rightAnswerListening = 0;
+		int rightAnswerReading = 0;
+		int wrongAnswer = 0;
+		int skip = 0;
+		for (QuestionModel q : questionModels) {
+			boolean check = true;
+			for (HistoryOfTest_QuestionModel h : historyOfTest_QuestionModels) {
+				if (q.getQuestionID() == h.getQuestionID()) {
+					check = false;
+					if (q.getAnswerCorrect().equals(h.getAnswer())) {
+						if (q.getOrderNumber() <= 100) {
+							rightAnswerListening++;
+						} else {
+							rightAnswerReading++;
+						}
+					} else {
+						wrongAnswer++;
+					}
+					break;
+				}
+			}
+			if (check == true) {
+				skip++;
+			}
+		}
+		if ((0 <= rightAnswerListening) && (rightAnswerListening <= 6)) {
+			score += 5;
+		}
+		else if (7 <= rightAnswerListening && (rightAnswerListening <= 25)) {
+			score += (rightAnswerListening - 5)*5;
+		}
+		
+			return result;
+
+	}
+}

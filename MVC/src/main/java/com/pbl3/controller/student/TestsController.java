@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.LinkedList;
+
+import com.pbl3.libs.Count;
+import com.pbl3.libs.Result;
 import com.pbl3.model.HistoryOfTestModel;
 import com.pbl3.model.HistoryOfTest_QuestionModel;
 import com.pbl3.model.QuestionModel;
@@ -88,6 +91,8 @@ public class TestsController extends HttpServlet {
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/student/tests/result.jsp");
 		req.setAttribute("questionModels",questionModels);
 		req.setAttribute("historyOfTest_QuestionModels",historyOfTest_QuestionModels);
+		Result result = Count.count(questionModels, historyOfTest_QuestionModels);
+		req.setAttribute("result", result);
 		requestDispatcher.forward(req, resp);
 	}
 
