@@ -84,4 +84,19 @@ public class VocabListsService extends BaseService{
 					e.printStackTrace();
 				}
 			}
+	// count all vocab in 1 list
+			public static int count (int listID) {	
+				try {
+					Connection connection = getConnection();
+					PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM vocabulary WHERE listID = ?;"); 
+					preparedStatement.setInt(1, listID);
+					ResultSet resultSet = preparedStatement.executeQuery();
+					resultSet.next();
+					int countVocab = resultSet.getInt(1);
+					return countVocab;
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				return 0;
+			}
 }

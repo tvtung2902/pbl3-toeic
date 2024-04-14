@@ -19,17 +19,13 @@
 		<%@include file ="../../assets/css/base.css"%>
  	    <%@include file = "../../assets/css/style.css"%>	
 	</style>
-	 <%@include file="re-use/header.jsp" %>
+	 
+	 
+	 
 	<div class="container">
-		<h1 style="display: flex;">DAY LA TRANG MY ACCOUNT</h1>
 		<br>
 		<br>
-		<a href="/MVC/"> trang chu
-		</a>
 		<br>
-		<a href="/MVC/logout">
-			dang xuat
-		</a>
 		    <div class="section-one">
         <div class="container">
             <div class="row">

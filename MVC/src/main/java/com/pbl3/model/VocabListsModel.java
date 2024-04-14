@@ -6,6 +6,7 @@ public class VocabListsModel {
 	private Integer courseID; // dung Integer vi co the null
 	private String nameList;
 	private String description;
+	private int numberQuestion;
 	
 	public VocabListsModel () {
 		

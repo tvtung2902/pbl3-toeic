@@ -6,13 +6,13 @@ public class UserModel {
 	private String name;
 	private String phone;
 	private String email;
-	private boolean gender;
+	private Boolean gender;
 	
 	public UserModel () {
 		
 	}
 	
-	public UserModel(int accountID, String name, String phone, String email, boolean gender) {
+	public UserModel(int accountID, String name, String phone, String email, Boolean gender) {
 		super();
 		this.accountID = accountID;
 		this.name = name;
@@ -22,7 +22,7 @@ public class UserModel {
 	}
 
 
-	public UserModel(int userID, int accountID, String name, String phone, String email, boolean gender) {
+	public UserModel(int userID, int accountID, String name, String phone, String email, Boolean gender) {
 		super();
 		this.userID = userID;
 		this.accountID = accountID;
@@ -64,11 +64,11 @@ public class UserModel {
 		this.email = email;
 	}
 
-	public boolean getGender() {
+	public Boolean getGender() {
 		return gender;
 	}
 
-	public void setGender(boolean gender) {
+	public void setGender(Boolean gender) {
 		this.gender = gender;
 	}
 

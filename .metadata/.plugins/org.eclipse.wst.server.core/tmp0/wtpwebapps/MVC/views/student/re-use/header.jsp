@@ -34,11 +34,11 @@
           UserModel userModel = (UserModel) session.getAttribute("user");
           // nếu session = null thì chưa đăng nhập nên dùng button đăng nhập
           if (userModel == null) {%>
-                    <a href="login" class=" button button-one">Log In</a>
+                    <a href="/MVC/login" class=" button button-one">Log In</a>
                     <% }
          // ngược lại là khác sesstion khác null : đã đăng nhập nên dùng button trang cá nhân 		
           else {%>
-                    <a href="logout" class=" button button-one">Log Out</a>
+                    <a href="/MVC/logout" class=" button button-one">Log Out</a>
                 <%} %>
                 </div>
             </div>

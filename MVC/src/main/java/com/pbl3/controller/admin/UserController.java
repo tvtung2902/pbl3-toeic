@@ -1,7 +1,12 @@
 package com.pbl3.controller.admin;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
+import com.pbl3.model.UserModel;
+import com.pbl3.service.UserService;
+
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,8 +20,8 @@ public class UserController extends HttpServlet {
 		System.out.println("goi doGet UserController - admin");
 		String actionString = req.getServletPath();
 		switch (actionString) {
-		case "/admin/course": {
-			System.out.println("goi doget register");
+		case "/admin/users": {
+			System.out.println("goi doget /admin/users");
 			show(req, resp);
 			break;
 		}
@@ -36,6 +41,15 @@ public class UserController extends HttpServlet {
 		}
 	}
 	protected void show(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("goi ham show");
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/admin/users.jsp");
+		LinkedList<UserModel> userModels = UserService.all();
+		req.setAttribute("userModels", userModels);
+		requestDispatcher.forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 	}
 }

@@ -79,6 +79,7 @@ h1 {
 	padding: 30px;
 	border: 1px solid blue;
 	width: 100%;
+	margin-bottom: 30px;
 }
 
 .row {
@@ -97,7 +98,7 @@ a{
 </style>
 	
 	<div class="container">
-		<h1>DAY LA TRANG Guide</h1>
+		<h1>DAY LA TRANG HUONG DAN LAM DE THI</h1>
 		<div class="row">
 			<div class="col-12">
 				<div class="inner-wrap">

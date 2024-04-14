@@ -1,0 +1,39 @@
+package Fiter;
+
+import java.io.IOException;
+
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+public class AuthorizationFilter implements Filter{
+	
+	// Khai báo một biến instance private của ServletContext
+	private ServletContext servletContext; 
+	@Override
+	 // Phương thức init() được gọi khi filter được khởi tạo
+	public void init(FilterConfig filterConfig) throws ServletException {
+	// Lấy ServletContext từ FilterConfig và gán cho biến instance servletContext
+		this.servletContext = filterConfig.getServletContext();
+	} 	
+	@Override
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+			throws IOException, ServletException {
+		HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+		HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
+		
+	}
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		Filter.super.destroy();
+	}
+	
+}

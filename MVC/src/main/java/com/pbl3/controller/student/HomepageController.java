@@ -97,16 +97,16 @@ public class HomepageController extends HttpServlet {
 		System.out.println(hashedPasswoString);
 		// ko dang nhap thanh cong
 		if (userModel.getUserID() == 0) {
-			req.setAttribute("loginSuccess", false);
 			login(req, resp);
-
 		} 
 		// NEU DANG NHAP THANH CONG
 		else {
+			// se ss
 			System.out.println("user da dang nhap co UserID: " + userModel.getUserID());
 			HttpSession session = req.getSession();
 			session.setAttribute("user", userModel);
-			// chuyen huonng ve trang sv
+			// 
+			// chuyen huonng ve trang chu tuy vao role : day la authen
 			resp.sendRedirect(req.getContextPath() + "/"); // getContextPath() lấy đường dẫn cơ bản
 		}
 	}

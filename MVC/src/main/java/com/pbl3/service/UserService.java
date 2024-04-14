@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import com.pbl3.model.AccountModel;
 import com.pbl3.model.UserModel;
@@ -41,7 +42,7 @@ public class UserService extends BaseService{
 					 String name = resultSet.getString(3);
 					 String phone = resultSet.getString(4);
 					 String email = resultSet.getString(5);
-					 boolean gender  = resultSet.getBoolean(6);;
+					 boolean gender  = resultSet.getBoolean(6);
 					 userModel.setUserID(userID);
 					 userModel.setAccountID(accountID);
 					 userModel.setName(name);
@@ -53,5 +54,28 @@ public class UserService extends BaseService{
 				e.printStackTrace();
 			}
 			return userModel;
+		}
+		
+		// query all
+		public static LinkedList<UserModel> all () {
+			LinkedList<UserModel> userModels = new LinkedList<UserModel>();
+			try {
+				Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement("SELECT *  FROM user INNER JOIN account ON user.accountID = account.accountID"); 
+				ResultSet resultSet = preparedStatement.executeQuery();
+				if(resultSet.next()) {
+					 int userID = resultSet.getInt(1);
+					 int accountID = resultSet.getInt(1);
+					 String name = resultSet.getString(3);
+					 String phone = resultSet.getString(4);
+					 String email = resultSet.getString(5);
+					 Boolean gender  = resultSet.getBoolean(6);
+					 UserModel userModel = new UserModel(userID, accountID, name, phone, email, gender);
+					 userModels.add(userModel);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return userModels;
 		}
 }
