@@ -108,18 +108,18 @@
                                         aria-describedby="emailHelp">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Mật Khẩu</label>
+                                    <label for="exampleInputPassword2">Mật Khẩu</label>
                                     <input name="password" type="password" class="form-control"
-                                        id="exampleInputPassword1">
+                                        id="exampleInputPassword2">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Xác Nhận Mật Khẩu</label>
+                                    <label for="exampleInputPassword3">Xác Nhận Mật Khẩu</label>
                                     <input name="confirm-password" type="password" class="form-control"
-                                        id="exampleInputPassword1">
+                                        id="exampleInputPassword3">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleFullName1">Email</label>
-                                    <input name="email" type="text" class="form-control" id="exampleFullName1" aria-describedby="emailHelp">
+                                    <label for="exampleFullName4">Email</label>
+                                    <input name="email" type="text" class="form-control" id="exampleFullName4" aria-describedby="emailHelp">
                                 </div>
                                 <button class="button-main button-main-two  button-login btn-lg-custom">Đăng Kí</button>
                             </form>
@@ -132,6 +132,7 @@
             </div>
         </div>
         <!-- end section-register -->
+        <%@include file="re-use/footer.jsp" %>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
         </script>

@@ -2,17 +2,27 @@ package com.pbl3.model;
 
 public class AccountModel{
 	private int accountID;
-	private int RoleID;
+	private int roleID;
 	private String userName;
 	private String password;
-	
+	RoleModel roleModel;
+
+	public AccountModel(int accountID, int roleID, String userName, String password, RoleModel roleModel) {
+		super();
+		this.accountID = accountID;
+		this.roleID = roleID;
+		this.userName = userName;
+		this.password = password;
+		this.roleModel = roleModel;
+	}
+
 	public AccountModel(){
 		
 	}
 	
 	public AccountModel(int roleID, String userName, String password) {
 		super();
-		RoleID = roleID;
+		this.roleID = roleID;
 		this.userName = userName;
 		this.password = password;
 	}
@@ -20,9 +30,17 @@ public class AccountModel{
 	public AccountModel(int accountID, int roleID, String userName, String password) {
 		super();
 		this.accountID = accountID;
-		RoleID = roleID;
+		this.roleID = roleID;
 		this.userName = userName;
 		this.password = password;
+	}
+	
+	public RoleModel getRoleModel() {
+		return roleModel;
+	}
+
+	public void setRoleModel(RoleModel roleModel) {
+		this.roleModel = roleModel;
 	}
 
 	public int getAccountID() {
@@ -34,11 +52,11 @@ public class AccountModel{
 	}
 
 	public int getRoleID() {
-		return RoleID;
+		return roleID;
 	}
 
 	public void setRoleID(int roleID) {
-		RoleID = roleID;
+		roleID = roleID;
 	}
 
 	public String getUserName() {

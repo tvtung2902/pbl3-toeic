@@ -1,9 +1,0 @@
-package test;
-
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-
-@WebServlet (urlPatterns = {"/", "/register", "/login", "/logout"})
-public class HomeController extends HttpServlet{
-
-}

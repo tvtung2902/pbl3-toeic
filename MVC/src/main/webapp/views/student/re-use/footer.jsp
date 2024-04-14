@@ -14,7 +14,7 @@
 					<p class="inner-desc">© 2024</p>
 					<div class="inner-list">
 						<ul>
-							<li><a href="#"> <i class="fa-brands fa-facebook-f"></i>
+							<li><a href="#"><i class="fa-brands fa-facebook"></i></i>
 							</a></li>
 							<li><a href="#"> <i class="fa-brands fa-twitter"></i>
 							</a></li>

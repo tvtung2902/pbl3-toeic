@@ -7,11 +7,32 @@ public class UserModel {
 	private String phone;
 	private String email;
 	private Boolean gender;
+	private AccountModel accountModel;
 	
+	public UserModel(int userID, int accountID, String name, String phone, String email, Boolean gender,
+			AccountModel accountModel) {
+		super();
+		this.userID = userID;
+		this.accountID = accountID;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.accountModel = accountModel;
+	}
+
 	public UserModel () {
 		
 	}
 	
+	public UserModel(String name, String phone, String email, Boolean gender) {
+		super();
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+	}
+
 	public UserModel(int accountID, String name, String phone, String email, Boolean gender) {
 		super();
 		this.accountID = accountID;
@@ -32,7 +53,14 @@ public class UserModel {
 		this.gender = gender;
 	}
 	
-	
+	public AccountModel getAccountModel() {
+		return accountModel;
+	}
+
+	public void setAccountModel(AccountModel accountModel) {
+		this.accountModel = accountModel;
+	}
+
 	public int getUserID() {
 		return userID;
 	}

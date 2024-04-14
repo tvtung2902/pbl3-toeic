@@ -70,7 +70,7 @@ public class HomepageController extends HttpServlet {
 
 	// an nut dang ki
 	public void submitRegister(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		int roleID = 3;
+		int roleID = 1;   
 		String userName = req.getParameter("name");
 		String password = MD5.getMD5(req.getParameter("password"));
 		AccountModel accountModel = new AccountModel(roleID, userName, password);
@@ -101,7 +101,7 @@ public class HomepageController extends HttpServlet {
 		} 
 		// NEU DANG NHAP THANH CONG
 		else {
-			// se ss
+			// set session
 			System.out.println("user da dang nhap co UserID: " + userModel.getUserID());
 			HttpSession session = req.getSession();
 			session.setAttribute("user", userModel);

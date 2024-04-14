@@ -19,3 +19,7 @@
 1712882541631	Rename resource 'user.jsp'
 1712891619066	Rename compilation unit 'package-info.java'
 1712907268502	Rename compilation unit 'Authorization.java'
+1713001007127	Rename package 'Fiter'
+1713004533674	Rename package 'Filter'
+1713010095000	Move 'users.jsp' to 'users'
+1713010198609	Rename resource 'create-users'

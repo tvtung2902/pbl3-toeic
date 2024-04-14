@@ -23,8 +23,14 @@
         .header .main-header .tu-vung{
             color: var(--color-one);
         }
+    footer .container{
+        max-width: 1296px;
+    }
+      
     </style>
-    <%@include file="../../re-use/header.jsp" %>
+    <!-- header  -->
+	<%@include file="../../re-use/header.jsp" %>
+    <!--end  header  -->
     <div class="container">
           <!-- lấy tên và mô tả từ dâtbase -->
         <div class="inner-title">
@@ -62,6 +68,8 @@
 					%>
                 <div class="col-12">
                     <div class="inner-wrap">
+                         <div class="inner-main">
+                            <div class="inner-content">
                         <h2 class="english-mean"><%=v.getVocab()%> ( <%=v.getWordType()%> )<span class="audio">
                             <audio src="https://dict.youdao.com/dictvoice?audio=hello&type=1" type="audio/mpeg"></audio>
                             <i class="fa-solid fa-volume-high"></i>
@@ -119,7 +127,7 @@
 
                                     <div class="form-group">
                                         <input name="wordType" type="text" class="form-control"
-                                            placeholder="Phien Am" value="">
+                                            placeholder="Từ loại" value="">
                                     </div>
 
                                     <textarea name="example" id="" cols="30" rows="10" value=""><%=v.getExample()%></textarea>
@@ -155,12 +163,20 @@
                                 </li>
                             </ul>
                         </div>
+                                </div>
+                             <div class="inner-img">
+                             <img src="https://e-talk.vn/wp-content/uploads/2019/04/cach-hoc-tu-vung-tieng-anh-sieu-toc-1024x1024.png" alt="Anhmota">
+                            </div>
+                         </div>
                         <div class="delete">
-                            					<form
-						action="/MVC/vocab-lists/vocab/delete?vocabID=<%=v.getVocabID()%>&listID=<%=request.getParameter("listID")%>"
-						method="post">
-						<input type="submit" value="Xóa" />
-					</form>
+  						    <form
+                            action="/MVC/vocab-lists/vocab/delete?vocabID=<%=v.getVocabID()%>&listID=<%=request.getParameter("listID")%>"
+                            method="post">
+                            <input class="button-submit" type="submit" value="Xóa" />
+                            <label for="submit">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </label>
+                        </form>
                         </div>
                     </div>
                 </div>
@@ -244,7 +260,77 @@
                 </div>
                 </div>
              </div>
-			<%@include file="../../re-use/footer.jsp" %>
+
+        <!-- <footer> -->
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-3">
+                            <div class="inner-intro">
+                                <div class="inner-img">
+                                    <img src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/433753477_1478956322991228_8817898143870258149_n.png?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHOQ56a-PhYUvmg0U6zPAXD66iRjloPIg_rqJGOWg8iD5T35I3AeoGiHZnS-gexmUk8wy4flOwyMiI4q1HxpQTc&_nc_ohc=th6U7HCRyugAb4g9_EP&_nc_ht=scontent.fdad2-1.fna&oh=03_AdVriVWV4qHki7K7WO-GATc15X6Hf5KtCJKNTChvo4ZE3g&oe=66378D9F" alt="logo">
+                                </div>
+                                <p class="inner-desc">
+                                    © 2024
+                                </p>
+                            <div class="inner-list">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa-brands fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa-brands fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa-brands fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="inner-box">
+                                <h3 class=".inner-title">
+                                    Về StudyTOEIC
+                                </h3>
+                                <a href="#">Về chúng tôi</a>
+                                <a href="#">Điều khoản dịch vụ</a>
+                                <a href="#">Chính sách bảo mật</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="inner-box">
+                                <h3 class=".inner-title">
+                                    Thông tin StudyTOEIC
+                                </h3>
+                                <a href="#">Danh sách khóa học</a>
+                                <a href="tests">Danh sách đề thi</a>
+                                <a href="#">Hướng dẫn thanh toán</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="inner-box">
+                                <h3 class=".inner-title">
+                                    Hỗ trợ
+                                </h3>
+                                <a href="#">Hướng dẫn sử dụng khóa học</a>
+                                <a href="#">Câu hỏi thường gặp</a>
+                                <a href="#">Liên hệ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-footer">
+                    <p>@ 2024 - Bản quyền thuộc về nhóm 68</p>
+                </div>
+            </footer>
+            <!-- end footer -->
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script> 

@@ -63,4 +63,16 @@ public class AccountService extends BaseService {
 		}
 		return accountModel;
 	}
+	
+	// delete acc
+	public static void delete(int accountID) {
+		try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM account WHERE accountID = ?"); 
+			preparedStatement.setInt(1, accountID);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
