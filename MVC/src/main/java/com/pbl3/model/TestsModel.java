@@ -7,18 +7,31 @@ public class TestsModel {
 	private int testsID;
 	private String testsName;
 	private int year;
+	private boolean status;
+	private int teacherID;
 	
-	public TestsModel(int testID, String testName, int year) {
+	public TestsModel(int testsID, String testsName, int year, boolean status, int teacherID) {
 		super();
-		this.testsID = testID;
-		this.testsName = testName;
+		this.testsID = testsID;
+		this.testsName = testsName;
+		this.year = year;
+		this.status = status;
+		this.teacherID = teacherID;
+	}
+
+	public TestsModel(int testsID, String testsName, int year) {
+		super();
+		this.testsID = testsID; 
+		this.testsName = testsName;
 		this.year = year;
 	}
 
-	public TestsModel(String testName, int year) {
-		super();
-		this.testsName = testName;
-		this.year = year;
+	public boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	public int getTestID() {
@@ -43,6 +56,14 @@ public class TestsModel {
 
 	public void setYear(int year) {
 		this.year = year;
+	}
+
+	public int getTeacherID() {
+		return teacherID;
+	}
+
+	public void setTeacherID(int teacherID) {
+		this.teacherID = teacherID;
 	}
 	
 	

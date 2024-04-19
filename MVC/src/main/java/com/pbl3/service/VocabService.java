@@ -106,5 +106,5 @@ public class VocabService extends BaseService{
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
+	}
 }

@@ -53,7 +53,7 @@
 
 <body>
 	<div class="container">
-		<div class="content">
+		<div class="content">    
 			<div class="top">
 				<a href="/MVC/admin/users/create" class="btn btn-primary"
 					style="margin-top: 30px; margin-bottom: 20px;">Thêm</a>
@@ -115,63 +115,32 @@
 			</table>
 			<div class="pag">
 				<div class="pagination">
-					<%int totalPage = (Integer)request.getAttribute("totalPage"); %>
-					
-					
+				<%int totalPage = (Integer)request.getAttribute("totalPage"); %> 
 					<%if(request.getParameter("page") == null) {%>
-					<%if(totalPage > 5) {%>
-					<%for(int i = 1; i <= 5; i++){ %>
-					<a href="/MVC/admin/users?page=<%=i%>" <%if(i == 1){%>
-						class="active" <%}%>> <%=i%></a>
-					<%} 
-						 }
-						else{
-						%>
-					<%for(int i = 1; i <= totalPage; i++){ %>
-					<a href="/MVC/admin/users?page=<%=i%>" <%if(i == 1){%>
-						class="active" <%}%>> <%=i%></a>
-					<%} 
-						}
-						%>
-					<%if(totalPage != 1){%>
-					<a href="/MVC/admin/users?page=<%=2%>">&raquo;</a>
+						<%//if()%>
+						<%for(int i = 1; i <= totalPage; i++){ %>
+							<a href="/MVC/admin/users?page=<%=i%>" <%if(i == 1){%>class="active"<%}%>> <%=i%></a>
+						<%} %>
+					<%if(totalPage != 1){%>	
+					<a href="/MVC/admin/users?page=<%=2%>">&raquo;</a>														
 					<%} %>
 					<%} 
-					
-					
 					else if (Integer.parseInt(request.getParameter("page")) > totalPage) {%>
-
+						
 					<%}
-					
-					
-					
 					else {%>
 					<%if(Integer.parseInt(request.getParameter("page")) != 1){ %>
-					<a
-						href="/MVC/admin/users?page=<%=Integer.parseInt(request.getParameter("page")) - 1%>">&laquo;</a>
+					<a href="/MVC/admin/users?page=<%=Integer.parseInt(request.getParameter("page")) - 1%>">&laquo;</a>
 					<% }%>
-					<%if(totalPage > 5) {%>
-					<%for(int i = 1; i <= 5; i++){ %>
-					<a href="/MVC/admin/users?page=<%=i%>" <%if(i == 1){%>
-						class="active" <%}%>> <%=i%></a>
-					<%} 
-						 }
-					else{
-						%>
 					<%for(int i = 1; i <= totalPage; i++){ %>
-					<a href="/MVC/admin/users?page=<%=i%>"
-						<%if(request.getParameter("page").equals(Integer.toString(i))){%>
-						class="active" <%} %>><%=i%></a>
-					<%} 
-					}
-					%>
+						<a href="/MVC/admin/users?page=<%=i%>" <%if(request.getParameter("page").equals(Integer.toString(i))){%> class="active" <%} %>><%=i%></a>
+						<%} %> 
 					<%if(Integer.parseInt(request.getParameter("page")) != totalPage){ %>
-					<a
-						href="/MVC/admin/users?page=<%=Integer.parseInt(request.getParameter("page")) + 1%>">&raquo;</a>
-					<%}%>
-					<%}%>
-				</div>
-			</div>
+					<a href="/MVC/admin/users?page=<%=Integer.parseInt(request.getParameter("page")) + 1%>">&raquo;</a>
+					<%}%> 
+					<%}%>        
+				</div>  
+			</div> 
 		</div>
 	</div>
 	<script

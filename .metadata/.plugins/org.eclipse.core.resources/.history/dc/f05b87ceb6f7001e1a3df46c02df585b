@@ -1,8 +1,0 @@
-package com.pbl3.libs;
-
-public class Count {
-	public Result count () {
-		Result result = new Result();
-		
-	}
-}

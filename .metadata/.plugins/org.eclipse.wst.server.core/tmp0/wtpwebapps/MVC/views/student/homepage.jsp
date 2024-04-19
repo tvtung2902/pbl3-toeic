@@ -36,10 +36,10 @@
               <p class="inner-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel reprehenderit molestiae perspiciatis asperiores. Qui assumenda nostrum ipsa quos ad excepturi alias, molestias fuga odit, repellendus laudantium eum consequuntur, quo velit!</p>
               <div class="inner-button">
                 <div class="button-two button-1">
-                  <a href="#" class="button1">Khóa Học</a>
+                  <a href="/MVC/courses" class="button1">Khóa Học</a>
                 </div>
                 <div class="button-two button-2">
-                  <a href="tests" class="button2">Đề Thi</a>
+                  <a href="/MVC/tests" class="button2">Đề Thi</a>
                 </div>
               </div>
             </div>
@@ -164,66 +164,23 @@
                         <p class="inner-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse cumque velit natus, tenetur earum quidem temporibus quibusdam dolore quo eos tempore delectus molestiae rerum magni repellat similique deserunt officiis sapiente?</p>
                     </div>
                 </div>
+                <%for (int i = 0; i < 4; i++){ %>
                 <div class="col-xl-6">
                     <div class="inner-info">
                         <div class="inner-img">
-                            <img src="https://technewsdaily.vn/uploads/2021/10/14/Eimi-Fukada-1-696x503.jpg" alt="eimi fukada">
+                            <img src="https://scontent.fdad2-1.fna.fbcdn.net/v/t39.30808-6/285153159_1427683054412741_8625096137060604296_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFFa7bVIyZtIoTz15-aKR3jZuPSz15-RlRm49LPXn5GVD97JmHx3uPnuk49fTva3jYwcmhPrtw-weMZVJ1xb_lo&_nc_ohc=-61QP04PiLEAb4cuee3&_nc_ht=scontent.fdad2-1.fna&oh=00_AfBgdwHsi2NKQJOQGPZAJY28Vu1hzVpJ9dBlPNo45KcerQ&oe=6622F4E9" alt="eimi fukada">
                         </div>
                         <div class="inner-main">
-                            <div class="inner-name">Eimi Fukada</div>
-                            <div class="inner-desc">Fukada Eimi: top đầu giáo viên mơ ước của 99% nam sinh Việt Nam</div>
+                            <div class="inner-name">Trần Văn Tùng</div>
+                            <div class="inner-desc">Top 1 giáo viên Việt Nam: Toiec 990, IELTS 9.0 và nhiều thành tích khác.</div>
                             <div class="inner-email">
                                 <i class="fa-regular fa-envelope"></i>
-                                <span>FukadaEimi.@gmail.com</span>
+                                <span>tranvantung.@gmail.com</span>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 </div>
-                <div class="col-xl-6">
-                    <div class="inner-info">
-                        <div class="inner-img">
-                            <img src="https://technewsdaily.vn/uploads/2021/10/14/Eimi-Fukada-1-696x503.jpg" alt="eimi fukada">
-                        </div>
-                        <div class="inner-main">
-                            <div class="inner-name">Eimi Fukada</div>
-                            <div class="inner-desc">Fukada Eimi: top đầu giáo viên mơ ước của 99% nam sinh Việt Nam</div>
-                            <div class="inner-email">
-                                <i class="fa-regular fa-envelope"></i>
-                                <span>FukadaEimi.@gmail.com</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6">
-                    <div class="inner-info">
-                        <div class="inner-img">
-                            <img src="https://technewsdaily.vn/uploads/2021/10/14/Eimi-Fukada-1-696x503.jpg" alt="eimi fukada">
-                        </div>
-                        <div class="inner-main">
-                            <div class="inner-name">Eimi Fukada</div>
-                            <div class="inner-desc">Fukada Eimi: top đầu giáo viên mơ ước của 99% nam sinh Việt Nam</div>
-                            <div class="inner-email">
-                                <i class="fa-regular fa-envelope"></i>
-                                <span>FukadaEimi.@gmail.com</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6">
-                    <div class="inner-info">
-                        <div class="inner-img">
-                            <img src="https://technewsdaily.vn/uploads/2021/10/14/Eimi-Fukada-1-696x503.jpg" alt="eimi fukada">
-                        </div>
-                        <div class="inner-main">
-                            <div class="inner-name">Eimi Fukada</div>
-                            <div class="inner-desc">Fukada Eimi: top đầu giáo viên mơ ước của 99% nam sinh Việt Nam</div>
-                            <div class="inner-email">
-                                <i class="fa-regular fa-envelope"></i>
-                                <span>FukadaEimi.@gmail.com</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				<%} %>
             </div>
         </div>
     </div>
@@ -240,7 +197,7 @@
                             Tại Sao Bạn Nên Học Với StudyTOEIC
                         </h1>
                         <div class="inner-bar"> </div>
-                        <p class="inner-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse cumque velit natus, tenetur earum quidem temporibus quibusdam dolore quo eos tempore delectus molestiae rerum magni repellat similique deserunt officiis sapiente?</p>
+                       
                     </div>
                 </div>
                 <div class="col-xl-4">

@@ -379,7 +379,7 @@
         .utility .inner-wrap{
             text-align: center;
             max-width: 50%;
-            margin-top: 100px;
+            margin-top: 7rem;
         }
         .utility .inner-wrap .inner-icon i{
             color: var(--color-one);
@@ -405,6 +405,7 @@
         }
         .utility  .inner-desc{
             color: #fff;
+        	margin-bottom: 7rem; 
         }
         .utility .inner-box{
             text-align: center;

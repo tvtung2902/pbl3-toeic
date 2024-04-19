@@ -2,7 +2,7 @@ package com.pbl3.model;
 
 public class QuestionModel {
 	private int questionID;
-	private Integer assignmentID;
+	private Integer typeQuestionID;
 	private Integer testID;
 	private String questionContent;
 	private String contentAnswerA;
@@ -12,17 +12,64 @@ public class QuestionModel {
 	private String AnswerCorrect;
 	private String AnswerExplain;
 	private int OrderNumber;
+	TypeQuestionModel typeQuestionModel;
 	
 	public QuestionModel() {
-		
+		questionID = 0;
+		typeQuestionID = 0;
+		testID = 0;
+		questionContent = "";
+		contentAnswerA = "";
+		contentAnswerB = "";
+		contentAnswerC = "";
+		ContentAnswerD = "";
+		AnswerCorrect = "";
+		AnswerExplain = "";
+		OrderNumber = 0;
+		typeQuestionModel = new TypeQuestionModel(0, "", 0);  
 	}
 
-	public QuestionModel(int questionID, Integer assignmentID, Integer testID, String questionContent,
+	public QuestionModel(int questionID, Integer typeQuestionID, Integer testID, String questionContent,
+			String contentAnswerA, String contentAnswerB, String contentAnswerC, String contentAnswerD,
+			String answerCorrect, String answerExplain, int orderNumber, TypeQuestionModel typeQuestionModel) {
+		super();
+		this.questionID = questionID;
+		this.typeQuestionID = typeQuestionID;
+		this.testID = testID;
+		this.questionContent = questionContent;
+		this.contentAnswerA = contentAnswerA;
+		this.contentAnswerB = contentAnswerB;
+		this.contentAnswerC = contentAnswerC;
+		ContentAnswerD = contentAnswerD;
+		AnswerCorrect = answerCorrect;
+		AnswerExplain = answerExplain;
+		OrderNumber = orderNumber;
+		this.typeQuestionModel = typeQuestionModel;
+	}
+
+	public QuestionModel(Integer typeQuestionID, Integer testID, String questionContent, String contentAnswerA,
+			String contentAnswerB, String contentAnswerC, String contentAnswerD, String answerCorrect,
+			String answerExplain, int orderNumber, TypeQuestionModel typeQuestionModel) {
+		super();
+		this.typeQuestionID = typeQuestionID;
+		this.testID = testID;
+		this.questionContent = questionContent;
+		this.contentAnswerA = contentAnswerA; 
+		this.contentAnswerB = contentAnswerB;
+		this.contentAnswerC = contentAnswerC;
+		ContentAnswerD = contentAnswerD;
+		AnswerCorrect = answerCorrect;
+		AnswerExplain = answerExplain;
+		OrderNumber = orderNumber;
+		this.typeQuestionModel = typeQuestionModel;
+	}
+
+	public QuestionModel(int questionID, Integer typeQuestionID, Integer testID, String questionContent,
 			String contentAnswerA, String contentAnswerB, String contentAnswerC, String contentAnswerD,
 			String answerCorrect, String answerExplain, int orderNumber) {
 		super();
 		this.questionID = questionID;
-		this.assignmentID = assignmentID;
+		this.typeQuestionID = typeQuestionID;
 		this.testID = testID;
 		this.questionContent = questionContent;
 		this.contentAnswerA = contentAnswerA;
@@ -34,11 +81,11 @@ public class QuestionModel {
 		OrderNumber = orderNumber;
 	}
 
-	public QuestionModel(Integer assignmentID, Integer testID, String questionContent, String contentAnswerA,
+	public QuestionModel(Integer typeQuestionID, Integer testID, String questionContent, String contentAnswerA,
 			String contentAnswerB, String contentAnswerC, String contentAnswerD, String answerCorrect,
 			String answerExplain, int orderNumber) {
 		super();
-		this.assignmentID = assignmentID;
+		this.typeQuestionID = typeQuestionID; 
 		this.testID = testID;
 		this.questionContent = questionContent;
 		this.contentAnswerA = contentAnswerA;
@@ -58,12 +105,12 @@ public class QuestionModel {
 		this.questionID = questionID;
 	}
 
-	public Integer getAssignmentID() {
-		return assignmentID;
+	public Integer getTypeQuestionID() {
+		return typeQuestionID;
 	}
 
-	public void setAssignmentID(Integer assignmentID) {
-		this.assignmentID = assignmentID;
+	public void setTypeQuestionID(Integer typeQuestionID) {
+		this.typeQuestionID = typeQuestionID;
 	}
 
 	public Integer getTestID() {
@@ -136,6 +183,13 @@ public class QuestionModel {
 
 	public void setOrderNumber(int orderNumber) {
 		OrderNumber = orderNumber;
-	} 
+	}
 
+	public TypeQuestionModel getTypeQuestionModel() {
+		return typeQuestionModel;
+	}
+
+	public void setTypeQuestionModel(TypeQuestionModel typeQuestionModel) {
+		this.typeQuestionModel = typeQuestionModel;
+	} 
 }

@@ -70,13 +70,13 @@ public class HomepageController extends HttpServlet {
 
 	// an nut dang ki
 	public void submitRegister(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		int roleID = 1;   
+		int roleID = 3;   
 		String userName = req.getParameter("name");
 		String password = MD5.getMD5(req.getParameter("password"));
 		AccountModel accountModel = new AccountModel(roleID, userName, password);
 		int accountID = AccountService.add(accountModel);
 		System.out.println("acc vua them co accountID: " + accountID);
-		UserModel userModel = new UserModel(accountID, "", "", "", true);
+		UserModel userModel = new UserModel(accountID, "", "", "", null); 
 		UserService.add(userModel);
 		resp.sendRedirect(req.getContextPath() + "/login"); // getContextPath()
 	}
@@ -107,7 +107,14 @@ public class HomepageController extends HttpServlet {
 			session.setAttribute("user", userModel);
 			// 
 			// chuyen huonng ve trang chu tuy vao role : day la authen
-			resp.sendRedirect(req.getContextPath() + "/"); // getContextPath() lấy đường dẫn cơ bản
+			System.out.println("role nguoi vua login la: " +userModel.getAccountModel().getRoleModel().getRoleName());
+			if ((userModel.getAccountModel().getRoleModel().getRoleName()).equals("Quản Trị Viên")) {
+				resp.sendRedirect(req.getContextPath() + "/admin"); 
+			}
+			else if ((userModel.getAccountModel().getRoleModel().getRoleName()).equals("Giáo Viên")) {
+				resp.sendRedirect(req.getContextPath() + "/teacher"); 
+			}
+			else  resp.sendRedirect(req.getContextPath() + "/"); // getContextPath() lấy đường dẫn cơ bản
 		}
 	}
 

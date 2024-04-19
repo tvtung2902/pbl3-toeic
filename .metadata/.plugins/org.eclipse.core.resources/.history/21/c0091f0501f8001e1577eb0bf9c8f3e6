@@ -1,7 +1,0 @@
-package com.pbl3.controller.admin;
-
-import jakarta.servlet.http.HttpServlet;
-
-public class CourseController extends HttpServlet{
-
-}

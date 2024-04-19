@@ -41,9 +41,12 @@ public class AuthorizationFilter implements Filter {
             if (userModel != null) {
             	System.out.println("ID userModel : " +userModel.getUserID());
                 // Kiểm tra quyền truy cập
-                if (userModel.getUserID() == 1)
+                if ((userModel.getAccountModel().getRoleModel().getRoleName()).equals("Học Viên")) 
                     httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
-                else if (userModel.getUserID() == 24) {
+                else if ((userModel.getAccountModel().getRoleModel().getRoleName()).equals("Giáo Viên")) {
+                	httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/teacher");
+                }
+                else if ((userModel.getAccountModel().getRoleModel().getRoleName()).equals("Quản Trị Viên")) {
                 	System.out.println("vao thoai mai");
                     // Nếu URL bắt đầu với "/admin", nhung ban la admin => cho phép truy cập tiếp theo
                     filterChain.doFilter(servletRequest, servletResponse);
@@ -55,6 +58,32 @@ public class AuthorizationFilter implements Filter {
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
             }
         } 
+        
+        else if (urlString.startsWith("/MVC/teacher")) {
+            HttpSession session = httpServletRequest.getSession();
+            UserModel userModel = (UserModel) (session != null ? session.getAttribute("user") : null);
+            // Đã đăng nhập
+            if (userModel != null) {
+            	System.out.println("ID userModel : " +userModel.getUserID());
+                // Kiểm tra quyền truy cập
+                if ((userModel.getAccountModel().getRoleModel().getRoleName()).equals("Học Viên")) 
+                    httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
+                else if ((userModel.getAccountModel().getRoleModel().getRoleName()).equals("Giáo Viên")) {
+                	filterChain.doFilter(servletRequest, servletResponse); 
+                }
+                else if ((userModel.getAccountModel().getRoleModel().getRoleName()).equals("Quản Trị Viên")) {
+                	System.out.println("vao thoai mai");
+                    // Nếu URL bắt đầu với "/admin", nhung ban la admin => cho phép truy cập tiếp theo
+                    filterChain.doFilter(servletRequest, servletResponse);
+                }
+            }
+            else {
+            	System.out.println("chua dang nhap cu oi");
+                // Chưa đăng nhập, chuyển hướng đến trang đăng nhập
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
+            }
+        }
+        
         else {
         	System.out.println("vao thoai mai");
             // Nếu URL không bắt đầu với "/admin", cho phép truy cập tiếp theo

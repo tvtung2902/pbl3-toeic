@@ -1,9 +1,0 @@
-package com.pbl3.libs;
-
-public class Result {
-	private int score;
-	private int rightAnswer;
-	private int corectAnswer;
-	private int skip;
-	
-}

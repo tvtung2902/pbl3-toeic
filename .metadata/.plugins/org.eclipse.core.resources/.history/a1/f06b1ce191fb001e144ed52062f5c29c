@@ -1,0 +1,8 @@
+package com.pbl3.controller.admin;
+
+import jakarta.servlet.annotation.WebServlet;
+
+@WebServlet (urlPatterns = {"/teacher"})
+public class HomepageController {
+
+}

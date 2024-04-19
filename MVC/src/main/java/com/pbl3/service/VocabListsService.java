@@ -48,7 +48,7 @@ public class VocabListsService extends BaseService{
 			preparedStatement.setInt(2, vocabListsModel.getUserID());
 			if (vocabListsModel.getCourseID() != null) {
 			    preparedStatement.setInt(3, vocabListsModel.getCourseID());
-			} else {
+			} else { 
 			    preparedStatement.setObject(3, null);
 			}
 			preparedStatement.setString(4, vocabListsModel.getNameList());

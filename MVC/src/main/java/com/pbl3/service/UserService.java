@@ -41,25 +41,29 @@ public class UserService extends BaseService {
 		try {
 			Connection connection = getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(
-					"SELECT user.*  FROM user INNER JOIN account ON user.accountID = account.accountID WHERE account.username = ? AND account.password = ?");
+					"SELECT User.*, Account.username, Account.roleID, Role.rolename FROM User INNER JOIN Account ON User.AccountID = Account.AccountID INNER JOIN Role ON Account.RoleID = Role.RoleID WHERE account.username = ? AND account.password = ?");
 			preparedStatement.setString(1, usernameString);
 			preparedStatement.setString(2, passwordString);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
+			while (resultSet.next()) {
 				int userID = resultSet.getInt(1);
-				int accountID = resultSet.getInt(1);
+				int accountID = resultSet.getInt(2);
 				String name = resultSet.getString(3);
 				String phone = resultSet.getString(4);
 				String email = resultSet.getString(5);
-				// CAN SUA
-				Boolean gender = resultSet.getBoolean(6);
-				userModel.setUserID(userID);
-				userModel.setAccountID(accountID);
-				userModel.setName(name);
-				userModel.setPhone(phone);
-				userModel.setEmail(email);
-				userModel.setGender(gender);
-			}
+				Boolean gender;
+				if (resultSet.getObject(6) == null) {
+					gender = null;
+				} else
+					gender = resultSet.getBoolean(6);
+				String userName = resultSet.getString(7);
+				int roleID = resultSet.getInt(8);
+				String roleName = resultSet.getString(9);
+				RoleModel roleModel = new RoleModel(roleID, roleName);
+				AccountModel accountModel = new AccountModel(accountID, roleID, userName, "******", roleModel);
+				userModel = new UserModel(userID, accountID, name, phone, email, gender, accountModel);
+				System.out.println(userModel.getGender());
+			} 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

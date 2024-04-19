@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="&#x09;&#x09;&#x09;&#x09;&#x09;&#x09;&#x09;&#x09;&lt;form method action=&quot;/MVC/tests/start?testsID=&lt;%=request.getParameter(&quot;testsID&quot;)%&gt;&quot;&gt;"/>
+		<item key="selection" value=""/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="qu "/>
 			<item value="&#x09;&#x09;&#x09;&#x09;&#x09;&#x09;&#x09;&#x09;&lt;form method action=&quot;/MVC/tests/start?testsID=&lt;%=request.getParameter(&quot;testsID&quot;)%&gt;&quot;&gt;"/>
 		</list>
 		<list key="replacehistory">

@@ -60,8 +60,8 @@
                             </a>
                         </li>
                         <li> 
-                            <a href="#" class="khoa-hoc">
-                                Khóa Học
+                            <a href="/MVC/courses" class="khoa-hoc"> 
+                                Khóa Học  
                             </a>
                         </li>
                         <li> 
@@ -79,10 +79,10 @@
                 <div class="inner-user">
                     <a href="/MVC/my-account">
                         <div class="inner-img">
-                        	<img src="https://static.fireant.vn/users/avatar/d179d522-ea70-4c9c-8267-b2b0a58d5701?width=200&height=200"  alt="avatar">   
+                        	<img src="https://scontent.fdad1-2.fna.fbcdn.net/v/t39.30808-6/307137925_1506068843240828_8717134394959410011_n.jpg?stp=cp6_dst-jpg&_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFd5cBtHyEcKPXNenzX8lMkfzZutIGXO0J_Nm60gZc7Qo8Ws6LKfUJoZxpMwOtC2zyTOlj7ofdriq5G47U_CGql&_nc_ohc=YwFDUooacVUAb6LQ5kX&_nc_ht=scontent.fdad1-2.fna&oh=00_AfCki6EugJDlheRGJOfF-gY2Ps4sMOdNWSQdcPg8mmC76w&oe=6622F0AA"  alt="avatar">   
                         </div>
-                    </a>
-                </div>
+                    </a> 
+                </div> 
             </div>
         </div>
     </div>
