@@ -1,9 +1,4 @@
-.container{
-    max-width: 768px;
-}
-    header .container{
-        max-width: 1296px;
-    }
+
     /* header */
     header .button:hover{
         background: var(--color-one);
@@ -121,7 +116,9 @@
     /* end header-main */
     /* end header */
 
-
+        /* .section-one{
+            background-color: #F4F7FA;
+        } */
     .inner-title{
         margin-top: 50px;
         color: black;
@@ -153,6 +150,7 @@
         display: inline-block;
         width: 100%;
         background: #dcffe3 ;
+        /* background: #fff; */
         color:black;
         border: 1px solid var(--color-one);
         text-align: center;
@@ -160,6 +158,7 @@
         font-size: 20px;
         font-weight: 700;
         border-radius: 10px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
         /* transition: all 0.3s; */
     }
     .inner-train:hover{
@@ -170,6 +169,13 @@
     .inner-number{
         margin-top: 30px;
     }
+    .vocab{
+  
+        padding-bottom: 100px;
+    }
+    body{
+        background-color: #F4F7FA;
+    }
     .vocab .inner-wrap{
         padding: 10px;
         margin-top: 20px;
@@ -178,37 +184,32 @@
         box-shadow: 0 4px 0 0 rgba(143,156,173,.2);
         color: black;
         position: relative;
+        background: #fff;
     }
     .vocab .inner-wrap h2{
         font-size: 21px;
         margin-top: 10px;
     }
-    .vocab .inner-wrap h2 .audio{
+    /* .vocab .inner-wrap h2 .audio{
         margin: 10px;
         padding:5px;
         background: #dcffe3;
         border-radius: 50%;
         color: var(--color-one);
+    } */
+    .vocab .inner-wrap audio{
+        position: absolute;
+        visibility: hidden;
+    }
+    .vocab .inner-wrap .playButton{
+        cursor: pointer;
+        color: #00a463;
+        display: inline-block;
+        padding: 4px;
     }
     .vocab .inner-wrap h3{
         margin-top: 20px;
         font-size: 16px;
-    }
-       .vocab .inner-main{
-        display: flex;
-        justify-content: space-between;
-
-    }
-    .vocab .inner-main .inner-img{
-        width: 30%;
-        margin-top: 10px;
-        margin-right: 10px;
-    }
-    .vocab .inner-main .inner-img img{
-        width: 100%;
-        height: auto;
-        object-fit:cover;
-        aspect-ratio: 4/3;
     }
     .vocab .inner-wrap .delete{
         text-align:right;
@@ -226,7 +227,22 @@
         opacity: 0;
         font-size: 10px;
     }
+    .vocab .inner-main{
+        display: flex;
+        justify-content: space-between;
 
+    }
+    .vocab .inner-main .inner-img{
+        width: 30%;
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+    .vocab .inner-main .inner-img img{
+        width: 100%;
+        height: auto;
+        object-fit:cover;
+        aspect-ratio: 4/3;
+    }
 
    .modal-form .modal-header {
         flex-direction: column;
@@ -258,13 +274,14 @@
     }
     
     .modal-content .button {
-        background: -webkit-linear-gradient(-30deg, #a2ffd8, #00a463 100%);
-        color: #fff;
-        border-radius: 10px;
+        background: var(--color-one);
+        color: var(--color-two);
+        border-radius: 20px;
         border: 1px solid;
-        padding: 10px 30px;
+        padding: 5px 20px;
         width: 100%;
         font-weight: 600;
+        font-size: 20px;
     }
     .modal-form .modal-content {
         border-radius: 10px;
@@ -274,16 +291,38 @@
         width: 100%;
         height: 200px;
     }
-    .modal-header h5{
+    .modal-header{
+        background-color: var(--color-one);
         margin: 0;
-        color: var(--color-one);
         padding: 0;
+        position: static;
+    }
+    .modal-header h5{
+        display: block;
+        margin: 0;
+        background-color: var(--color-one);
+        color: #04182B;
+        padding: 0;
+        font-size: 27px;
+        font-weight: 700;
+        position: relative;
+        top:10px;
     }
      .modal-header {
         justify-content: center;
         text-align: center;
         margin: 0;
         padding: 10px;
+    }
+
+    /* sidebar  */
+    .inner-sidebar{
+        margin-top: 50px;
+        background-color: #fff;
+        height: 600px;
+        box-shadow: 0 4px 0 0 rgba(143, 156, 173, .2);
+        border-radius: 10px;
+        border: 1px solid #eee;
     }
 
 
@@ -304,6 +343,7 @@
               /* footer */
 
               footer{
+                background: #fff;
                 margin-top: 150px;
                 padding-top: 100px;
                 border-top: 1px solid #eee;
@@ -357,4 +397,4 @@
                 font-weight: 400;
                 margin: 0;
             }
-            /*end footer */
+            /*end footer */ 

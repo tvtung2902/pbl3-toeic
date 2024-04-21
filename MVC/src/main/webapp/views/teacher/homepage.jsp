@@ -13,8 +13,8 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <h1>DAY LA TRANG CHU TEACHER</h1>
-   <img alt="anhhhhhh" src="/MVC/images/anh.jsp">  
+    <h1>DAY LA TRANG CHU TEACHER</h1>    
+   <img alt="anhhhhhh" src="http://localhost:8080/MVC/data/jpeg-3.jpg">  
  
     <a href="/MVC/teacher/tests">TESTS</a> 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

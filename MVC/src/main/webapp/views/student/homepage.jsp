@@ -168,7 +168,7 @@
                 <div class="col-xl-6">
                     <div class="inner-info">
                         <div class="inner-img">
-                            <img src="https://scontent.fdad2-1.fna.fbcdn.net/v/t39.30808-6/285153159_1427683054412741_8625096137060604296_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFFa7bVIyZtIoTz15-aKR3jZuPSz15-RlRm49LPXn5GVD97JmHx3uPnuk49fTva3jYwcmhPrtw-weMZVJ1xb_lo&_nc_ohc=-61QP04PiLEAb4cuee3&_nc_ht=scontent.fdad2-1.fna&oh=00_AfBgdwHsi2NKQJOQGPZAJY28Vu1hzVpJ9dBlPNo45KcerQ&oe=6622F4E9" alt="eimi fukada">
+                            <img src="https://scontent.fdad2-1.fna.fbcdn.net/v/t39.30808-6/285153159_1427683054412741_8625096137060604296_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFFa7bVIyZtIoTz15-aKR3jZuPSz15-RlRm49LPXn5GVD97JmHx3uPnuk49fTva3jYwcmhPrtw-weMZVJ1xb_lo&_nc_ohc=pKdEh3BotUQAb42Em9_&_nc_ht=scontent.fdad2-1.fna&oh=00_AfCvMKNTHBEhlbBDFh-HyqN4r6HqK3rybNjkM2zy-XboBw&oe=66298C69" alt="eimi fukada">
                         </div>
                         <div class="inner-main">
                             <div class="inner-name">Trần Văn Tùng</div>

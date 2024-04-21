@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 @WebServlet(urlPatterns = { "/", "/register", "/login", "/logout" })
 public class HomepageController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,9 +32,9 @@ public class HomepageController extends HttpServlet {
 		case "/login": {
 //			if();
 			if (session.getAttribute("user") != null) {
-
+					
 			}
-			System.out.println("goi doget login");
+			System.out.println("goi doget login"); 
 			login(req, resp);
 			break;
 		}
@@ -46,7 +45,7 @@ public class HomepageController extends HttpServlet {
 			break;
 		}
 
-		case "/":
+		case "/":{
 			if (session.getAttribute("user") == null) {
 				System.out.println("chua dang nhap");
 			}
@@ -58,6 +57,7 @@ public class HomepageController extends HttpServlet {
 			RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/student/homepage.jsp");
 			requestDispatcher.forward(req, resp);
 			break;
+		}
 		}
 	}
 

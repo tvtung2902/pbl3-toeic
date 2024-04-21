@@ -12,6 +12,7 @@
     integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <title>Study TOIEC</title>
   </head>
   <body>
@@ -22,63 +23,67 @@
     	
         .header .main-header .tu-vung{
             color: var(--color-one);
-        }
-    footer .container{
-        max-width: 1296px;
-    }
-      
+        }      
     </style>
     <!-- header  -->
 	<%@include file="../../re-use/header.jsp" %>
     <!--end  header  -->
+  	
+  	
     <div class="container">
-          <!-- lấy tên và mô tả từ dâtbase -->
-        <div class="inner-title">
-            <h1>Danh sách: Tên danh sách</h1>      
-        </div>
-        <div class="inner-desc">
-            <p>Mô tả danh sách...</p>
-        </div>
-
-
-            <a class="insert" data-toggle="modal"
-            data-target="#insert-vocab">
-                Thêm từ vựng
-            </a>
-
-        <!-- button  -->
-            <a href="vocab/review?listID=<%=request.getAttribute("listID")%>"class="inner-train">Luyện tập</a>
-        
-        <!-- đếm số từ trong db -->
-        <div class="inner-number">
-            <p>Danh sách có ... từ</p>
-        </div>
-    </div>
-
-    <div class="vocab">
-        <div class="container">
-            <div class="row">
-            			<%
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-one">
+                            <div class="container">
+                                <!-- lấy tên và mô tả từ dâtbase -->
+                              <div class="inner-title">
+                                  <h1>Danh sách: Tên danh sách</h1>      
+                              </div>
+                              <div class="inner-desc">
+                                  <p>Mô tả danh sách...</p>
+                              </div>
+                      
+                      
+                                  <a class="insert" data-toggle="modal"
+                                  data-target="#insert-vocab">
+                                      Thêm từ vựng
+                                  </a>
+                      
+                              <!-- button  -->
+                                  <a href="vocab/review?listID=<%=request.getAttribute("listID")%>"class="inner-train">Luyện tập</a>
+                              
+                              <!-- đếm số từ trong db -->
+                              <div class="inner-number">
+                                  <p>Danh sách có ... từ</p>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                    <%
 			int i = 0;
-			%>
-			<%
 			for (VocabModel v : (LinkedList<VocabModel>) request.getAttribute("vocabModels")) {
 
 					i++;
 					%>
-                <div class="col-12">
-                    <div class="inner-wrap">
-                         <div class="inner-main">
-                            <div class="inner-content">
-                        <h2 class="english-mean"><%=v.getVocab()%> ( <%=v.getWordType()%> )<span class="audio">
-                            <audio src="https://dict.youdao.com/dictvoice?audio=hello&type=1" type="audio/mpeg"></audio>
-                            <i class="fa-solid fa-volume-high"></i>
-                        </span> 
-                        <a class="edit" data-toggle="modal"
-                        data-target="#edit-vocab<%=i%>">
-                            <i class="fa-regular fa-pen-to-square"></i>
-                        </a>
-                            <div class="modal-edit">
+                    <div class="col-12">
+                        <div class="vocab">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="inner-wrap">
+                                            <div class="inner-main">
+                                                <div class="inner-content">
+                                                    <h2 class="english-mean"><%=v.getVocab()%> ( <%=v.getWordType()%> )
+                                                        <a class="playButton">
+                                                            <i class="fa-solid fa-volume-high"></i>
+                                                        </a>
+                                                    <a class="edit" data-toggle="modal"
+                                                    data-target="#edit-vocab<%=i%>">
+                                                        <i class="fa-regular fa-pen-to-square"></i>
+                                                    </a>
+                                                      <div class="modal-edit">
         <!-- Modal sửa -->
 <!-- <div class="modal fade modal-form" id="exampleModal<%=i%>" -->
             <div class="modal fade modal-form" id="edit-vocab<%=i%>"
@@ -89,7 +94,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
 
-                        <h5 class="inner-title" id="exampleModalLabel">Sửa từ vựng</h5>
+                        <h5 class="inner-title" id="exampleModalsua">Sửa từ vựng</h5>
                         <p class="inner-desc"></p>
                         <button type="button" class="close" data-dismiss="modal"
                             aria-label="Close">
@@ -98,13 +103,13 @@
                     </div>
                     <div class="modal-body">
                         <form method="post"
-                            action="/MVC/vocab-lists/vocab/edit?listID=<%=request.getParameter("listID")%>">
+                             action="/MVC/vocab-lists/vocab/edit?listID=<%=request.getParameter("listID")%>">
                             <div class="row">
                                 <div class="col-12">
 
                                     <div class="form-group">
                                         <input name="vocabID" type="hidden" class="form-control"
-                                            placeholder="Nghia tieng anh" value="<%=v.getVocabID()%>">
+                                             value="<%=v.getVocabID()%>">
 
                                     </div>
 
@@ -127,7 +132,7 @@
 
                                     <div class="form-group">
                                         <input name="wordType" type="text" class="form-control"
-                                            placeholder="Từ loại" value="">
+                                            placeholder="Từ loại" value="<%=v.getWordType()%>">
                                     </div>
 
                                     <textarea name="example" id="" cols="30" rows="10" value=""><%=v.getExample()%></textarea>
@@ -139,7 +144,7 @@
     
                                         </div>
 
-                                    <button class="button">Gui Di</button>
+                                    <button class="button">Sửa</button>
                                 </div>
                             </div>
                         </form>
@@ -148,47 +153,63 @@
             </div>
             </div>
          </div>
-                        </h2>
-                        <h3>Định nghĩa:
-                        </h3>
-                        <p><%=v.getMean()%></p>
-                        <div class="inner-ex">
-                            <h3>Ví dụ</h3>
-                            <ul>
-                                <li>
-                                    <p> <%=v.getExample()%></p>
-                                </li>
-                                <li>
-                                    <p> <%=v.getExample()%></p>
-                                </li>
-                            </ul>
-                        </div>
+                                                    
+                                                    
+                                                    <audio class="myAudio" src="https://dict.youdao.com/dictvoice?audio=<%=v.getVocab()%>&type=1" type="audio/mpeg" controls></audio>
+                                                    </h2>
+                                                    <h3>Định nghĩa:
+                                                    </h3>
+                                                    <p><%=v.getMean()%></p>
+                                                    <div class="inner-ex">
+                                                        <h3>Ví dụ</h3>
+                                                        <ul>
+                                                            <li>
+                                                                <p> <%=v.getExample()%></p>
+                                                            </li>
+                                                            <li>
+                                                                <p> <%=v.getExample()%></p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="inner-img">
+                                                    <img src="https://e-talk.vn/wp-content/uploads/2019/04/cach-hoc-tu-vung-tieng-anh-sieu-toc-1024x1024.png" alt="Anhmota">
+                                                </div>
+                                             </div>
+                                            <div class="delete">
+                                                <form
+                                                action="/MVC/vocab-lists/vocab/delete?vocabID=<%=v.getVocabID()%>&listID=<%=request.getParameter("listID")%>"
+                                                method="post">
+                                                <input class="button-submit" type="submit" value="Xóa" />
+                                                <label for="submit">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </label>
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                             <div class="inner-img">
-                             <img src="https://e-talk.vn/wp-content/uploads/2019/04/cach-hoc-tu-vung-tieng-anh-sieu-toc-1024x1024.png" alt="Anhmota">
                             </div>
-                         </div>
-                        <div class="delete">
-  						    <form
-                            action="/MVC/vocab-lists/vocab/delete?vocabID=<%=v.getVocabID()%>&listID=<%=request.getParameter("listID")%>"
-                            method="post">
-                            <input class="button-submit" type="submit" value="Xóa" />
-                            <label for="submit">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </label>
-                        </form>
                         </div>
                     </div>
-                </div>
              <%
 			}
 			%>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="inner-sidebar">
+                            <p>Dây là sidebar</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-
-
+  
          <div class="modal-insert">
             <!-- Modal thêm -->
     <!-- <div class="modal fade modal-form" id="exampleModal<%=i%>" -->
@@ -277,7 +298,7 @@
                                 <ul>
                                     <li>
                                         <a href="#">
-                                            <i class="fa-brands fa-facebook"></i>
+                                            <i class="fa-brands fa-facebook-f"></i>
                                         </a>
                                     </li>
                                     <li>
@@ -335,6 +356,24 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script> 
     <script>
+
+    var audioElements = document.querySelectorAll(".myAudio");
+    var playButtons = document.querySelectorAll(".playButton");
+
+    // Duyệt qua mỗi cặp phần tử audio và nút
+    playButtons.forEach(function(playButton, index) {
+        var audio = audioElements[index];
+
+        // Thêm sự kiện click cho mỗi nút
+        playButton.addEventListener("click", function() {
+            if (audio.paused) {
+                audio.play(); // Nếu đang tạm dừng, tiếp tục phát
+            } else {
+                audio.pause(); // Nếu đang phát, tạm dừng
+            }
+        });
+    });
+
         $(document).ready(function(){
             $(window).scroll(function(){
                 if($(this).scrollTop()){

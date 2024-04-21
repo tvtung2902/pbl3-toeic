@@ -1,0 +1,40 @@
+package com.pbl3.libs;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
+public class File {
+	private String name = "/images";
+	// check trùng
+	  public static String Check(String directory, String fileName) {
+		  	Path path = Paths.get(directory, fileName);
+	        if (Files.exists(path)) {
+	            String baseName = fileName.substring(0, fileName.lastIndexOf('.'));
+	            String extension = fileName.substring(fileName.lastIndexOf('.'));
+	            String uniqueName = baseName + "_" + UUID.randomUUID().toString() + extension;
+	            return Check(directory, uniqueName);
+	        }
+	        return fileName;
+	    }
+	 // xóa
+	  public static boolean delete(String directory, String fileName) {
+	        Path path = Paths.get(directory, fileName);
+	        try {
+	            Files.deleteIfExists(path);
+	            return true;
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            return false;
+	        }
+	    }
+	  
+	  // thêm
+	  public static String add(Path part, String uploadDirectory) {
+		  
+	  }
+	  
+}
+ 

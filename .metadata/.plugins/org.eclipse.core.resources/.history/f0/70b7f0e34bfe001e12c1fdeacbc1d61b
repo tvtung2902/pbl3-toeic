@@ -1,0 +1,41 @@
+package test;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+
+import java.io.IOException;
+import java.nio.file.Paths;
+
+@MultipartConfig
+@WebServlet("/UploadPhotoServlet")
+public class UploadPhotoServlet extends HttpServlet {
+	
+    public UploadPhotoServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/upload.jsp");
+		requestDispatcher.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			String id = request.getParameter("id");
+			Part part = request.getPart("photo");
+			String realPart = request.getServletContext().getRealPath("/images");
+			String fileName = Path.of(part.getSubmittedFileName()).getFileName().toString();
+		}
+		catch (Exception e) {
+			
+		}
+	}
+
+}

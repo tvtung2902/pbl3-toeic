@@ -123,10 +123,13 @@ h1 {
 				<div id="collapse<%=index%>" class="collapse collapsed cl"
 					aria-labelledby="heading<%=index%>" data-parent="#accordionExample">
 					<div class="card-body">
-						<form method="POST" <%if (arr[index].getQuestionID() == 0) {%>
-							action="/MVC/teacher/question/create?testsID=<%=request.getParameter("testsID")%>" <%} else {%>
-							action="/MVC/teacher/question/edit?testsID=<%=request.getParameter("testsID")%> " <%}%>>
-
+						<form method="POST" enctype="multipart/form-data"
+							<%if (arr[index].getQuestionID() == 0) {%>
+							action="/MVC/teacher/question/create?testsID=<%=request.getParameter("testsID")%>"
+							<%} else {%>
+							action="/MVC/teacher/question/edit?testsID=<%=request.getParameter("testsID")%> "
+							<%}%>>
+							
 							<div class="form-group">
 								<label for="type<%=index%>">Loai Cau Hoi</label> <select
 									class="form-control custom-autofill-selected"
@@ -144,15 +147,38 @@ h1 {
 									%>
 								</select>
 							</div>
-
+							
+							<%if(i != 2 && i != 5 && i != 6) {%>
+							<%if(arr[index].getImage() == null || (arr[index].getImage()).equals("")){%>
+								<div class="form-group">
+									<label for="img<%=index%>">Anh Mo Ta</label> <input
+										id="img<%=index%>" name="image" type="file"
+										class="form-control" placeholder="anh mo ta">
+								</div>
+							<%}else{ %>
+								<div class="form-group">
+									<label for="img1<%=index%>">Anh Mo Ta</label> 
+									<img alt="anh mo ta" src="/MVC/<%=arr[index].getImage()%>">
+								</div>
+								<div class="form-group">
+									<input type="hidden" name="imageString" value="<%=arr[index].getImage()%>">
+								</div>
+								<div class="form-group">
+									<label for="img2<%=index%>">Thay Doi Anh Mo Ta</label> 
+									<input
+										id="img2<%=index%>" name="imageChange" type="file"
+										class="form-control" placeholder="thay doi anh mo ta">
+								</div> 
+							<%} %>
 							<div class="form-group">
 								<input type="hidden" name="testsID"
 									value="<%=request.getParameter("testsID")%>">
 							</div>
-
+							<% }%>
 							<div class="form-group">
 								<label for="content<%=index%>">Noi Dung Cau Hoi</label>
-								<textarea name="questionContent" class="form-control" id="content<%=index%>" rows="2"><%=arr[index].getQuestionContent()%></textarea>
+								<textarea name="questionContent" class="form-control"
+									id="content<%=index%>" rows="2"><%=arr[index].getQuestionContent()%></textarea>
 							</div>
 
 							<div class="form-group">
@@ -203,48 +229,48 @@ h1 {
 
 							<div class="form-group">
 								<label for="explain<%=index%>">Giai Thich</label>
-								<textarea name="answerExplain" class="form-control" id="explain<%=index%>" rows="2"><%=arr[index].getAnswerExplain()%></textarea>
+								<textarea name="answerExplain" class="form-control"
+									id="explain<%=index%>" rows="2"><%=arr[index].getAnswerExplain()%></textarea>
 							</div>
-							
+
 							<div class="form-group">
 								<input name="orderNumber" type="hidden" value="<%=index + 1%>">
 							</div>
 							<div class="form-group">
-								<input name="questionID" type="hidden" value="<%=arr[index].getQuestionID()%>"> 
+								<input name="questionID" type="hidden"
+									value="<%=arr[index].getQuestionID()%>">
 							</div>
 							<%
 							if (arr[index].getQuestionID() != 0) {
 							%>
 							<button type="submit" class="btn btn-primary">Sửa</button>
-							<form action="#">
-								<%
-								} else {
-								%>
-								<button type="submit" class="btn btn-primary">Thêm</button>
-								<%
-								}
-								%>
-							</form>
+
 							<%
-							if (arr[index].getQuestionID() != 0) {
+							} else {
 							%>
-							<form method="post"
-								action="/MVC/teacher/question/delete">
-								<div class="form-group">
-								
-								<input type="hidden" name="questionID"
-									value="<%=arr[index].getQuestionID()%>">
-									
-								<input type="hidden" name="testsID"
-									value="<%=request.getParameter("testsID")%>">	
-							</div>
-								<button type="submit" class="btn btn-danger">Xóa</button>
-								
-							</form>
+							<button type="submit" class="btn btn-primary">Thêm</button>
 							<%
 							}
 							%>
-						
+						</form>
+						<%
+						if (arr[index].getQuestionID() != 0) {
+						%>
+						<form method="post" action="/MVC/teacher/question/delete">
+							<div class="form-group">
+
+								<input type="hidden" name="questionID"
+									value="<%=arr[index].getQuestionID()%>"> <input
+									type="hidden" name="testsID"
+									value="<%=request.getParameter("testsID")%>">
+							</div>
+							<button type="submit" class="btn btn-danger">Xóa</button>
+
+						</form>
+						<%
+						}
+						%>
+
 					</div>
 				</div>
 			</div>

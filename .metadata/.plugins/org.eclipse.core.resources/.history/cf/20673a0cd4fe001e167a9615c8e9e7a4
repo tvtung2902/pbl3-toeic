@@ -1,0 +1,54 @@
+package com.pbl3.libs;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
+public class File {
+	// check trùng
+	  public static String Check(String directory, String fileName) {
+		  	Path path = Paths.get(directory, fileName);
+	        if (Files.exists(path)) {
+	            String baseName = fileName.substring(0, fileName.lastIndexOf('.'));
+	            String extension = fileName.substring(fileName.lastIndexOf('.'));
+	            String uniqueName = baseName + "_" + UUID.randomUUID().toString() + extension;
+	            return Check(directory, uniqueName);
+	        }
+	        return fileName;
+	    }
+	 // xóa
+	  public static boolean delete(String directory, String fileName) {
+	        Path path = Paths.get(directory, fileName);
+	        try {
+	            Files.deleteIfExists(path);
+	            return true;
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            return false;
+	        }
+	    }
+	  
+	  // thêm
+	  public static String uploadFileAndGetURL(Part part, String uploadDirectory) throws IOException, ServletException {
+	        // Get the original file name
+	        String originalFileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+
+	        // Ensure unique file name to avoid overwriting existing files
+	        String fileName = Check(uploadDirectory, originalFileName);
+
+	        // Create the directory if it doesn't exist
+	        if (!Files.exists(Paths.get(uploadDirectory))) {
+	            Files.createDirectories(Paths.get(uploadDirectory));
+	        }
+
+	        // Write the uploaded file to the specified directory
+	        part.write(Paths.get(uploadDirectory, fileName).toString());
+
+	        // Return the URL of the uploaded file
+	        return "images/" + fileName;
+	    }
+	  
+}
+ 

@@ -1,0 +1,59 @@
+package com.pbl3.libs;
+
+import jakarta.servlet.http.Part;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID; // Import thư viện UUID
+
+import jakarta.servlet.ServletException;
+
+public class File {
+	private static String name = "/datas";
+
+	// check trùng
+	public static String Check(String directory, String fileName) {
+		Path path = Paths.get(directory, fileName);
+		if (Files.exists(path)) {
+			String baseName = fileName.substring(0, fileName.lastIndexOf('.'));
+			String extension = fileName.substring(fileName.lastIndexOf('.'));
+			String uniqueName = baseName + "_" + UUID.randomUUID().toString() + extension;
+			return Check(directory, uniqueName);
+		}
+		return fileName;
+	}
+
+	// xóa
+	public static boolean delete(String directory, String fileName) {
+		Path path = Paths.get(directory, fileName);
+		try {
+			Files.deleteIfExists(path);
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	// thêm
+	public static String add(Part part, String realPart) throws IOException, ServletException {
+		String originalFileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+		String fileName = Check(realPart, originalFileName);
+		if (!Files.exists(Paths.get(realPart))) {
+			Files.createDirectories(Paths.get(realPart));
+		}
+		part.write(Paths.get(realPart, fileName).toString());
+		String str = name + fileName;
+		return str;
+	}
+
+	public static String getName() {
+		return name;
+	}
+
+	public static void setName(String name) {
+		File.name = name;
+	}
+}

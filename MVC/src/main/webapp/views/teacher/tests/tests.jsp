@@ -51,17 +51,16 @@
 						</div>
 						<div class="modal-body">
 
-							<form method="post" action="/MVC/teacher/tests/create"> 
+							<form method="post" action="/MVC/teacher/tests/create">
 								<div class="form-group">
-									<label for="1">Ten de thi</label> <input
-										type="text" class="form-control" id="1"
-										aria-describedby="emailHelp" name="testsName"> 
+									<label for="1">Ten de thi</label> <input type="text"
+										class="form-control" id="1" aria-describedby="emailHelp"
+										name="testsName">
 								</div>
 								<div class="form-group">
-									<label for="2">Nam</label> <input
-										type="number" class="form-control"
-										id="2" min="2020" max="2024">
-								</div> 
+									<label for="2">Nam</label> <input type="number"
+										class="form-control" id="2" min="2020" max="2024">
+								</div>
 								<button type="submit" class="btn btn-primary">Submit</button>
 							</form>
 

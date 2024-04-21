@@ -34,9 +34,9 @@ public class QuestionService extends BaseService{
 				String AnswerCorrect = resultSet.getString(9);
 				String AnswerExplain = resultSet.getString(10) ;
 				int OrderNumber = resultSet.getInt(11);
-				
-				QuestionModel questionModel = new QuestionModel(questionID, typeQuestionID, testID, questionContent, contentAnswerA, contentAnswerB, contentAnswerC, ContentAnswerD, AnswerCorrect, AnswerExplain, OrderNumber);   
-				questionModels.add(questionModel);             
+				String Image = resultSet.getString(12);
+				QuestionModel questionModel = new QuestionModel(questionID, typeQuestionID, testID, questionContent, contentAnswerA, contentAnswerB, contentAnswerC, ContentAnswerD, AnswerCorrect, AnswerExplain, OrderNumber, Image);   
+				questionModels.add(questionModel);    
 			}
 			System.out.println("size cua tests: " + questionModels.size());
 			return questionModels; 
@@ -65,13 +65,14 @@ public class QuestionService extends BaseService{
 	            String AnswerCorrect = resultSet.getString(9);
 	            String AnswerExplain = resultSet.getString(10); 
 	            int OrderNumber = resultSet.getInt(11);
-	            String typeQuestionName = resultSet.getString(12);
-	            int PartID = resultSet.getInt(13);
-	            String partName = resultSet.getString(14);
-	            int OrderNumberPart = resultSet.getInt(15);
+	            String image = resultSet.getString(12);
+	            String typeQuestionName = resultSet.getString(13);
+	            int PartID = resultSet.getInt(14);
+	            String partName = resultSet.getString(15);
+	            int OrderNumberPart = resultSet.getInt(16);
 	            PartModel partModel = new PartModel(PartID, partName, OrderNumberPart);
 	            TypeQuestionModel typeQuestionModel = new TypeQuestionModel(typeQuestionID, typeQuestionName, PartID, partModel);
-	            QuestionModel questionModel = new QuestionModel(questionID, typeQuestionID, testID, questionContent, contentAnswerA, contentAnswerB, contentAnswerC, ContentAnswerD, AnswerCorrect, AnswerExplain, OrderNumber, typeQuestionModel);
+	            QuestionModel questionModel = new QuestionModel(questionID, typeQuestionID, testID, questionContent, contentAnswerA, contentAnswerB, contentAnswerC, ContentAnswerD, AnswerCorrect, AnswerExplain, OrderNumber, typeQuestionModel, image);
 
 	            // Gán QuestionModel vào mảng 
 	            questionModels[questionModel.getOrderNumber() - 1] = questionModel;
@@ -87,7 +88,7 @@ public class QuestionService extends BaseService{
 	public static void add(QuestionModel questionModel) {
 	    try {
 	        Connection connection = getConnection();
-	        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Question (TypeQuestionID, TestID, QuestionContent, ContentAnswerA, ContentAnswerB, ContentAnswerC, ContentAnswerD, AnswerCorrect, AnswerExplain, OrderNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); 
+	        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Question (TypeQuestionID, TestID, QuestionContent, ContentAnswerA, ContentAnswerB, ContentAnswerC, ContentAnswerD, AnswerCorrect, AnswerExplain, OrderNumber, Image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); 
 	        preparedStatement.setInt(1, questionModel.getTypeQuestionID());
 	        preparedStatement.setInt(2, questionModel.getTestID());
 	        preparedStatement.setString(3, questionModel.getQuestionContent());
@@ -98,6 +99,7 @@ public class QuestionService extends BaseService{
 	        preparedStatement.setString(8, questionModel.getAnswerCorrect());
 	        preparedStatement.setString(9, questionModel.getAnswerExplain());
 	        preparedStatement.setInt(10, questionModel.getOrderNumber());
+	        preparedStatement.setString(11, questionModel.getImage());
 	        preparedStatement.executeUpdate();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -108,7 +110,7 @@ public class QuestionService extends BaseService{
 	public static void edit(QuestionModel questionModel) {
 	    try {
 	        Connection connection = getConnection();
-	        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE question SET TypeQuestionID = ?, QuestionContent = ?, ContentAnswerA = ?, ContentAnswerB = ?, ContentAnswerC = ?, ContentAnswerD = ?, AnswerCorrect = ?, AnswerExplain = ? WHERE QuestionID = ?");
+	        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE question SET TypeQuestionID = ?, QuestionContent = ?, ContentAnswerA = ?, ContentAnswerB = ?, ContentAnswerC = ?, ContentAnswerD = ?, AnswerCorrect = ?, AnswerExplain = ?, Image = ? WHERE QuestionID = ?");
 	        
 	        // In ra giá trị của từng trường trong questionModel
 	        System.out.println("QuestionID: " + questionModel.getQuestionID());
@@ -121,8 +123,8 @@ public class QuestionService extends BaseService{
 	        System.out.println("AnswerCorrect: " + questionModel.getAnswerCorrect());
 	        System.out.println("AnswerExplain: " + questionModel.getAnswerExplain());
 	        System.out.println("QuestionID: " + questionModel.getQuestionID());
-	        
-	        preparedStatement.setInt(1, questionModel.getTypeQuestionID());
+	        System.out.println("image: " + questionModel.getImage());
+	        preparedStatement.setInt(1, questionModel.getTypeQuestionID()); 
 	        preparedStatement.setString(2, questionModel.getQuestionContent());
 	        preparedStatement.setString(3, questionModel.getContentAnswerA());
 	        preparedStatement.setString(4, questionModel.getContentAnswerB());
@@ -130,7 +132,8 @@ public class QuestionService extends BaseService{
 	        preparedStatement.setString(6, questionModel.getContentAnswerD());
 	        preparedStatement.setString(7, questionModel.getAnswerCorrect());
 	        preparedStatement.setString(8, questionModel.getAnswerExplain());
-	        preparedStatement.setInt(9, questionModel.getQuestionID()); 
+	        preparedStatement.setString(9, questionModel.getImage());
+	        preparedStatement.setInt(10, questionModel.getQuestionID()); 
 	        preparedStatement.executeUpdate();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
