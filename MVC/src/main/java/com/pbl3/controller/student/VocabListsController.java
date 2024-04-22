@@ -45,12 +45,16 @@ public class VocabListsController extends HttpServlet{
 		HttpSession session = req.getSession();
 		System.out.println("goi ham show");
 		UserModel userModel = (UserModel)session.getAttribute("user");
+		if(userModel ==null) {
+			resp.sendRedirect(req.getContextPath()+"/login");
+		}else {
 		int userID = userModel.getUserID();
 		System.out.println("user vao chuc nang nay co id la: " +userID);
 		LinkedList<VocabListsModel> vocabListsModels = VocabListsService.all(userID);
 		req.setAttribute("vocabListsModels", vocabListsModels);
 		RequestDispatcher reqDispatcher = req.getRequestDispatcher("views/student/vocab-lists/vocab-lists.jsp");
 		reqDispatcher.forward(req, resp);
+		}
 	}
 	
 	// create
@@ -91,7 +95,7 @@ public class VocabListsController extends HttpServlet{
 //		}
 		VocabListsModel vocabListsModel = new VocabListsModel(listID, 0, 0, nameList, description);
 		VocabListsService.edit(vocabListsModel);
-		resp.sendRedirect(req.getContextPath() + "/vocab-lists");
+		resp.sendRedirect(req.getContextPath() + "/vocab-lists/vocab?listID="+Integer.toString(listID));
 	}
 	
 	// delete
@@ -112,7 +116,7 @@ public class VocabListsController extends HttpServlet{
 			case "/vocab-lists/create" : {
 				System.out.println("goi case /vocab-lists/create - dopost");
 				create(req, resp);
-				break;         
+				break;
 			}
 			
 			case "/vocab-lists/edit" : {
@@ -124,3 +128,4 @@ public class VocabListsController extends HttpServlet{
 	}
 	
 }
+ 

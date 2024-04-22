@@ -1,3 +1,4 @@
+<%@page import="com.pbl3.model.VocabListsModel"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="com.pbl3.model.VocabModel"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -19,7 +20,7 @@
 
     <style>
     	<%@include file="../../../../assets/css/base.css"%>
-    	<%@include file="../../../../assets/css/style-vocab.css"%>
+    	<%@include file="../../../../assets/css/style-vocab.css"%> 
     	
         .header .main-header .tu-vung{
             color: var(--color-one);
@@ -29,9 +30,17 @@
 	<%@include file="../../re-use/header.jsp" %>
     <!--end  header  -->
   	
+  	<% VocabListsModel vocabListsModel=(VocabListsModel)request.getAttribute("vocablistmodel");
+  		int number=(int)request.getAttribute("number");
+  	%>
   	
     <div class="container">
         <div class="row">
+           <div class="col-12">
+                <div class="inner-imgbanner">
+                    <img src="https://plus.unsplash.com/premium_photo-1682125773446-259ce64f9dd7?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                </div>  
+            </div>
             <div class="col-xl-8">
                 <div class="row">
                     <div class="col-12">
@@ -39,33 +48,32 @@
                             <div class="container">
                                 <!-- lấy tên và mô tả từ dâtbase -->
                               <div class="inner-title">
-                                  <h1>Danh sách: Tên danh sách</h1>      
+                                  <h1><%=vocabListsModel.getNameList() %></h1>      
                               </div>
+                              <div class="inner-button">
+                                    <button class="insert" data-toggle="modal" data-target="#insert-vocab">Thêm từ vựng</button>
+                                    <button class="edit-list" data-toggle="modal" data-target="#edit-list">Sửa danh sách</button>  
+                                    <button class="delete-list" data-toggle="modal" data-target="#delete-list">Xóa danh sách</button>  
+                                </div>
                               <div class="inner-desc">
-                                  <p>Mô tả danh sách...</p>
+                                  <p><%=vocabListsModel.getDescription() %></p>
                               </div>
-                      
-                      
-                                  <a class="insert" data-toggle="modal"
-                                  data-target="#insert-vocab">
-                                      Thêm từ vựng
-                                  </a>
                       
                               <!-- button  -->
                                   <a href="vocab/review?listID=<%=request.getAttribute("listID")%>"class="inner-train">Luyện tập</a>
                               
                               <!-- đếm số từ trong db -->
                               <div class="inner-number">
-                                  <p>Danh sách có ... từ</p>
+                                  <p>Danh sách có <%=number %> từ</p>
                               </div>
                           </div>
                         </div>
                     </div>
                     <%
-			int i = 0;
-			for (VocabModel v : (LinkedList<VocabModel>) request.getAttribute("vocabModels")) {
+					int i = 0;
+					for (VocabModel v : (LinkedList<VocabModel>) request.getAttribute("vocabModels")) {
 
-					i++;
+						i++;
 					%>
                     <div class="col-12">
                         <div class="vocab">
@@ -209,7 +217,61 @@
         </div>
     </div>
 
-  
+      <div class="modal-delete-list">
+        <!-- modal-deletelist  -->
+    <div class="modal fade" id="delete-list" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              Bạn chắc chắn muốn xóa danh sách?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+              <a href="delete?listID=<%=vocabListsModel.getListID()%>"><button type="button" class="btn btn-primary">Xóa</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="modal-edit-list">
+                                 <!-- Modal -->
+                                 <div class="modal fade modal-form" id="edit-list" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                 <div class="modal-dialog modal-dialog-centered">
+                                     <div class="modal-content">
+                                         <button type="button" class="close" data-dismiss="modal"
+                                         aria-label="Close">
+                                         <span aria-hidden="true">&times;</span>
+                                         </button>
+                                         <div class="modal-header">
+                                             <h5 class="inner-title" id="add-listvocab">Sửa danh sách</h5>
+                                         </div>
+                                         <div class="modal-body">
+                                             <form method="post" action="/MVC/vocab-lists/edit">
+                                                 <div class="row">
+                                                     <div class="col-12">
+                                                         <div class="form-group">
+                                                         	 <input type="hidden" name="listID" value="<%=vocabListsModel.getListID()%>">
+                                                         	 <input type="hidden" name="userID" value="<%=vocabListsModel.getUserID()%>">
+                                                         	 <input type="hidden" name="CourseID" value="<%=vocabListsModel.getCourseID()%>">
+                                                             <label for="ten">Tên danh sách:</label>
+                                                             <input id="ten" name="nameList" type="text" required value="<%=vocabListsModel.getNameList()%>">
+                                                             <label for="mo-ta">Mô tả:</label>
+                                                             <textarea id="mo-ta" name="description"><%=vocabListsModel.getDescription()%></textarea>
+                                                             <label for="anh">Ảnh mô tả:</label>
+                                                             <input id="anh" type="file" name="pic">
+                                                             <button class="button">Sửa</button>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                             </form>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+</div>
          <div class="modal-insert">
             <!-- Modal thêm -->
     <!-- <div class="modal fade modal-form" id="exampleModal<%=i%>" -->

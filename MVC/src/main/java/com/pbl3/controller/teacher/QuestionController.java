@@ -76,16 +76,30 @@ public class QuestionController extends HttpServlet {
 		String AnswerCorrect = req.getParameter("answerCorrect");
 		String AnswerExplain = req.getParameter("answerExplain");
 		int OrderNumber = Integer.parseInt(req.getParameter("orderNumber"));
+		// lay part anh ve 
 		Part part = req.getPart("image"); 
 		String image = null;
+		// neu co form-group img (kh phai part 2, 5) 
 		if (part != null) { 
 		System.out.println("part != null");
 		String realPart = req.getServletContext().getRealPath("/data");
-		image = FileData.add(part, realPart);
-		} 
-		System.out.println("image: " +image);  
+		image = FileData.add(part, realPart); // tra ve null neu co form-group img nhung ko tai len  
+ 		} 
+		System.out.println("image: " +image); 
+		
+		// lay part audio ve 
+		Part partAudio = req.getPart("audio"); 
+		String audio = null;
+		// neu co form-group audio (kh phai phan doc) 
+		if (partAudio != null) { 
+		System.out.println("partAudio != null");
+		String realPart = req.getServletContext().getRealPath("/data");
+		audio = FileData.add(partAudio, realPart); // tra ve null neu co form-group audio nhung ko tai len  
+ 		} 
+		System.out.println("audio: " +audio); 
+		
 		QuestionModel questionModel = new QuestionModel(typeQuestionID, testsID, questionContent, contentAnswerA,
-				contentAnswerB, contentAnswerC, ContentAnswerD, AnswerCorrect, AnswerExplain, OrderNumber, image);
+				contentAnswerB, contentAnswerC, ContentAnswerD, AnswerCorrect, AnswerExplain, OrderNumber, image, audio);
 		QuestionService.add(questionModel);
 		resp.sendRedirect(req.getContextPath() + "/teacher/question?testsID=" + testsID);
 	}
@@ -104,21 +118,40 @@ public class QuestionController extends HttpServlet {
 		String AnswerCorrect = req.getParameter("answerCorrect"); 
 		String AnswerExplain = req.getParameter("answerExplain");
 		int OrderNumber = Integer.parseInt(req.getParameter("orderNumber"));
-		String imageString = "";
-		Part partImageChange = req.getPart("imageChange");
-		System.out.println(partImageChange);
+		
+		String imageString = null;
+		// lay duong dan anh can sua ve
+		Part partImageChange = req.getPart("image");
+		System.out.println("partImageChange: " +partImageChange);
 		if (partImageChange != null) {
-			// xóa ảnh củ đi cu ơi ....
-			
-			// thêm ảnh mới vào
-			String realPartImageChange = req.getServletContext().getRealPath("/data"); 
-			imageString += FileData.add(partImageChange, realPartImageChange); 
+		// xóa ảnh củ đi cu ơi ....
+	
+		// thêm ảnh mới vào 
+		String realPartImageChange = req.getServletContext().getRealPath("/data"); 
+		imageString = FileData.add(partImageChange, realPartImageChange); 
 		}
-		else {
-			System.out.println("vao else");
-			imageString = req.getParameter("imageString");
+		// neu ma ko sua anh thi lay lai duong dan cu
+		if (imageString == null) {
+			imageString = req.getParameter("imageString"); 
 		}
-		QuestionModel questionModel = new QuestionModel(questionID, typeQuestionID, testsID, questionContent, contentAnswerA, contentAnswerB, contentAnswerC, ContentAnswerD, AnswerCorrect, AnswerExplain, OrderNumber, imageString);
+		
+		String audioString = null;
+		// lay duong dan audio can sua ve
+		Part partAudioChange = req.getPart("audio");
+		System.out.println("partAudioChange: " +partAudioChange);
+		if(partAudioChange != null) {
+		// xóa audio củ đi cu ơi ....
+	
+		// thêm audio mới vào 
+		String realPartAudioChange = req.getServletContext().getRealPath("/data"); 
+		audioString = FileData.add(partAudioChange, realPartAudioChange); // tra ve null neu ko sua
+		}    
+		// neu ma ko sua audio thi lay lai duong dan cu
+		if (audioString == null) {
+			audioString = req.getParameter("audioString"); 
+		} 
+		
+		QuestionModel questionModel = new QuestionModel(questionID, typeQuestionID, testsID, questionContent, contentAnswerA, contentAnswerB, contentAnswerC, ContentAnswerD, AnswerCorrect, AnswerExplain, OrderNumber, imageString, audioString);
 		QuestionService.edit(questionModel);   
 		resp.sendRedirect(req.getContextPath() + "/teacher/question?testsID=" + testsID); 
 	}

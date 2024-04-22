@@ -96,6 +96,19 @@ h1 {
 			QuestionModel[] arr = (QuestionModel[]) request.getAttribute("questionModels");
 
 			for (int index = first - 1; index < last; index++) {
+				Boolean check = false;
+				if (index == first - 1) {
+					check = true;
+				} else {
+					for (int indexCheck = index; indexCheck < last; indexCheck++) {
+						if (arr[indexCheck].getQuestionID() != 0) {
+						check = true;  
+						break;
+						}
+					}
+				}
+				System.out.println("cau: " + (index + 1) + " check: " + check);
+				if (check || (index > first - 1 && arr[index].getQuestionID() == 0 && arr[index - 1].getQuestionID() != 0)) {
 			%>
 			<div class="accordion" id="accordionExample">
 				<div class="card">
@@ -107,19 +120,14 @@ h1 {
 								data-toggle="collapse" data-target="#collapse<%=index%>"
 								aria-expanded="true" aria-controls="collapseOne">
 								<h3>
-
 									Câu
 									<%=index + 1%>.
-
-
+									
 								</h3>
-
 							</button>
 						</h2>
 					</div>
 				</div>
-
-
 				<div id="collapse<%=index%>" class="collapse collapsed cl"
 					aria-labelledby="heading<%=index%>" data-parent="#accordionExample">
 					<div class="card-body">
@@ -129,7 +137,8 @@ h1 {
 							<%} else {%>
 							action="/MVC/teacher/question/edit?testsID=<%=request.getParameter("testsID")%> "
 							<%}%>>
-							
+
+							<!-- loai cau hoi -->
 							<div class="form-group">
 								<label for="type<%=index%>">Loai Cau Hoi</label> <select
 									class="form-control custom-autofill-selected"
@@ -147,40 +156,100 @@ h1 {
 									%>
 								</select>
 							</div>
-							
-							<%if(i != 2 && i != 5 && i != 6) {%>
-							<%if(arr[index].getImage() == null || (arr[index].getImage()).equals("")){%>
-								<div class="form-group">
-									<label for="img<%=index%>">Anh Mo Ta</label> <input
-										id="img<%=index%>" name="image" type="file"
-										class="form-control" placeholder="anh mo ta">
-								</div>
-							<%}else{ %>
-								<div class="form-group">
-									<label for="img1<%=index%>">Anh Mo Ta</label> 
-									<img alt="anh mo ta" src="/MVC/<%=arr[index].getImage()%>">
-								</div>
-								<div class="form-group">
-									<input type="hidden" name="imageString" value="<%=arr[index].getImage()%>">
-								</div>
-								<div class="form-group">
-									<label for="img2<%=index%>">Thay Doi Anh Mo Ta</label> 
-									<input
-										id="img2<%=index%>" name="imageChange" type="file"
-										class="form-control" placeholder="thay doi anh mo ta">
-								</div> 
-							<%} %>
+
+							<!-- audio -->
+							<%
+							if (i == 1 || i == 2 || ((i == 3 || i == 4) && (index + 1 - 32) % 3 == 0)) {
+							%>
+							<%
+							if (arr[index].getAudio() == null || (arr[index].getAudio()).equals("")) {
+							%>
+							<div class="form-group">
+								<label for="img<%=index%>">Audio</label> <input
+									id="Audio<%=index%>" name="audio" type="file"
+									class="form-control" placeholder="Audio" required="required">
+							</div>
+							<%
+							} else {
+							%>
+							<div class="form-group">
+								<label for="Audio1<%=index%>">Audio</label> <br>
+								<audio controls>
+									<source src="/MVC/<%=arr[index].getAudio()%>" type="audio/mpeg">
+								</audio>
+							</div>
+							<div class="form-group">
+								<input type="hidden" name="audioString"
+									value="<%=arr[index].getAudio()%>">
+							</div>
+							<div class="form-group">
+								<label for="Audio2<%=index%>">Thay Doi Audio</label> <input
+									id="Audio2<%=index%>" name="audio" type="file"
+									class="form-control" placeholder="thay doi audio">
+							</div>
+							<%
+							}
+							}
+							%>
+
+							<!-- anh mo ta -->
+							<%
+							if (i == 1 || i == 7 || ((i == 3 || i == 4) && (index + 1 - 32) % 3 == 0)|| (i == 6 && (index + 1 - 131)% 4 == 0)) {
+							%>
+							<%
+							if ((arr[index].getImage() == null || (arr[index].getImage() != null && (arr[index].getImage()).equals("")))) {
+							%>
+							<div class="form-group">
+								<label for="img<%=index%>">Anh Mo Ta</label> <input
+									id="img<%=index%>" name="image" type="file"
+									class="form-control" placeholder="anh mo ta" <%if (i == 1) {%>
+									required="required" <%}%>>
+							</div>
+							<%
+							} else {
+							%>
+							<div class="form-group">
+								<label for="img1<%=index%>">Anh Mo Ta</label> <img
+									style="width: 100%;" alt="anh mo ta"
+									src="/MVC/<%=arr[index].getImage()%>">
+							</div>
+							<div class="form-group">
+								<input type="hidden" name="imageString"
+									value="<%=arr[index].getImage()%>">
+							</div>
+							<div class="form-group">
+								<label for="img2<%=index%>">Thay Doi Anh Mo Ta</label> <input
+									id="img2<%=index%>" name="image" type="file"
+									class="form-control" placeholder="thay doi anh mo ta">
+							</div>
+							<%
+							}
+							}
+							%>
+
+							<!-- testsID -->
 							<div class="form-group">
 								<input type="hidden" name="testsID"
 									value="<%=request.getParameter("testsID")%>">
 							</div>
-							<% }%>
+
+							<!-- nội dung câu hỏi -->
+							<%
+							if (i == 3 || i == 4 || i == 5 || i == 7) {
+							%>
 							<div class="form-group">
 								<label for="content<%=index%>">Noi Dung Cau Hoi</label>
 								<textarea name="questionContent" class="form-control"
 									id="content<%=index%>" rows="2"><%=arr[index].getQuestionContent()%></textarea>
 							</div>
+							<%
+							}
+							%>
 
+							<!-- nội dung đáp án -->
+							<%
+							if (i == 3 || i == 4 || i == 5 || i == 6 || i == 7) {
+							%>
 							<div class="form-group">
 								<label for="answerA<%=index%>">Noi Dung Dap An A</label> <input
 									type="text" class="form-control" id="answerA<%=index%>"
@@ -208,6 +277,10 @@ h1 {
 									aria-describedby="emailHelp" name="contentAnswerD"
 									value="<%=arr[index].getContentAnswerD()%>">
 							</div>
+							<%
+							}
+							%>
+							<!-- đáp án đúng -->
 							<div class="form-group">
 								<label for="answerCorrect<%=index%>">Dap An Dung</label> <select
 									class="form-control custom-autofill-selected"
@@ -221,21 +294,31 @@ h1 {
 									<option value="C"
 										<%if ((arr[index].getAnswerCorrect()).equals("C")) {%>
 										selected="selected" <%}%>>C</option>
+									<%
+									if (i != 2) {
+									%>
 									<option value="D"
 										<%if ((arr[index].getAnswerCorrect()).equals("D")) {%>
 										selected="selected" <%}%>>D</option>
+									<%
+									}
+									%>
 								</select>
 							</div>
 
+							<!-- giải thích -->
 							<div class="form-group">
 								<label for="explain<%=index%>">Giai Thich</label>
 								<textarea name="answerExplain" class="form-control"
 									id="explain<%=index%>" rows="2"><%=arr[index].getAnswerExplain()%></textarea>
 							</div>
 
+							<!-- ordernumber -->
 							<div class="form-group">
 								<input name="orderNumber" type="hidden" value="<%=index + 1%>">
 							</div>
+
+							<!-- questionID -->
 							<div class="form-group">
 								<input name="questionID" type="hidden"
 									value="<%=arr[index].getQuestionID()%>">
@@ -275,6 +358,7 @@ h1 {
 				</div>
 			</div>
 			<%
+			}
 			}
 			%>
 		</div>

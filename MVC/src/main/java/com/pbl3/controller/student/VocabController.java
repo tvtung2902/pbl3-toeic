@@ -27,7 +27,7 @@ public class VocabController extends HttpServlet {
                 System.out.println("goi case /vocab-lists/vocab/review - doget");
                 review(req, resp);
                 break;
-            }
+            } 
 
             case "/vocab-lists/vocab/create": {
                 System.out.println("goi case /vocab-lists/vocab/create - doget");
@@ -64,6 +64,10 @@ public class VocabController extends HttpServlet {
         for (VocabModel vocabModel : vocabModels) {
             System.out.println(vocabModel.getVocabID());
         }
+        VocabListsModel vocabListsModel=VocabListsService.find(listID);
+        int number=VocabListsService.count(listID);
+        req.setAttribute("number", number);
+        req.setAttribute("vocablistmodel",vocabListsModel );
         req.setAttribute("listID", listID);
         req.setAttribute("vocabModels", vocabModels);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/student/vocab-lists/vocab/vocab.jsp");

@@ -34,7 +34,7 @@ public class VocabService extends BaseService{
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			return vocabModels;
+			return vocabModels; 
 		}
 		
 		//add 
@@ -106,5 +106,5 @@ public class VocabService extends BaseService{
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-	}
+		}
 }

@@ -48,7 +48,7 @@ public class VocabListsService extends BaseService{
 			preparedStatement.setInt(2, vocabListsModel.getUserID());
 			if (vocabListsModel.getCourseID() != null) {
 			    preparedStatement.setInt(3, vocabListsModel.getCourseID());
-			} else { 
+			} else {
 			    preparedStatement.setObject(3, null);
 			}
 			preparedStatement.setString(4, vocabListsModel.getNameList());
@@ -59,6 +59,7 @@ public class VocabListsService extends BaseService{
 		}
 	}
 	
+	// delete 
 	// delete
 			public static void delete (int listID) {
 				try {
@@ -84,19 +85,42 @@ public class VocabListsService extends BaseService{
 					e.printStackTrace();
 				}
 			}
-	// count all vocab in 1 list
-			public static int count (int listID) {	
+		//find
+			public static VocabListsModel find(int ListID) {
+				VocabListsModel vocabListsModel= new VocabListsModel();
 				try {
 					Connection connection = getConnection();
-					PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM vocabulary WHERE listID = ?;"); 
-					preparedStatement.setInt(1, listID);
-					ResultSet resultSet = preparedStatement.executeQuery();
-					resultSet.next();
-					int countVocab = resultSet.getInt(1);
-					return countVocab;
-				} catch (SQLException e) {
+					PreparedStatement preparedStatement = connection.prepareStatement("Select * from vocabularylist where ListID =?");
+					preparedStatement.setInt(1, ListID);
+					ResultSet resultSet =preparedStatement.executeQuery();
+					if(resultSet.next()) {
+						vocabListsModel.setListID(ListID);
+						vocabListsModel.setCourseID(resultSet.getInt("CourseID"));
+						vocabListsModel.setNameList(resultSet.getString("NameList"));
+						vocabListsModel.setDescription(resultSet.getString("Description"));
+						vocabListsModel.setUserID(resultSet.getInt("UserID"));
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
 					e.printStackTrace();
 				}
-				return 0;
+				return vocabListsModel;
+			}
+			//find
+			public static int count(int ListID) {
+				int k=0;
+				try {
+					Connection connection = getConnection();
+					PreparedStatement preparedStatement = connection.prepareStatement("Select count(*) from vocabulary where ListID =?");
+					preparedStatement.setInt(1, ListID);
+					ResultSet resultSet =preparedStatement.executeQuery();
+					if(resultSet.next()) {
+						k=resultSet.getInt(1);
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+				return k;
 			}
 }

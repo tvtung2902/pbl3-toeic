@@ -119,34 +119,80 @@
         /* .section-one{
             background-color: #F4F7FA;
         } */
+     .inner-imgbanner {
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+      }
+     .inner-imgbanner img{
+            width: 100%;  
+            aspect-ratio: 20/3;
+            object-fit: cover;
+            border-radius: 10px;
+        }
     .inner-title{
         margin-top: 50px;
         color: black;
         font-size: 32px;
         font-weight: 600;
+        margin-bottom:0px;
     }
+  .section-one .inner-button button {
+  background-image: linear-gradient(#f7f8fa ,#e7e9ec);
+  border-color: #adb1b8 #a2a6ac #8d9096;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  box-shadow: rgba(255,255,255,.6) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #0f1111;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  height: 29px;
+  font-size: 13px;
+  outline: 0;
+  overflow: hidden;
+  padding: 0 11px;
+  text-align: center;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.section-one .inner-button button:active {
+  border-bottom-color: #a2a6ac;
+}
+
+.section-one .inner-button button:active:hover {
+  border-bottom-color: #a2a6ac;
+}
+
+.section-one .inner-button button:hover {
+  border-color: #a2a6ac #979aa1 #82858a;
+}
+
+.section-one .inner-button button:focus {
+  border-color: var(--color-one);
+  box-shadow: rgba(124, 255, 143, 0.5) 0 0 3px 2px;
+  outline: 0;
+} 
     .inner-desc{
+    	margin:0;
+    	margin-top:10px;
         font-size: 16px;
     }
 
-    .insert{
-        margin-top: 20px;
-        display: inline-block;
-        padding: 7px 25px;
-        background:var(--color-one);
-        color: #fff;
-        border: 2px solid #fff;
-        border-radius: 10px;
-        font-weight: 600;
-        border: 1px solid #fff;
-    }
     .insert:hover{
         background: #fff;
         border-color: var(--color-one) ;
         color: #00a463;
     }
     .inner-train{
-        margin-top: 50px;
+        margin-top: 25px;
         display: inline-block;
         width: 100%;
         background: #dcffe3 ;
@@ -174,7 +220,7 @@
         padding-bottom: 100px;
     }
     body{
-        background-color: #F4F7FA;
+        background-color: #FBFBF8;
     }
     .vocab .inner-wrap{
         padding: 10px;
@@ -324,6 +370,52 @@
         border-radius: 10px;
         border: 1px solid #eee;
     }
+    
+    
+             .modal-edit-list .modal .modal-header{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: var(--color-one);
+            }
+            .modal-edit-list .modal-header h5{
+                color: var(--color-two);
+                font-size: 25px;
+                font-weight: 800;
+                margin: 0;
+            }
+            .modal-edit-list .close{
+                position: absolute;
+                top: 0;
+                right: 0;
+                font-size: 30px;
+            }
+            .modal-edit-list .close:hover{
+                color: red;
+            }
+            .modal-edit-list .modal .form-group{
+                display: inline-flex;
+                flex-direction: column;
+                padding-left: 10%;
+            }
+            .modal-edit-list .modal .form-group label{
+                color: var(--color-two);
+            }
+            .modal-edit-list .modal .form-group input{
+                margin-bottom: 20px;
+            }
+            .modal-edit-list .modal .form-group textarea{
+                margin-bottom: 20px;
+            }
+            .modal-edit-list .modal button{
+                background-color: var(--color-one);
+                border: 0;
+                padding:5px 20px;
+                border-radius: 20px;
+            }
+            .modal-edit-list .modal-header h5{
+                position: static;
+            }
 
 
 
@@ -397,4 +489,4 @@
                 font-weight: 400;
                 margin: 0;
             }
-            /*end footer */ 
+            /*end footer */

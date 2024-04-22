@@ -12,8 +12,9 @@ public class QuestionModel {
 	private String AnswerCorrect;
 	private String AnswerExplain;
 	private int OrderNumber;
-	TypeQuestionModel typeQuestionModel;
+	private TypeQuestionModel typeQuestionModel;
 	private String image;
+	private String audio;
 	
 	public QuestionModel() {
 		questionID = 0;
@@ -29,11 +30,12 @@ public class QuestionModel {
 		OrderNumber = 0;
 		typeQuestionModel = new TypeQuestionModel(0, "", 0);  
 		image = "";
+		audio = "";
 	}
 
 	public QuestionModel(int questionID, Integer typeQuestionID, Integer testID, String questionContent,
 			String contentAnswerA, String contentAnswerB, String contentAnswerC, String contentAnswerD,
-			String answerCorrect, String answerExplain, int orderNumber, TypeQuestionModel typeQuestionModel, String image) {
+			String answerCorrect, String answerExplain, int orderNumber, TypeQuestionModel typeQuestionModel, String image, String audio) {
 		super();
 		this.questionID = questionID;
 		this.typeQuestionID = typeQuestionID;
@@ -48,6 +50,7 @@ public class QuestionModel {
 		this.OrderNumber = orderNumber;
 		this.typeQuestionModel = typeQuestionModel;
 		this.image = image;
+		this.audio = audio;
 	}
 
 	public QuestionModel(Integer typeQuestionID, Integer testID, String questionContent, String contentAnswerA,
@@ -60,16 +63,16 @@ public class QuestionModel {
 		this.contentAnswerA = contentAnswerA; 
 		this.contentAnswerB = contentAnswerB;
 		this.contentAnswerC = contentAnswerC;
-		ContentAnswerD = contentAnswerD;
-		AnswerCorrect = answerCorrect;
-		AnswerExplain = answerExplain;
-		OrderNumber = orderNumber;
+		this.ContentAnswerD = contentAnswerD;
+		this.AnswerCorrect = answerCorrect;
+		this.AnswerExplain = answerExplain;
+		this.OrderNumber = orderNumber;
 		this.typeQuestionModel = typeQuestionModel;
 	}
 
 	public QuestionModel(int questionID, Integer typeQuestionID, Integer testID, String questionContent,
 			String contentAnswerA, String contentAnswerB, String contentAnswerC, String contentAnswerD,
-			String answerCorrect, String answerExplain, int orderNumber, String image) {
+			String answerCorrect, String answerExplain, int orderNumber, String image, String audio) {
 		super();
 		this.questionID = questionID;
 		this.typeQuestionID = typeQuestionID;
@@ -78,16 +81,17 @@ public class QuestionModel {
 		this.contentAnswerA = contentAnswerA;
 		this.contentAnswerB = contentAnswerB;
 		this.contentAnswerC = contentAnswerC;
-		ContentAnswerD = contentAnswerD;
-		AnswerCorrect = answerCorrect;
-		AnswerExplain = answerExplain;
-		OrderNumber = orderNumber;
+		this.ContentAnswerD = contentAnswerD;
+		this.AnswerCorrect = answerCorrect;
+		this.AnswerExplain = answerExplain;
+		this.OrderNumber = orderNumber;
 		this.image = image;
+		this.audio = audio;
 	}
 
 	public QuestionModel(Integer typeQuestionID, Integer testID, String questionContent, String contentAnswerA,
 			String contentAnswerB, String contentAnswerC, String contentAnswerD, String answerCorrect,
-			String answerExplain, int orderNumber, String image) {
+			String answerExplain, int orderNumber, String image, String audio) {
 		super();
 		this.typeQuestionID = typeQuestionID; 
 		this.testID = testID;
@@ -95,11 +99,20 @@ public class QuestionModel {
 		this.contentAnswerA = contentAnswerA;
 		this.contentAnswerB = contentAnswerB;
 		this.contentAnswerC = contentAnswerC;
-		ContentAnswerD = contentAnswerD;
-		AnswerCorrect = answerCorrect;
-		AnswerExplain = answerExplain;
-		OrderNumber = orderNumber;
+		this.ContentAnswerD = contentAnswerD;
+		this.AnswerCorrect = answerCorrect;
+		this.AnswerExplain = answerExplain;
+		this.OrderNumber = orderNumber;
 		this.image = image;
+		this.audio = audio; 
+	}
+	
+	public String getAudio() {
+		return audio;
+	}
+
+	public void setAudio(String audio) {
+		this.audio = audio;
 	}
 
 	public String getImage() {
