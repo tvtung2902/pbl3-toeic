@@ -79,10 +79,10 @@
                 <div class="inner-user">
                     <a href="/MVC/my-account">
                         <div class="inner-img">
-                        	<img src="https://cdn.pixabay.com/photo/2024/04/18/15/06/ai-generated-8704487_1280.jpg"  alt="avatar">   
-                        </div>
+                        	<img src="https://scontent.fdad3-1.fna.fbcdn.net/v/t1.15752-9/438271424_363628142750726_982160961036786015_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHkYs5D6zVd2CobOzv17Q-CghzjkuK_nIiCHOOS4r-ciPpq3LA3YzM8SDgsA1cd9eiwpRC36kSmzjm0TzN1lUsC&_nc_ohc=poSTrCaVAV0Ab7PCeUg&_nc_ht=scontent.fdad3-1.fna&oh=03_Q7cD1QEqPf93u7Qm4giDR7jfyN0LaJfqodwt601AMFz9Bqc6hA&oe=664ED094"  alt="avatar">   
+                        </div> 
                     </a> 
-                </div> 
+                </div>    
             </div>
         </div>
     </div>

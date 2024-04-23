@@ -32,55 +32,64 @@
   	
   	<% VocabListsModel vocabListsModel=(VocabListsModel)request.getAttribute("vocablistmodel");
   		int number=(int)request.getAttribute("number");
-  	%>
+  	%> 
   	
     <div class="container">
         <div class="row">
            <div class="col-12">
                 <div class="inner-imgbanner">
-                    <img src="https://plus.unsplash.com/premium_photo-1682125773446-259ce64f9dd7?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-                </div>  
+                    <img src="https://images.unsplash.com/photo-1648061557966-8e30f972f0be?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                </div>
             </div>
             <div class="col-xl-8">
                 <div class="row">
                     <div class="col-12">
-                        <div class="section-one">
+                        <div class="section-one"> 
                             <div class="container">
-                                <!-- lấy tên và mô tả từ dâtbase -->
+                                <!-- lấy tên và mô tả từ database -->
                               <div class="inner-title">
                                   <h1><%=vocabListsModel.getNameList() %></h1>      
                               </div>
-                              <div class="inner-button">
-                                    <button class="insert" data-toggle="modal" data-target="#insert-vocab">Thêm từ vựng</button>
-                                    <button class="edit-list" data-toggle="modal" data-target="#edit-list">Sửa danh sách</button>  
-                                    <button class="delete-list" data-toggle="modal" data-target="#delete-list">Xóa danh sách</button>  
-                                </div>
+                              <div>  
+                                    <button class="button-main button-main-two button-list" data-toggle="modal" data-target="#insert-vocab">Thêm từ vựng</button>
+                                    <button class="button-main button-main-two button-list" data-toggle="modal" data-target="#edit-list">Sửa danh sách</button>  
+                                    <button class="button-main button-main-two button-list" data-toggle="modal" data-target="#delete-list">Xóa danh sách</button>  
+                                </div> 
                               <div class="inner-desc">
                                   <p><%=vocabListsModel.getDescription() %></p>
                               </div>
                       
                               <!-- button  -->
-                                  <a href="vocab/review?listID=<%=request.getAttribute("listID")%>"class="inner-train">Luyện tập</a>
-                              
+                              <%if(number>0) {%><a href="vocab/review?action=learn&listID=<%=request.getAttribute("listID")%>"class="button-main button-main-one button-train" >Luyện tập</a> <%} %>
+                               
                               <!-- đếm số từ trong db -->
                               <div class="inner-number">
+                              <%if(number>0){ %>
                                   <p>Danh sách có <%=number %> từ</p>
+                                  <%}else {%>
+                                  <p>Chưa có từ vựng nào trong danh sách.</p>
+                                  <%} %>
                               </div>
                           </div>
                         </div>
                     </div>
                     <%
-					int i = 0;
-					for (VocabModel v : (LinkedList<VocabModel>) request.getAttribute("vocabModels")) {
+			int i = 0;
+			for (VocabModel v : (LinkedList<VocabModel>) request.getAttribute("vocabModels")) {
 
-						i++;
+					i++;
 					%>
                     <div class="col-12">
                         <div class="vocab">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-12">
-                                        <div class="inner-wrap">
+                                        <div class="inner-wrap" <%if(v.getStatus()) {%> style="
+   											 /* border: 1px solid #eee; */
+   											 border: green;
+   											 border: 1px solid #0EDC8D;
+    										 box-shadow: 0 4px 0 0 rgba(20, 220, 120, 0.893);
+										"<%} %>>
                                             <div class="inner-main">
                                                 <div class="inner-content">
                                                     <h2 class="english-mean"><%=v.getVocab()%> ( <%=v.getWordType()%> )
@@ -91,108 +100,63 @@
                                                     data-target="#edit-vocab<%=i%>">
                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                     </a>
-                                                      <div class="modal-edit">
-        <!-- Modal sửa -->
-<!-- <div class="modal fade modal-form" id="exampleModal<%=i%>" -->
-            <div class="modal fade modal-form" id="edit-vocab<%=i%>"
-
-            tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-
-                        <h5 class="inner-title" id="exampleModalsua">Sửa từ vựng</h5>
-                        <p class="inner-desc"></p>
-                        <button type="button" class="close" data-dismiss="modal"
-                            aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post"
-                             action="/MVC/vocab-lists/vocab/edit?listID=<%=request.getParameter("listID")%>">
-                            <div class="row">
-                                <div class="col-12">
-
-                                    <div class="form-group">
-                                        <input name="vocabID" type="hidden" class="form-control"
-                                             value="<%=v.getVocabID()%>">
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input name="vocab" type="text" class="form-control"
-                                            placeholder="Nghia tieng anh" value="<%=v.getVocab()%>">
-
-                                    </div>
-                                    <div class="form-group">
-                                        <input name="mean" type="text" class="form-control"
-                                            placeholder="Nghia tieng viet" value="<%=v.getMean()%>">
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input name="wordType" type="text" class="form-control"
-                                            placeholder="Tu Loai" value="<%=v.getWordType()%>">
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input name="wordType" type="text" class="form-control"
-                                            placeholder="Từ loại" value="<%=v.getWordType()%>">
-                                    </div>
-
-                                    <textarea name="example" id="" cols="30" rows="10" value=""><%=v.getExample()%></textarea>
-
-                                    <label >Ảnh mô tả:</label>
-                                        <div class="form-group">
-                                            <input name="file" type="file" class="form-control"
-                                                placeholder="file" value="">
-    
-                                        </div>
-
-                                    <button class="button">Sửa</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            </div>
-         </div>
-                                                    
-                                                    
                                                     <audio class="myAudio" src="https://dict.youdao.com/dictvoice?audio=<%=v.getVocab()%>&type=1" type="audio/mpeg" controls></audio>
                                                     </h2>
+                                                    <p>/<%=v.getPronunciation()%>/</p> 
                                                     <h3>Định nghĩa:
                                                     </h3>
                                                     <p><%=v.getMean()%></p>
                                                     <div class="inner-ex">
                                                         <h3>Ví dụ</h3>
+                                                        <%String[] parts = (v.getExample()).split("\\n"); %>
                                                         <ul>
-                                                            <li>
-                                                                <p> <%=v.getExample()%></p>
-                                                            </li>
-                                                            <li>
-                                                                <p> <%=v.getExample()%></p>
-                                                            </li>
+                                                            <%for(String str : parts) {%>
+                                                            	<li>
+                                                            		<%=str%>
+                                                            	</li>	
+                                                            <%} %>
                                                         </ul>
                                                     </div>
-                                                </div>
+                                                </div> 
+                                                <%if(v.getImage() == null) {%>
                                                 <div class="inner-img">
                                                     <img src="https://e-talk.vn/wp-content/uploads/2019/04/cach-hoc-tu-vung-tieng-anh-sieu-toc-1024x1024.png" alt="Anhmota">
                                                 </div>
+                                                <%} else { %>
+                                                <div class="inner-img">
+                                                    <img src="/MVC/<%=v.getImage()%>" alt="Anhmota">
+                                                </div>	
+                                                <%}
+                                                 %>
                                              </div>
-                                            <div class="delete">
-                                                <form
+                                            <div class="delete" <%if(v.getStatus()) {%> style="justify-content: space-between; display: flex;" <%} %>>
+                                              <%if(v.getStatus()) {%><i class="fa-solid fa-circle-check" style="
+												    font-weight: 200;
+												    color: var(--color-one);
+												    margin-left: 10px;  
+											  "></i><%} %> 
+                                              <form
                                                 action="/MVC/vocab-lists/vocab/delete?vocabID=<%=v.getVocabID()%>&listID=<%=request.getParameter("listID")%>"
                                                 method="post">
-                                                <input class="button-submit" type="submit" value="Xóa" />
-                                                <label for="submit">
+                                                    <a data-toggle="modal" data-target="#delete-vocab" >
                                                     <i class="fa-solid fa-trash-can"></i>
-                                                </label>
-                                            </form>
+                                                    </a>
+                                                          <div class="modal-delete-vocab">
+													        <!-- modal-deletelist  -->
+													    <div class="modal fade" id="delete-vocab" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+													        <div class="modal-dialog">
+													          <div class="modal-content">
+													            <div class="modal-body"style="text-align: left;">Bạn chắc chắn muốn xóa từ này?
+													            </div>
+													            <div class="modal-footer">
+													              <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+													              <button type="submit" class="btn btn-danger">Xóa</button>
+													            </div>
+													          </div>
+													        </div>
+													      </div>
+													    </div>
+                                           	 </form>
                                             </div>
                                         </div>
                                     </div>
@@ -200,6 +164,52 @@
                             </div>
                         </div>
                     </div>
+                            <div class="modal fade modal-form" id="edit-vocab<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="modal-header">
+                        <h5 class="inner-title" id="add-listvocab">Sửa từ vựng</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" enctype="multipart/form-data" action="/MVC/vocab-lists/vocab/edit?listID=<%=request.getParameter("listID")%>">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input name="vocabID" type="hidden" class="form-control" value="<%=v.getVocabID()%>">
+                                        <label for="vocab">Nghĩa tiếng Anh:</label>
+                                        <input id="vocab" name="vocab" type="text"  value="<%=v.getVocab()%>">
+                                        <label for="mean">Định nghĩa:</label>
+                                        <input id="mean" name="mean" type="text"  value="<%=v.getMean()%>">
+                                        <label for="type">Từ loại:</label>
+                                        <input id="type" name="wordType" type="text" value="<%=v.getWordType()%>">
+                                        <label for="phien-am">Phiên âm:</label>
+                                        <input id="phien-am" name="pronunciation" type="text" value="<%=v.getPronunciation()%>">
+                                        <label for="example">Ví dụ:</label>
+                                        <textarea id="example" name="example"><%=v.getExample()%></textarea> 
+                                        <%if(v.getImage() != null) {%>
+									    <a href="/MVC/<%=v.getImage()%>" target="_blank" style="text-decoration: underline;">Ảnh hiện tại</a>
+									    <input type="checkbox" name="deleteImage" value="yes" id="deleteImageID">
+									    <label for="deleteImageID">Xóa</label>
+									    <input type="hidden" name="imageString" value="<%=v.getImage()%>">
+									    <label for="anh">Thay đổi ảnh mô tả:</label>
+									    <input id="anh" type="file" name="image">                          
+                                        <%} else{ %> 
+                                        <label for="anh">Ảnh mô tả:</label>
+                                        <input id="anh" type="file" name="image">
+                                        <%}%> 
+                                        <button class="submit">Sửa</button>
+                                    </div> 
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
              <%
 			}
 			%>
@@ -227,12 +237,13 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-              <a href="delete?listID=<%=vocabListsModel.getListID()%>"><button type="button" class="btn btn-primary">Xóa</button></a>
+              <a href="delete?listID=<%=vocabListsModel.getListID()%>"><button type="button" class="btn btn-danger">Xóa</button></a>
             </div>
           </div>
         </div>
       </div>
     </div>
+    
     
     
     <div class="modal-edit-list">
@@ -255,13 +266,13 @@
                                                          <div class="form-group">
                                                          	 <input type="hidden" name="listID" value="<%=vocabListsModel.getListID()%>">
                                                          	 <input type="hidden" name="userID" value="<%=vocabListsModel.getUserID()%>">
-                                                         	 <input type="hidden" name="CourseID" value="<%=vocabListsModel.getCourseID()%>">
+                                                         	 <input type="hidden" name="CourseID" value="<%=vocabListsModel.getLessionID()%>">
                                                              <label for="ten">Tên danh sách:</label>
                                                              <input id="ten" name="nameList" type="text" required value="<%=vocabListsModel.getNameList()%>">
                                                              <label for="mo-ta">Mô tả:</label>
                                                              <textarea id="mo-ta" name="description"><%=vocabListsModel.getDescription()%></textarea>
                                                              <label for="anh">Ảnh mô tả:</label>
-                                                             <input id="anh" type="file" name="pic">
+                                                             <input id="anh" type="file" name="pic"> 
                                                              <button class="button">Sửa</button>
                                                          </div>
                                                      </div>
@@ -272,77 +283,45 @@
                                  </div>
                              </div>
 </div>
-         <div class="modal-insert">
-            <!-- Modal thêm -->
-    <!-- <div class="modal fade modal-form" id="exampleModal<%=i%>" -->
-                <div class="modal fade modal-form" id="insert-vocab"
-    
-                tabindex="-1" aria-labelledby="exampleModalLabel"
+             
+              <div class="modal-insert">
+            <div class="modal fade modal-form" id="insert-vocab" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         <div class="modal-header">
-    
-                            <h5 class="inner-title" id="exampleModalLabel">Thêm từ vựng</h5>
-                            <p class="inner-desc"></p>
-                            <button type="button" class="close" data-dismiss="modal"
-                                aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <h5 class="inner-title" id="add-listvocab">Thêm từ vựng</h5>
                         </div>
                         <div class="modal-body">
-                            <form method="post"
-                                action="/MVC/vocab-lists/vocab/create?listID=<%=request.getParameter("listID")%>">
+                            <form enctype="multipart/form-data" method="post" action="/MVC/vocab-lists/vocab/create?listID=<%=request.getParameter("listID")%>">
                                 <div class="row">
                                     <div class="col-12">
-    
                                         <div class="form-group">
-                                            <input name="vocabID" type="hidden" class="form-control"
-                                                 value="">
-    
+                                            <input name="vocabID" type="hidden" class="form-control" value="">
+                                            <label for="vocab">Nghĩa tiếng Anh*:</label>
+                                            <input id="vocab" name="vocab" type="text" required>
+                                            <label for="mean">Định nghĩa*:</label>
+                                            <input id="mean" name="mean" type="text" required>
+                                            <label for="type">Từ loại:</label>
+                                            <input id="type" name="wordType" type="text">
+                                            <label for="phien-am">Phiên âm:</label>
+                                            <input id="phien-am" name="pronunciation" type="text">
+                                            <label for="example">Ví dụ:</label>
+                                            <textarea id="example" name="example"></textarea>
+                                            <label for="anh">Ảnh mô tả:</label>
+                                            <input id="anh" type="file" name="image">
+                                            <button class="submit">Thêm</button>
                                         </div>
-    
-                                        <div class="form-group">
-                                            <input name="vocab" type="text" class="form-control"
-                                                placeholder="Nghĩa tiếng anh" value="">
-    
-                                        </div>
-                                        <div class="form-group">
-                                            <input name="mean" type="text" class="form-control"
-                                                placeholder="Nghĩa tiếng việt" value="">
-    
-                                        </div>
-    
-                                        <div class="form-group">
-                                            <input name="wordType" type="text" class="form-control"
-                                                placeholder="Từ loại" value="">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input name="phien-am" type="text" class="form-control"
-                                                placeholder="Phiên âm" value="">
-    
-                                        </div>
-
-    
-                                        <textarea name="example" id="" cols="30" rows="10" value=""></textarea>
-
-                                        <label >Ảnh mô tả:</label>
-                                        <div class="form-group">
-                                            <input name="file" type="file" class="form-control"
-                                                placeholder="file" value="">
-    
-                                        </div>
-    
-                                        <button class="button">Thêm</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                </div>
-             </div>
+            </div>
 
         <!-- <footer> -->
             <footer>

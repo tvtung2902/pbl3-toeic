@@ -18,7 +18,7 @@ public class QuestionModel {
 	
 	public QuestionModel() {
 		questionID = 0;
-		typeQuestionID = 0;
+		typeQuestionID = 0;      
 		testID = 0;
 		questionContent = "";
 		contentAnswerA = "";

@@ -1,8 +1,0 @@
-package com.pbl3.controller.teacher;
-
-import jakarta.servlet.annotation.WebServlet;
-
-@WebServlet(urlPatterns = { "/tests/create", "/tests/edit", "/tests/delete" })
-public class TestController {
-
-}

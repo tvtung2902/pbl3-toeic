@@ -3,28 +3,27 @@ package com.pbl3.model;
 public class VocabListsModel {
 	private int listID;
 	private int userID;
-	private Integer courseID; // dung Integer vi co the null
+	private Integer lessionID; // dung Integer vi co the null
 	private String nameList;
 	private String description;
-	private int numberQuestion;
 	
 	public VocabListsModel () {
 		
 	}
 	
-	public VocabListsModel(int userID, Integer courseID, String nameList, String description) {
+	public VocabListsModel(int userID, Integer lessionID, String nameList, String description) {
 		super();
 		this.userID = userID;
-		this.courseID = courseID;
+		this.lessionID = lessionID;
 		this.nameList = nameList;
 		this.description = description;
 	}
 
-	public VocabListsModel(int listID, int userID, Integer courseID, String nameList, String description) {
+	public VocabListsModel(int listID, int userID, Integer lessionID, String nameList, String description) {
 		super();
 		this.listID = listID;
 		this.userID = userID;
-		this.courseID = courseID;
+		this.lessionID = lessionID;
 		this.nameList = nameList;
 		this.description = description;
 	}
@@ -45,12 +44,12 @@ public class VocabListsModel {
 		this.userID = userID;
 	}
 
-	public Integer getCourseID() {
-		return courseID;
+	public Integer getLessionID() {
+		return lessionID;
 	}
 
-	public void setCourseID(Integer courseID) {
-		this.courseID = courseID;
+	public void setLession(Integer lessionID) {
+		this.lessionID = lessionID;
 	}
 
 	public String getNameList() {

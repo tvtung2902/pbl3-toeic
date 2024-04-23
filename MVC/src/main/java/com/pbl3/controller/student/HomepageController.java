@@ -1,13 +1,11 @@
 package com.pbl3.controller.student;
 
-import java.io.IOException;
-
-import com.pbl3.libs.MD5;
+import java.io.IOException; 
+import com.pbl3.libs.*;
 import com.pbl3.model.AccountModel;
 import com.pbl3.model.UserModel;
 import com.pbl3.service.AccountService;
 import com.pbl3.service.UserService;
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

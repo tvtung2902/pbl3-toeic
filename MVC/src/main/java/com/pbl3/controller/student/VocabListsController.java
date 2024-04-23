@@ -128,4 +128,3 @@ public class VocabListsController extends HttpServlet{
 	}
 	
 }
- 
