@@ -3,21 +3,25 @@ package com.pbl3.controller.teacher;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import com.pbl3.libs.FileData;
 import com.pbl3.model.QuestionModel;
 import com.pbl3.model.TestsModel;
 import com.pbl3.model.UserModel;
-import com.pbl3.service.QuestionService;
+import com.pbl3.service.TypeOneQuestionService;
 import com.pbl3.service.TestsService;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
-@WebServlet(urlPatterns = { "/teacher/tests", "/teacher/tests/create", "/teacher/tests/edit", "/teacher/tests/delete" }) 
+import jakarta.servlet.http.Part;
+ 
+@MultipartConfig
+@WebServlet(urlPatterns = { "/teacher/tests", "/teacher/tests/create", "/teacher/tests/edit", "/teacher/tests/delete", "/teacher/tests/edit-audio"}) 
 public class TestController extends HttpServlet{ 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -52,6 +56,22 @@ public class TestController extends HttpServlet{
 		
 	}
 	
+	protected void editAudio(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	    System.out.println("Gọi hàm editAudio");
+		Part partAudio = req.getPart("audio"); 
+		String audio = null;
+		// neu co form-group audio (kh phai phan doc) 
+		if (partAudio != null) { 
+		System.out.println("partAudio != null");
+		String realPart = req.getServletContext().getRealPath("/data");
+		audio = FileData.add(partAudio, realPart); // tra ve null neu co form-group audio nhung ko tai len  
+		}
+		int testsID = Integer.parseInt(req.getParameter("testsID"));
+		TestsModel testsModel = new TestsModel(testsID, audio);
+		TestsService.editAudio(testsModel);
+		resp.sendRedirect(req.getContextPath() + "/teacher/question?testsID=" + testsID);   
+	}
+	
 	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	    System.out.println("Gọi hàm delete");
 	  
@@ -77,6 +97,11 @@ public class TestController extends HttpServlet{
 			delete(req, resp);
 			break;
 		}
+		
+	    case "/teacher/tests/edit-audio": {
+	    	System.out.println("goi case /teacher/question/edit-audio - post");
+			editAudio(req, resp);
+	    }
 		}
 	}
 }  

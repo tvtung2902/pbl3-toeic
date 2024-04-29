@@ -1,0 +1,41 @@
+package com.pbl3.model;
+
+public class TypeTwoQuestionModel extends QuestionModel{
+	String contentAnwserA;
+	String contentAnwserB;
+	String contentAnwserC;
+	String contentAnwserD;
+	String questionContent;
+	
+	 
+	public String getContentAnwserA() {
+		return contentAnwserA;
+	}
+	public void setContentAnwserA(String contentAnwserA) {
+		this.contentAnwserA = contentAnwserA;
+	}
+	public String getContentAnwserB() {
+		return contentAnwserB;
+	}
+	public void setContentAnwserB(String contentAnwserB) {
+		this.contentAnwserB = contentAnwserB;
+	}
+	public String getContentAnwserC() {
+		return contentAnwserC;
+	}
+	public void setContentAnwserC(String contentAnwserC) {
+		this.contentAnwserC = contentAnwserC;
+	}
+	public String getContentAnwserD() {
+		return contentAnwserD;
+	}
+	public void setContentAnwserD(String contentAnwserD) {
+		this.contentAnwserD = contentAnwserD;
+	}
+	public String getQuestionContent() {
+		return questionContent;
+	}
+	public void setQuestionContent(String questionContent) {
+		this.questionContent = questionContent;
+	}
+}

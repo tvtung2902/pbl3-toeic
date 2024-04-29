@@ -56,7 +56,7 @@ public class AccountModel{
 	}
 
 	public void setRoleID(int roleID) {
-		roleID = roleID;
+		this.roleID = roleID;
 	}
 
 	public String getUserName() {

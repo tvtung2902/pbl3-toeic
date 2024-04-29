@@ -16,14 +16,13 @@ public class TypeQuestionService extends BaseService{
 		LinkedList<TypeQuestionModel> typeQuestionModels = new LinkedList<TypeQuestionModel>();
 		try {
 			Connection connection = getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT typequestion.* FROM typequestion INNER JOIN Part ON typequestion.PartID = part.PartID WHERE part.OrderNumber = ?");
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT typequestion.* FROM typequestion INNER JOIN typequestion_part ON typequestion.typequestionID = typequestion_part.typequestionID INNER JOIN part ON typequestion_part.partID = part.partID WHERE part.OrderNumber = ?");
 			preparedStatement.setInt(1, ordernumber); 
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
 				int typeQuestionID = resultSet.getInt(1);   
 				String typeQuestionName = resultSet.getString(2);
-				int partID = resultSet.getInt(3); 
-				TypeQuestionModel typeQuestionModel = new TypeQuestionModel(typeQuestionID, typeQuestionName, partID);            
+				TypeQuestionModel typeQuestionModel = new TypeQuestionModel(typeQuestionID, typeQuestionName);            
 				typeQuestionModels.add(typeQuestionModel);
 			}
 			System.out.println("size cua typeQuestionModels: " + typeQuestionModels.size());

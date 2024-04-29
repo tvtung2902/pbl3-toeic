@@ -5,10 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
-
 import com.pbl3.model.TestsModel;
-import com.pbl3.model.VocabListsModel;
-import com.pbl3.model.VocabModel;
 
 public class TestsService extends BaseService {
 
@@ -46,10 +43,10 @@ public class TestsService extends BaseService {
 				int testID = resultSet.getInt(1);
 				String testsName = resultSet.getString(2);
 				Integer year = resultSet.getInt(3);
-				//String audio = resultSet.getString(4);
+				String audio = resultSet.getString(4);
 				boolean status = resultSet.getBoolean(5);
-//				int teacherID = resultSet.getInt(6);
-				TestsModel testsModel = new TestsModel(testID, testsName, year, status, teacherID);   
+//				int teacherID = resultSet.getInt(6); 
+				TestsModel testsModel = new TestsModel(testID, testsName, year, status, teacherID, audio);   
 				testsModels.add(testsModel);             
 			}
 			System.out.println("size cua tests: " + testsModels.size());
@@ -64,8 +61,8 @@ public class TestsService extends BaseService {
 	  public void add(TestsModel testsModel) {
 	        try {
 	            Connection connection = getConnection(); // Thay thế getConnection() bằng phương thức lấy kết nối tới cơ sở dữ liệu của bạn
-	            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO tests (TestsName, Year, Status, TeacherID) VALUES (?, ?, ?, ?)");
-	            preparedStatement.setString(1, testsModel.getTestName());
+	            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO test (TestName, Year, Status, TeacherID) VALUES (?, ?, ?, ?)");
+	            preparedStatement.setString(1, testsModel.getTestsName());
 	            preparedStatement.setInt(2, testsModel.getYear());
 	            preparedStatement.setBoolean(3, testsModel.getStatus());
 	            preparedStatement.setInt(4, testsModel.getYear());
@@ -74,4 +71,57 @@ public class TestsService extends BaseService {
 	            e.printStackTrace();
 	        }
 	    }
+	  
+	  // edit
+	  public static void edit (TestsModel testsModel) {	
+			try {
+				Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement("UPDATE test SET TestName = ?, Year = ?, audio = ?, status = ? WHERE testID =?"); 
+				preparedStatement.setString(1, testsModel.getTestsName());
+	            preparedStatement.setInt(2, testsModel.getYear());
+	            preparedStatement.setString(3, testsModel.getAudio());
+	            preparedStatement.setBoolean(4, testsModel.getStatus());
+	            preparedStatement.setInt(5, testsModel.getYear());
+				preparedStatement.setInt(6,testsModel.getTestsID());
+				
+				preparedStatement.executeUpdate();
+			} catch (SQLException e) { 
+				e.printStackTrace();
+			}
+		}
+	  
+	  // edit audio
+		public static void editAudio (TestsModel testsModel) {	
+			try {
+				Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement("UPDATE test SET audio = ? WHERE testID =?"); 
+				preparedStatement.setString(1, testsModel.getAudio());
+				preparedStatement.setInt(2,testsModel.getTestsID());
+				
+				preparedStatement.executeUpdate();
+			} catch (SQLException e) { 
+				e.printStackTrace();
+			}
+		}
+		
+		public static TestsModel find (int testsID) {
+			TestsModel testsModel= new TestsModel();
+			try {
+				Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement("Select * From test Where testID = ?");
+				preparedStatement.setInt(1, testsID);
+				ResultSet resultSet =preparedStatement.executeQuery();
+				resultSet.next();
+				testsModel.setTestsID(testsID);
+				testsModel.setTestsName(resultSet.getString(2));
+				testsModel.setYear(resultSet.getInt(3)); 
+				testsModel.setAudio(resultSet.getString(4));
+				testsModel.setStatus(resultSet.getBoolean(5));
+				testsModel.setTeacherID(resultSet.getInt(6));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return testsModel;
+		}
+		
 }

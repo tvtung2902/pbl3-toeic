@@ -28,7 +28,7 @@
     </style>
     <!-- header  -->
 	<%@include file="../../re-use/header.jsp" %>
-    <!--end  header  -->
+    <!--end  header  --> 
   	
   	<% VocabListsModel vocabListsModel=(VocabListsModel)request.getAttribute("vocablistmodel");
   		int number=(int)request.getAttribute("number");

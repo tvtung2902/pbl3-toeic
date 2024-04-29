@@ -1,0 +1,63 @@
+package com.pbl3.model;
+
+public class TypeTwoQuestionModel extends QuestionModel{
+	private int dataQuestionID;
+	private String contentAnwserA;
+	private String contentAnwserB;
+	private String contentAnwserC;
+	private String contentAnwserD;
+	private String questionContent;
+	
+	public TypeTwoQuestionModel() {
+		
+	}
+	
+	public TypeTwoQuestionModel(int questionID, Integer typeQuestionID, Integer testID, String answerCorrect,
+			String answerExplain, int orderNumber, String image, TypeQuestionModel typeQuestionModel,
+			int dataQuestionID, String contentAnwserA, String contentAnwserB, String contentAnwserC,
+			String contentAnwserD, String questionContent) {
+		super(questionID, typeQuestionID, testID, answerCorrect, answerExplain, orderNumber, image, typeQuestionModel);
+		this.dataQuestionID = dataQuestionID;
+		this.contentAnwserA = contentAnwserA;
+		this.contentAnwserB = contentAnwserB;
+		this.contentAnwserC = contentAnwserC;
+		this.contentAnwserD = contentAnwserD;
+		this.questionContent = questionContent;
+	}
+	public int getDataQuestionID() {
+		return dataQuestionID;
+	}
+	public void setDataQuestionID(int dataQuestionID) {
+		this.dataQuestionID = dataQuestionID;
+	}
+	public String getContentAnwserA() {
+		return contentAnwserA;
+	}
+	public void setContentAnwserA(String contentAnwserA) {
+		this.contentAnwserA = contentAnwserA;
+	}
+	public String getContentAnwserB() {
+		return contentAnwserB;
+	}
+	public void setContentAnwserB(String contentAnwserB) {
+		this.contentAnwserB = contentAnwserB;
+	}
+	public String getContentAnwserC() {
+		return contentAnwserC;
+	}
+	public void setContentAnwserC(String contentAnwserC) {
+		this.contentAnwserC = contentAnwserC;
+	}
+	public String getContentAnwserD() {
+		return contentAnwserD;
+	}
+	public void setContentAnwserD(String contentAnwserD) {
+		this.contentAnwserD = contentAnwserD;
+	}
+	public String getQuestionContent() {
+		return questionContent;
+	}
+	public void setQuestionContent(String questionContent) {
+		this.questionContent = questionContent;
+	}
+}

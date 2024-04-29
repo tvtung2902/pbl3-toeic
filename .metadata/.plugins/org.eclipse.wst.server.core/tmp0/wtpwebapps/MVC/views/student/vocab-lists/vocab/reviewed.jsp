@@ -70,11 +70,17 @@
                                     <h5 >Định nghĩa:</h5>
                                     <p class="vietnam-mean"><%=v.getMean() %></p>
                                     <h5 class="exam">Ví dụ</h5>
-                                    <ul>
-                                        <li>
-                                            <p><%=v.getExample() %></p>
-                                        </li>
-                                    </ul>
+                                    <div class="inner-ex">
+                                                        
+                                                        <%String[] parts = (v.getExample()).split("\\n"); %>
+                                                        <ul>
+                                                            <%for(String str : parts) {%>
+                                                            	<li>
+                                                            		<%=str%>
+                                                            	</li>	
+                                                            <%} %>
+                                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-4">

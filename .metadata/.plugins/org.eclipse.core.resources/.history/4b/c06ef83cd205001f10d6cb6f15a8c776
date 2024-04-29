@@ -1,0 +1,50 @@
+package com.pbl3.model;
+
+public class TypeQuestionModel {
+	int typeQuestionID;
+	String typeQuestionName;
+    
+	public TypeQuestionModel(int typeQuestionID, String typeQuestionName, int partID, PartModel partModel) {
+		super();
+		this.typeQuestionID = typeQuestionID;
+		this.typeQuestionName = typeQuestionName;
+	}
+	
+	public TypeQuestionModel(int typeQuestionID, String typeQuestionName, int partID) {
+		super();
+		this.typeQuestionID = typeQuestionID;
+		this.typeQuestionName = typeQuestionName;
+	}
+
+	public int getTypeQuestionID() {
+		return typeQuestionID;
+	}
+
+	public void setTypeQuestionID(int typeQuestionID) {
+		this.typeQuestionID = typeQuestionID;
+	}
+
+	public String getTypeQuestionName() {
+		return typeQuestionName;
+	}
+
+	public void setTypeQuestionName(String typeQuestionName) {
+		this.typeQuestionName = typeQuestionName;
+	}
+
+	public int getPartID() {
+		return this.partID;
+	}
+
+	public void setPartID(int partID) {
+		this.partID = partID;
+	}
+
+	public PartModel getPartModel() {
+		return partModel;
+	}
+
+	public void setPartModel(PartModel partModel) {
+		this.partModel = partModel;
+	}
+}

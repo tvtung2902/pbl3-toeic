@@ -1,0 +1,51 @@
+package com.pbl3.service;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.LinkedList;
+
+import com.pbl3.model.DataQuestionModel;
+import com.pbl3.model.VocabListsModel;
+
+
+public class DataQuestionService extends BaseService{
+	// query all DataQuestionModel in 1 part
+	public static LinkedList<DataQuestionModel> all(int testsID, int first, int last) {
+		LinkedList<DataQuestionModel> dataQuestionModels = new LinkedList<DataQuestionModel>();
+		try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT dataquestion.*  From dataquestion WHERE TestID = ? && OrderNumber >= ? && OrderNumber <= ?");
+			preparedStatement.setInt(1, testsID);
+			preparedStatement.setInt(2, first);
+			preparedStatement.setInt(3, last);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				int dataQuestionID = resultSet.getInt(1);
+				String dataQuestion = resultSet.getString(2); 
+				String transcript = resultSet.getString(3);
+//				int testsID = resultSet.getInt(3); 
+				DataQuestionModel dataQuestionModel = new DataQuestionModel(dataQuestionID, dataQuestion, Transcript, testsID);      
+				dataQuestionModels.add(dataQuestionModel);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dataQuestionModels;
+	}
+	
+	// add 
+	public static void add(DataQuestionModel dataQuestionModel) {
+		try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO DataQuestion (DataQuestion, Transcript) VALUES (?, ?)"); 
+			preparedStatement.setString(1, dataQuestionModel.getDataQuestion());
+			preparedStatement.setString(2, dataQuestionModel.getTranscript());
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+}

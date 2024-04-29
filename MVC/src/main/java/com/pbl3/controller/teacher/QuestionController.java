@@ -6,11 +6,17 @@ import java.util.LinkedList;
 import com.pbl3.libs.FileData;
 import com.pbl3.model.QuestionModel;
 import com.pbl3.model.TestsModel;
+import com.pbl3.model.TypeOneQuestionModel;
+import com.pbl3.model.TypeTwoQuestionModel;
 import com.pbl3.model.UserModel;
+import com.pbl3.service.DataQuestionService;
 import com.pbl3.service.PartService;
 import com.pbl3.service.QuestionService;
 import com.pbl3.service.TestsService;
+import com.pbl3.service.TypeOneQuestionService;
 import com.pbl3.service.TypeQuestionService;
+import com.pbl3.service.TypeTwoQuestionService;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -23,7 +29,7 @@ import jakarta.servlet.http.Part;
 
 @MultipartConfig
 @WebServlet(urlPatterns = { "/teacher/question", "/teacher/question/create", "/teacher/question/edit",
-		"/teacher/question/delete" })
+		"/teacher/question/delete"})
 public class QuestionController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,16 +47,24 @@ public class QuestionController extends HttpServlet {
 	protected void show(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int testsID = Integer.parseInt(req.getParameter("testsID"));
 		System.out.println("testsID can truy van cac cau hoi la: " + testsID);
-
-		// Khởi tạo mảng chứa 200 phần tử và đều là null
 		QuestionModel[] questionModels = new QuestionModel[200];
 		for (int i = 0; i < 200; i++) {
-			questionModels[i] = new QuestionModel();
+			if(i <= 30) {
+				questionModels[i] = new TypeOneQuestionModel();
+			}
+			else {
+				questionModels[i] = new TypeTwoQuestionModel();
+			}
 		}
-
-		QuestionService.allQuestionAndType(testsID, questionModels);
-
+		TypeOneQuestionService.allTypeOneQuestion(testsID, questionModels);
+		TypeTwoQuestionService.allTypeTwoQuestion(testsID, questionModels);
+		for (int i = 3; i <= 7; i++) {
+			if (i == 5) continue;
+			req.setAttribute("dataQuestionModels" + i ,DataQuestionService.all(testsID, i));
+		}
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/teacher/tests/question.jsp");
+		TestsModel testsModel = TestsService.find(testsID);
+		req.setAttribute("testsModel", testsModel);
 		int totalPart = PartService.count();
 		req.setAttribute("totalPart", totalPart);
 		for (int i = 1; i <= totalPart; i++) {
@@ -58,103 +72,115 @@ public class QuestionController extends HttpServlet {
 		}
 		req.setAttribute("questionModels", questionModels);
 		requestDispatcher.forward(req, resp);
-	}
+		}
 
 	protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("goi ham create");
 		Integer typeQuestionID = Integer.parseInt(req.getParameter("typeQuestionID"));
-		System.out.println(typeQuestionID);
 		Integer testsID = Integer.parseInt(req.getParameter("testsID"));
-		System.out.println(testsID);
-		String questionContent = req.getParameter("questionContent");
-		System.out.println(questionContent);
-		String contentAnswerA = req.getParameter("contentAnswerA");
-		System.out.println(contentAnswerA);
-		String contentAnswerB = req.getParameter("contentAnswerB");
-		String contentAnswerC = req.getParameter("contentAnswerC");
-		String ContentAnswerD = req.getParameter("contentAnswerD");
-		String AnswerCorrect = req.getParameter("answerCorrect");
-		String AnswerExplain = req.getParameter("answerExplain");
-		int OrderNumber = Integer.parseInt(req.getParameter("orderNumber"));
+		String answerCorrect = req.getParameter("answerCorrect");
+		String answerExplain = req.getParameter("answerExplain");
+		int orderNumber = Integer.parseInt(req.getParameter("orderNumber"));
+		Integer dataQuestionID = null;
+		if (req.getParameter("dataQuestionID") != null) {
+			dataQuestionID = Integer.parseInt(req.getParameter("dataQuestionID")); 
+		} 
 		// lay part anh ve 
 		Part part = req.getPart("image"); 
 		String image = null;
 		// neu co form-group img (kh phai part 2, 5) 
 		if (part != null) { 
-		System.out.println("part != null");
-		String realPart = req.getServletContext().getRealPath("/data");
-		image = FileData.add(part, realPart); // tra ve null neu co form-group img nhung ko tai len  
- 		} 
-		System.out.println("image: " +image); 
+			System.out.println("part != null vi ko phai them o part 2 va 5");
+			String realPart = req.getServletContext().getRealPath("/data");
+			image = FileData.add(part, realPart); // tra ve null neu co form-group img nhung ko tai len  
+	 	}
 		
-		// lay part audio ve 
-		Part partAudio = req.getPart("audio"); 
-		String audio = null;
-		// neu co form-group audio (kh phai phan doc) 
-		if (partAudio != null) { 
-		System.out.println("partAudio != null");
-		String realPart = req.getServletContext().getRealPath("/data");
-		audio = FileData.add(partAudio, realPart); // tra ve null neu co form-group audio nhung ko tai len  
- 		} 
-		System.out.println("audio: " +audio); 
-		
-		QuestionModel questionModel = new QuestionModel(typeQuestionID, testsID, questionContent, contentAnswerA,
-				contentAnswerB, contentAnswerC, ContentAnswerD, AnswerCorrect, AnswerExplain, OrderNumber, image, audio);
-		QuestionService.add(questionModel);
-		resp.sendRedirect(req.getContextPath() + "/teacher/question?testsID=" + testsID);
+		if (orderNumber >= 1 && orderNumber <= 31) {
+			// lay part audio ve 
+			Part partAudio = req.getPart("audio"); 
+			String audio = null;
+			// neu co form-group audio (kh phai phan doc) 
+			if (partAudio != null) { 
+			System.out.println("partAudio != null");
+			String realPart = req.getServletContext().getRealPath("/data");
+			audio = FileData.add(partAudio, realPart); // tra ve null neu co form-group audio nhung ko tai len  
+	 		}
+			String transcript = req.getParameter("transcript");
+			TypeOneQuestionModel typeOneQuestionModel = new TypeOneQuestionModel(0, typeQuestionID, testsID, answerCorrect, answerExplain, orderNumber, image, null, dataQuestionID, null, audio, transcript) ;
+			int questionID = QuestionService.add(typeOneQuestionModel);
+			typeOneQuestionModel.setQuestionID(questionID);
+			TypeOneQuestionService.add(typeOneQuestionModel);
+		} 
+		else { 
+			String questionContent = req.getParameter("questionContent");
+			String contentAnswerA = req.getParameter("contentAnswerA");
+			String contentAnswerB = req.getParameter("contentAnswerB");
+			String contentAnswerC = req.getParameter("contentAnswerC");
+			String ContentAnswerD = req.getParameter("contentAnswerD");
+			TypeTwoQuestionModel typeTwoQuestionModel = new TypeTwoQuestionModel(0, typeQuestionID, testsID, answerCorrect, answerExplain, orderNumber, image, null, dataQuestionID, null, contentAnswerA, contentAnswerB, contentAnswerC, ContentAnswerD, questionContent);
+			int questionID = QuestionService.add(typeTwoQuestionModel); 
+			typeTwoQuestionModel.setQuestionID(questionID);     
+			TypeTwoQuestionService.add(typeTwoQuestionModel);  
+		}  
+		resp.sendRedirect(req.getContextPath() + "/teacher/question?testsID=" + testsID);  
 	}
 
 	protected void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("goi ham edit");
-		Integer questionID = Integer.parseInt(req.getParameter("questionID")); 
+		int questionID = Integer.parseInt(req.getParameter("questionID"));
 		Integer typeQuestionID = Integer.parseInt(req.getParameter("typeQuestionID"));
 		Integer testsID = Integer.parseInt(req.getParameter("testsID"));
-		String questionContent = req.getParameter("questionContent");
-		System.out.println("questionContent" +questionContent);
-		String contentAnswerA = req.getParameter("contentAnswerA");
-		String contentAnswerB = req.getParameter("contentAnswerB") ;
-		String contentAnswerC = req.getParameter("contentAnswerC");
-		String ContentAnswerD = req.getParameter("contentAnswerD");
-		String AnswerCorrect = req.getParameter("answerCorrect"); 
-		String AnswerExplain = req.getParameter("answerExplain");
-		int OrderNumber = Integer.parseInt(req.getParameter("orderNumber"));
-		
-		String imageString = null;
-		// lay duong dan anh can sua ve
-		Part partImageChange = req.getPart("image");
-		System.out.println("partImageChange: " +partImageChange);
-		if (partImageChange != null) {
-		// xóa ảnh củ đi cu ơi ....
-	
-		// thêm ảnh mới vào 
-		String realPartImageChange = req.getServletContext().getRealPath("/data"); 
-		imageString = FileData.add(partImageChange, realPartImageChange); 
+		String answerCorrect = req.getParameter("answerCorrect");
+		String answerExplain = req.getParameter("answerExplain");
+		int orderNumber = Integer.parseInt(req.getParameter("orderNumber"));
+		Integer dataQuestionID = null;
+		if (req.getParameter("dataQuestionID") != null) {
+			dataQuestionID = Integer.parseInt(req.getParameter("dataQuestionID")); 
+		} 
+		// lay part anh ve 
+		Part part = req.getPart("image"); 
+		String image = null;
+		// neu co form-group img (kh phai part 2, 5) 
+		if (part != null) { 
+			System.out.println("part != null vi ko phai them o part 2 va 5");
+			String realPart = req.getServletContext().getRealPath("/data");
+			image = FileData.add(part, realPart); // tra ve null neu co form-group img nhung ko tai len  
+			// lay lai anh cu neu ko them gi
+			if(image == null) {
+				image = req.getParameter("imageString");
+			} 
 		}
-		// neu ma ko sua anh thi lay lai duong dan cu
-		if (imageString == null) {
-			imageString = req.getParameter("imageString"); 
-		}
-		
-		String audioString = null;
-		// lay duong dan audio can sua ve
-		Part partAudioChange = req.getPart("audio");
-		System.out.println("partAudioChange: " +partAudioChange);
-		if(partAudioChange != null) {
-		// xóa audio củ đi cu ơi ....
-	
-		// thêm audio mới vào 
-		String realPartAudioChange = req.getServletContext().getRealPath("/data"); 
-		audioString = FileData.add(partAudioChange, realPartAudioChange); // tra ve null neu ko sua
-		}    
-		// neu ma ko sua audio thi lay lai duong dan cu
-		if (audioString == null) {
-			audioString = req.getParameter("audioString"); 
+
+		if (orderNumber >= 1 && orderNumber <= 31) {  
+			// lay part audio ve 
+			Part partAudio = req.getPart("audio"); 
+			String audio = null;
+			// neu co form-group audio (kh phai phan doc) 
+			if (partAudio != null) { 
+			System.out.println("partAudio != null");
+			String realPart = req.getServletContext().getRealPath("/data");
+			audio = FileData.add(partAudio, realPart); // tra ve null neu co form-group audio nhung ko tai len  
+			if(audio == null) {
+				audio = req.getParameter("audioString");
+			}
+			}     
+			String transcript = req.getParameter("transcript");
+			TypeOneQuestionModel typeOneQuestionModel = new TypeOneQuestionModel(questionID, typeQuestionID, testsID, answerCorrect, answerExplain, orderNumber, image, null, dataQuestionID, null, audio, transcript);
+			QuestionService.edit(typeOneQuestionModel);  
+			TypeOneQuestionService.edit(typeOneQuestionModel); 
 		} 
 		
-		QuestionModel questionModel = new QuestionModel(questionID, typeQuestionID, testsID, questionContent, contentAnswerA, contentAnswerB, contentAnswerC, ContentAnswerD, AnswerCorrect, AnswerExplain, OrderNumber, imageString, audioString);
-		QuestionService.edit(questionModel);   
-		resp.sendRedirect(req.getContextPath() + "/teacher/question?testsID=" + testsID); 
-	}
+		else {
+			String questionContent = req.getParameter("questionContent");
+			String contentAnswerA = req.getParameter("contentAnswerA");
+			String contentAnswerB = req.getParameter("contentAnswerB");
+			String contentAnswerC = req.getParameter("contentAnswerC");
+			String ContentAnswerD = req.getParameter("contentAnswerD");
+			TypeTwoQuestionModel typeTwoQuestionModel = new TypeTwoQuestionModel(questionID, typeQuestionID, testsID, answerCorrect, answerExplain, orderNumber, image, null, dataQuestionID, null, contentAnswerA, contentAnswerB, contentAnswerC, ContentAnswerD, questionContent);
+			QuestionService.edit(typeTwoQuestionModel);  
+			TypeTwoQuestionService.edit(typeTwoQuestionModel);  
+		}
+		 
+		resp.sendRedirect(req.getContextPath() + "/teacher/question?testsID=" + testsID);
+	} 
 
 	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Gọi hàm delete");
@@ -164,7 +190,7 @@ public class QuestionController extends HttpServlet {
 		int testsID = Integer.parseInt(req.getParameter("testsID"));
 		System.out.println("questionID cần xóa là: " + req.getParameter("questionID"));
 		QuestionService.delete(questionID);
-		resp.sendRedirect(req.getContextPath() + "/teacher/question?testsID=" + testsID);
+		resp.sendRedirect(req.getContextPath() + "/teacher/question?testsID=" + testsID); 
 	}
 
 	@Override

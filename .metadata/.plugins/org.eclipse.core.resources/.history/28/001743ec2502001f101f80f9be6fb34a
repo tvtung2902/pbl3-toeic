@@ -1,0 +1,77 @@
+package com.pbl3.model;
+
+public class TypeTwoQuestionModel extends QuestionModel{
+	private int dataQuestionID;
+	private String contentAnswerA;
+	private String contentAnswerB;
+	private String contentAnswerC;
+	private String contentAnswerD;
+	private String questionContent;
+	private DataQuestionModel dataQuestionModel;
+	public TypeTwoQuestionModel() {
+		super();
+		this.dataQuestionID = 0;
+		this.contentAnswerA = "";
+		this.contentAnswerB = "";
+		this.contentAnswerC = "";
+		ContentAnswerD = "";
+	}
+	
+	
+	public TypeTwoQuestionModel(int dataQuestionID, String contentAnswerA, String contentAnswerB, String contentAnswerC,
+			String contentAnswserD, String questionContent, DataQuestionModel dataQuestionModel) {
+		super();
+		this.dataQuestionID = dataQuestionID;
+		this.contentAnswerA = contentAnswerA;
+		this.contentAnswerB = contentAnswerB;
+		this.contentAnswerC = contentAnswerC;
+		this.contentAnswserD = contentAnswserD;
+		this.questionContent = questionContent;
+		this.dataQuestionModel = dataQuestionModel;
+	}
+
+
+	public int getDataQuestionID() {
+		return dataQuestionID;
+	}
+	public void setDataQuestionID(int dataQuestionID) {
+		this.dataQuestionID = dataQuestionID;
+	}
+	public String getContentAnswerA() {
+		return contentAnswerA;
+	}
+	public void setContentAnswerA(String contentAnswerA) {
+		this.contentAnswerA = contentAnswerA;
+	}
+	public String getContentAnswerB() {
+		return contentAnswerB;
+	}
+	public void setContentAnswerB(String contentAnswerB) {
+		this.contentAnswerB = contentAnswerB;
+	}
+	public String getContentAnswerC() {
+		return contentAnswerC;
+	}
+	public void setContentAnswerC(String contentAnswerC) {
+		this.contentAnswerC = contentAnswerC;
+	}
+	public String getContentAnswserD() {
+		return contentAnswserD;
+	}
+	public void setContentAnswserD(String contentAnswserD) {
+		this.contentAnswserD = contentAnswserD;
+	}
+	public String getQuestionContent() {
+		return questionContent;
+	}
+	public void setQuestionContent(String questionContent) {
+		this.questionContent = questionContent;
+	}
+	public DataQuestionModel getDataQuestionModel() {
+		return dataQuestionModel;
+	}
+	public void setDataQuestionModel(DataQuestionModel dataQuestionModel) {
+		this.dataQuestionModel = dataQuestionModel;
+	}
+	
+}

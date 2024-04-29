@@ -1,0 +1,9 @@
+package com.pbl3.model;
+
+public class DataQuestionModel {
+	int dataQuestionID;
+	String dataQuestion;
+	String transcipt;
+	
+	
+}

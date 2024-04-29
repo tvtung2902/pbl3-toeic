@@ -1,0 +1,35 @@
+package com.pbl3.model;
+
+public class DataQuestionModel {
+	int dataQuestionID;
+	String dataQuestion;
+	String transcript;
+	
+	
+	public DataQuestionModel(int dataQuestionID, String dataQuestion, String transcript) {
+		super();
+		this.dataQuestionID = dataQuestionID;
+		this.dataQuestion = dataQuestion;
+		this.transcript = transcript;
+	}
+	public int getDataQuestionID() {
+		return dataQuestionID;
+	}
+	public void setDataQuestionID(int dataQuestionID) {
+		this.dataQuestionID = dataQuestionID;
+	}
+	public String getDataQuestion() {
+		return dataQuestion;
+	}
+	public void setDataQuestion(String dataQuestion) {
+		this.dataQuestion = dataQuestion;
+	}
+	public String getTranscript() {
+		return transcript;
+	}
+	public void setTranscript(String transcript) {
+		this.transcript = transcript;
+	}
+	
+	
+}

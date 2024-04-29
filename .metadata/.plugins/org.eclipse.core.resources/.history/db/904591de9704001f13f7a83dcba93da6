@@ -1,0 +1,96 @@
+package com.pbl3.service;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.pbl3.model.DataQuestionModel;
+import com.pbl3.model.QuestionModel;
+import com.pbl3.model.TypeOneQuestionModel;
+import com.pbl3.model.TypeQuestionModel;
+import com.pbl3.model.TypeTwoQuestionModel;
+
+public class TypeTwoQuestionService extends BaseService{
+	// query all question type one and type question in 1 test  
+	public static void allTypeTwoQuestion(int testID, QuestionModel[] questionModels) {
+	    try {
+	        Connection connection = getConnection();
+	        PreparedStatement preparedStatement = connection.prepareStatement("SELECT question.*, TypeQuestion.TypeQuestionName, typetwoquestion.DataQuestionID, typetwoquestion.ContentAnswerA, typetwoquestion.ContentAnswerB, typetwoquestion.ContentAnswerC, typetwoquestion.ContentAnswerD, typetwoquestion.QuestionContent, dataquestion.DataQuestion, dataquestion.Transcript FROM typequestion INNER JOIN  question ON typequestion.typequestionID = question.typequestionID INNER JOIN typetwoquestion ON question.questionID = typetwoquestion.questionID LEFT JOIN dataquestion ON typetwoquestion.DataQuestionID = dataquestion.DataQuestionID WHERE Question.TestID = ? ");
+	        preparedStatement.setInt(1, testID);
+	        ResultSet resultSet = preparedStatement.executeQuery();
+	        while (resultSet.next()) {
+	            int questionID = resultSet.getInt("questionID");
+	            Integer typeQuestionID = resultSet.getInt("typeQuestionID");
+	            String answerCorrect = resultSet.getString("answerCorrect");
+	            String answerExplain = resultSet.getString("answerExplain"); 
+	            int orderNumber = resultSet.getInt("orderNumber");
+	            String image = resultSet.getString("image");
+	            String typeQuestionName = resultSet.getString("typeQuestionName");
+	            int dataQuestionID = resultSet.getInt("dataQuestionID");  
+	            String contentAnswerA = resultSet.getString("contentAnswerA");
+	            String contentAnswerB = resultSet.getString("contentAnswerB");
+	            String contentAnswerC = resultSet.getString("contentAnswerC");
+	            String contentAnswerD = resultSet.getString("contentAnswerD");
+	            String questionContent = resultSet.getString("questionContent");
+	            String dataQuestion = resultSet.getString("dataQuestion");
+	            String transcript = resultSet.getString("transcript");
+	            TypeQuestionModel typeQuestionModel = new TypeQuestionModel(typeQuestionID, typeQuestionName, 0 , null);
+	            DataQuestionModel dataQuestionModel = new DataQuestionModel(dataQuestionID, dataQuestion, transcript);
+	            TypeTwoQuestionModel typeTwoQuestionModel = new TypeTwoQuestionModel(questionID, typeQuestionID, 0, answerCorrect, answerExplain, orderNumber, image, typeQuestionModel, dataQuestionID, contentAnswerA, contentAnwerB, contentAnwerC, contentAnwerD, questionContent, dataQuestionModel);
+	            questionModels[typeTwoQuestionModel.getOrderNumber() - 1] = typeTwoQuestionModel;
+	            
+	        }   
+	        System.out.println(".................... "+questionModels[100].getOrderNumber());  
+	        System.out.println("size cua typeOneQuestionModels: " + questionModels.length);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	// add type two question  
+	public static void add(TypeTwoQuestionModel typeTwoQuestionModel) {
+	    try {
+	        Connection connection = getConnection();
+	        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO TypeTwoQuestion (QuestionID, DataQuestionID, ContentAnswerA, ContentAnswerB, ContentAnswerC, ContentAnswerD, QuestionContent) VALUES (?, ?, ?, ?, ?, ?, ?)"); 
+	        preparedStatement.setInt(1, typeTwoQuestionModel.getQuestionID());
+	        if (typeTwoQuestionModel.getDataQuestionID() == null) {
+	        	preparedStatement.setObject(2, typeTwoQuestionModel.getDataQuestionID());
+	        } 
+	        else {
+	        	preparedStatement.setInt(2, typeTwoQuestionModel.getDataQuestionID());  
+	        }   
+	        preparedStatement.setString(3, typeTwoQuestionModel.getContentAnswerA()); 
+	        preparedStatement.setString(4, typeTwoQuestionModel.getContentAnswerB()); 
+	        preparedStatement.setString(5, typeTwoQuestionModel.getContentAnswerC());
+	        preparedStatement.setString(6, typeTwoQuestionModel.getContentAnswerD());  
+	        preparedStatement.setString(7, typeTwoQuestionModel.getQuestionContent());
+	        preparedStatement.executeUpdate();
+	    } catch (SQLException e) {   
+	        e.printStackTrace();  
+	    }        
+	}
+
+	     
+	// edit type two question 
+//	public static void edit(TypeOneQuestionModel typeOneQuestionModel) {
+//	    try {
+//	        Connection connection = getConnection();
+//	        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE TypeOneQuestion SET DataQuestionID = ?, ContentAnwserA = ?, ContentAnwserB = ?, ContentAnwserC = ?, ContentAnwserD = ?, QuestionContent WHERE QuestionID = ?");
+//	        preparedStatement.setInt(1, questionModel.getTypeQuestionID()); 
+//	        preparedStatement.setString(2, questionModel.getQuestionContent());
+//	        preparedStatement.setString(3, questionModel.getContentAnswerA());
+//	        preparedStatement.setString(4, questionModel.getContentAnswerB());
+//	        preparedStatement.setString(5, questionModel.getContentAnswerC());
+//	        preparedStatement.setString(6, questionModel.getContentAnswerD());
+//	        preparedStatement.setString(7, questionModel.getAnswerCorrect());
+//	        preparedStatement.setString(8, questionModel.getAnswerExplain());
+//	        preparedStatement.setString(9, questionModel.getImage());
+//	        preparedStatement.setString(10, questionModel.getAudio());
+//	        preparedStatement.setInt(11, questionModel.getQuestionID()); 
+//	        preparedStatement.executeUpdate();   
+//	    } catch (SQLException e) {
+//	        e.printStackTrace();
+//	    }
+//	}
+}

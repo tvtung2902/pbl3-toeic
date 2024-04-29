@@ -129,7 +129,7 @@
      .inner-imgbanner img{
      		margin-top: 30px;
             width: 100%;
-            aspect-ratio: 20/3;
+            aspect-ratio: 20/2;
             object-fit: cover;
             border-radius: 10px;
         }

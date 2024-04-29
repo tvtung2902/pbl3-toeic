@@ -77,9 +77,9 @@
 				<div class="inner-wrap">
 					<div class="inner-content">
 						<a style="display: block;"
-							href="/MVC/teacher/question?testsID=<%=t.getTestID()%>">
+							href="/MVC/teacher/question?testsID=<%=t.getTestsID()%>">
 							<h3 class="inner-listname">
-								<%=t.getTestName()%>
+								<%=t.getTestsName()%>
 							</h3>
 							<p class="inner-desc">
 								Năm:

@@ -4,218 +4,101 @@ public class QuestionModel {
 	private int questionID;
 	private Integer typeQuestionID;
 	private Integer testID;
-	private String questionContent;
-	private String contentAnswerA;
-	private String contentAnswerB;
-	private String contentAnswerC;
-	private String ContentAnswerD;
-	private String AnswerCorrect;
-	private String AnswerExplain;
-	private int OrderNumber;
-	private TypeQuestionModel typeQuestionModel;
+	private String answerCorrect;
+	private String answerExplain;
+	private int orderNumber;
 	private String image;
-	private String audio;
+	private TypeQuestionModel typeQuestionModel;
+	private Integer dataQuestionID;
+	private DataQuestionModel dataQuestionModel;
 	
 	public QuestionModel() {
-		questionID = 0;
-		typeQuestionID = 0;      
-		testID = 0;
-		questionContent = "";
-		contentAnswerA = "";
-		contentAnswerB = "";
-		contentAnswerC = "";
-		ContentAnswerD = "";
-		AnswerCorrect = "";
-		AnswerExplain = "";
-		OrderNumber = 0;
-		typeQuestionModel = new TypeQuestionModel(0, "", 0);  
-		image = "";
-		audio = "";
-	}
-
-	public QuestionModel(int questionID, Integer typeQuestionID, Integer testID, String questionContent,
-			String contentAnswerA, String contentAnswerB, String contentAnswerC, String contentAnswerD,
-			String answerCorrect, String answerExplain, int orderNumber, TypeQuestionModel typeQuestionModel, String image, String audio) {
-		super();
-		this.questionID = questionID;
-		this.typeQuestionID = typeQuestionID;
-		this.testID = testID;
-		this.questionContent = questionContent;
-		this.contentAnswerA = contentAnswerA;
-		this.contentAnswerB = contentAnswerB;
-		this.contentAnswerC = contentAnswerC;
-		this.ContentAnswerD = contentAnswerD;
-		this.AnswerCorrect = answerCorrect;
-		this.AnswerExplain = answerExplain;
-		this.OrderNumber = orderNumber;
-		this.typeQuestionModel = typeQuestionModel;
-		this.image = image;
-		this.audio = audio;
-	}
-
-	public QuestionModel(Integer typeQuestionID, Integer testID, String questionContent, String contentAnswerA,
-			String contentAnswerB, String contentAnswerC, String contentAnswerD, String answerCorrect,
-			String answerExplain, int orderNumber, TypeQuestionModel typeQuestionModel) {
-		super();
-		this.typeQuestionID = typeQuestionID;
-		this.testID = testID;
-		this.questionContent = questionContent;
-		this.contentAnswerA = contentAnswerA; 
-		this.contentAnswerB = contentAnswerB;
-		this.contentAnswerC = contentAnswerC;
-		this.ContentAnswerD = contentAnswerD;
-		this.AnswerCorrect = answerCorrect;
-		this.AnswerExplain = answerExplain;
-		this.OrderNumber = orderNumber;
-		this.typeQuestionModel = typeQuestionModel;
-	}
-
-	public QuestionModel(int questionID, Integer typeQuestionID, Integer testID, String questionContent,
-			String contentAnswerA, String contentAnswerB, String contentAnswerC, String contentAnswerD,
-			String answerCorrect, String answerExplain, int orderNumber, String image, String audio) {
-		super();
-		this.questionID = questionID;
-		this.typeQuestionID = typeQuestionID;
-		this.testID = testID;
-		this.questionContent = questionContent;
-		this.contentAnswerA = contentAnswerA;
-		this.contentAnswerB = contentAnswerB;
-		this.contentAnswerC = contentAnswerC;
-		this.ContentAnswerD = contentAnswerD;
-		this.AnswerCorrect = answerCorrect;
-		this.AnswerExplain = answerExplain;
-		this.OrderNumber = orderNumber;
-		this.image = image;
-		this.audio = audio;
-	}
-
-	public QuestionModel(Integer typeQuestionID, Integer testID, String questionContent, String contentAnswerA,
-			String contentAnswerB, String contentAnswerC, String contentAnswerD, String answerCorrect,
-			String answerExplain, int orderNumber, String image, String audio) {
-		super();
-		this.typeQuestionID = typeQuestionID; 
-		this.testID = testID;
-		this.questionContent = questionContent;
-		this.contentAnswerA = contentAnswerA;
-		this.contentAnswerB = contentAnswerB;
-		this.contentAnswerC = contentAnswerC;
-		this.ContentAnswerD = contentAnswerD;
-		this.AnswerCorrect = answerCorrect;
-		this.AnswerExplain = answerExplain;
-		this.OrderNumber = orderNumber;
-		this.image = image;
-		this.audio = audio; 
+		this.questionID = 0; 
+		this.typeQuestionID = 0;
+		this.testID = 0;
+		this.answerCorrect = "";
+		this.answerExplain = "";
+		this.orderNumber = 0;
+		this.image = "";
+		this.typeQuestionModel = new TypeQuestionModel(0, "");
+		this.dataQuestionID = 0;
+		this.dataQuestionModel = new DataQuestionModel(0, "", "", 0, 0, 0);
 	}
 	
-	public String getAudio() {
-		return audio;
+	public QuestionModel(int questionID, Integer typeQuestionID, Integer testID, String answerCorrect,
+			String answerExplain, int orderNumber, String image, TypeQuestionModel typeQuestionModel, Integer dataQuestionID, DataQuestionModel dataQuestionModel) {
+		this.questionID = questionID;
+		this.typeQuestionID = typeQuestionID;
+		this.testID = testID;
+		this.answerCorrect = answerCorrect;
+		this.answerExplain = answerExplain;
+		this.orderNumber = orderNumber;
+		this.image = image;
+		this.typeQuestionModel = typeQuestionModel;
+		this.dataQuestionID = dataQuestionID;
+		this.dataQuestionModel = dataQuestionModel;
+	}
+	
+	public Integer getDataQuestionID() {
+		return dataQuestionID;
+	}
+	public void setDataQuestionID(Integer dataQuestionID) {
+		this.dataQuestionID = dataQuestionID;
 	}
 
-	public void setAudio(String audio) {
-		this.audio = audio;
+	public DataQuestionModel getDataQuestionModel() {
+		return dataQuestionModel;
 	}
 
+	public void setDataQuestionModel(DataQuestionModel dataQuestionModel) {
+		this.dataQuestionModel = dataQuestionModel;
+	}
 	public String getImage() {
 		return image;
 	}
-
 	public void setImage(String image) {
 		this.image = image;
 	}
-
 	public int getQuestionID() {
 		return questionID;
 	}
-
 	public void setQuestionID(int questionID) {
 		this.questionID = questionID;
 	}
-
 	public Integer getTypeQuestionID() {
 		return typeQuestionID;
 	}
-
 	public void setTypeQuestionID(Integer typeQuestionID) {
 		this.typeQuestionID = typeQuestionID;
 	}
-
 	public Integer getTestID() {
 		return testID;
 	}
-
 	public void setTestID(Integer testID) {
 		this.testID = testID;
 	}
-
-	public String getQuestionContent() {
-		return questionContent;
-	}
-
-	public void setQuestionContent(String questionContent) {
-		this.questionContent = questionContent;
-	}
-
-	public String getContentAnswerA() {
-		return contentAnswerA;
-	}
-
-	public void setContentAnswerA(String contentAnswerA) {
-		this.contentAnswerA = contentAnswerA;
-	}
-
-	public String getContentAnswerB() {
-		return contentAnswerB;
-	}
-
-	public void setContentAnswerB(String contentAnswerB) {
-		this.contentAnswerB = contentAnswerB;
-	}
-
-	public String getContentAnswerC() {
-		return contentAnswerC;
-	}
-
-	public void setContentAnswerC(String contentAnswerC) {
-		this.contentAnswerC = contentAnswerC;
-	}
-
-	public String getContentAnswerD() {
-		return ContentAnswerD;
-	}
-
-	public void setContentAnswerD(String contentAnswerD) {
-		ContentAnswerD = contentAnswerD;
-	}
-
 	public String getAnswerCorrect() {
-		return AnswerCorrect;
+		return answerCorrect;
 	}
-
 	public void setAnswerCorrect(String answerCorrect) {
-		AnswerCorrect = answerCorrect;
+		this.answerCorrect = answerCorrect;
 	}
-
 	public String getAnswerExplain() {
-		return AnswerExplain;
+		return answerExplain;
 	}
-
 	public void setAnswerExplain(String answerExplain) {
-		AnswerExplain = answerExplain;
+		this.answerExplain = answerExplain;
 	}
-
 	public int getOrderNumber() {
-		return OrderNumber;
+		return orderNumber;
 	}
-
 	public void setOrderNumber(int orderNumber) {
-		OrderNumber = orderNumber;
+		this.orderNumber = orderNumber;
 	}
-
 	public TypeQuestionModel getTypeQuestionModel() {
 		return typeQuestionModel;
 	}
-
 	public void setTypeQuestionModel(TypeQuestionModel typeQuestionModel) {
 		this.typeQuestionModel = typeQuestionModel;
-	} 
+	}
 } 
