@@ -1,0 +1,11 @@
+package com.pbl3.model;
+
+public class Course_Coupon {
+	private int courseID;
+	private int couponID;
+	public Course_Coupon(int courseID, int couponID) {
+		super();
+		this.courseID = courseID;
+		this.couponID = couponID;
+	}
+}

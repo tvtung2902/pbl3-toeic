@@ -1,6 +1,4 @@
 package com.pbl3.service;
-
-import java.security.PublicKey;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -67,9 +65,10 @@ public class RegisterCourseService extends BaseService {
 				String courseDesc =resultSet.getString("CourseDesc");
 				Double price = resultSet.getDouble("Price");
 				Integer duration =resultSet.getInt("Duration");
-				CourseModel courseModel=new CourseModel(userID, courseName, courseDesc, price, duration);
+				Integer teacherID =resultSet.getInt("ID_teacher");
+				CourseModel courseModel=new CourseModel(userID, courseName, courseDesc, price, duration,teacherID);
 				courseModels.add(courseModel);
-			}
+			} 
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -114,6 +113,26 @@ public class RegisterCourseService extends BaseService {
 			e.printStackTrace();
 		}
 		return k;
+	}
+	public static RegisterCourseModel isRegistered(int userID,int courseID) {
+		RegisterCourseModel registerCourseModel= new RegisterCourseModel();
+		String sqlString="SELECT * FROM register_course WHERE CourseID="+Integer.toString(courseID) +" and userID="+Integer.toString(userID);
+		try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sqlString);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if(!resultSet.next()) return null;
+			else {
+				registerCourseModel.setCourseID(courseID);
+				registerCourseModel.setUserID(userID);
+				registerCourseModel.setDate(resultSet.getDate("Date"));
+				registerCourseModel.setAmount(resultSet.getDouble("TotalAmount"));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return registerCourseModel;
 	}
 
 }

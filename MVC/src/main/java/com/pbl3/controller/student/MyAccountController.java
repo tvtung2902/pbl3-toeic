@@ -3,6 +3,7 @@ package com.pbl3.controller.student;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import com.pbl3.libs.Pair;
 import com.pbl3.model.CourseModel;
 import com.pbl3.model.HistoryOfTestModel;
 import com.pbl3.model.RegisterCourseModel;
@@ -27,7 +28,7 @@ public class MyAccountController extends HttpServlet{
 		UserModel userModel = (UserModel) session.getAttribute("user");
 		int userID = userModel.getUserID();
 		req.setAttribute("userModel", userModel);
-		LinkedList<HistoryOfTestModel> historyOfTestModels = HistoryOfTestService.allHistoryOfTest(userID);
+		LinkedList<Pair<HistoryOfTestModel, String>> historyOfTestModels = HistoryOfTestService.allHistoryOfTest(userID);
 		req.setAttribute("historyOfTestModels", historyOfTestModels);
 		LinkedList<CourseModel> list = RegisterCourseService.listCourseModels(userModel.getUserID());
 		req.setAttribute("listCourseModel", list);

@@ -5,6 +5,12 @@ public class PartModel {
 	String partName;
 	int orderNumber;
 	
+	public PartModel(int partID, String partName) {
+		super();
+		this.partID = partID;
+		this.partName = partName;
+	}
+	
 	public PartModel(int partID, String partName, int orderNumber) {
 		super();
 		this.partID = partID;

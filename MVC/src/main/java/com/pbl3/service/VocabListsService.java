@@ -2,13 +2,11 @@ package com.pbl3.service;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.LinkedList;
-
 import com.pbl3.model.VocabListsModel;
-import com.pbl3.model.VocabModel;
+
 
 
 public class VocabListsService extends BaseService{

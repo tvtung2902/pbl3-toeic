@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.OffsetDateTime;
 import java.util.LinkedList;
 
 import com.pbl3.model.AccountModel;
@@ -51,17 +50,18 @@ public class UserService extends BaseService {
 				String name = resultSet.getString(3);
 				String phone = resultSet.getString(4);
 				String email = resultSet.getString(5);
+				String image = resultSet.getString(6);
 				Boolean gender;
-				if (resultSet.getObject(6) == null) {
+				if (resultSet.getObject(7) == null) {
 					gender = null;
 				} else
-					gender = resultSet.getBoolean(6);
-				String userName = resultSet.getString(7);
-				int roleID = resultSet.getInt(8);
-				String roleName = resultSet.getString(9);
+					gender = resultSet.getBoolean(7);
+				String userName = resultSet.getString(8);
+				int roleID = resultSet.getInt(9);
+				String roleName = resultSet.getString(10);
 				RoleModel roleModel = new RoleModel(roleID, roleName);
 				AccountModel accountModel = new AccountModel(accountID, roleID, userName, "******", roleModel);
-				userModel = new UserModel(userID, accountID, name, phone, email, gender, accountModel);
+				userModel = new UserModel(userID, accountID, name, phone, email, gender, accountModel, image);
 				System.out.println(userModel.getGender());
 			} 
 		} catch (SQLException e) {
@@ -89,17 +89,18 @@ public class UserService extends BaseService {
 				String name = resultSet.getString(3);
 				String phone = resultSet.getString(4);
 				String email = resultSet.getString(5);
+				String image = resultSet.getString(6);
 				Boolean gender;
-				if (resultSet.getObject(6) == null) {
+				if (resultSet.getObject(7) == null) {
 					gender = null;
 				} else
-					gender = resultSet.getBoolean(6);
-				String userName = resultSet.getString(7);
-				int roleID = resultSet.getInt(8);
-				String roleName = resultSet.getString(9);
+					gender = resultSet.getBoolean(7);
+				String userName = resultSet.getString(8);
+				int roleID = resultSet.getInt(9);
+				String roleName = resultSet.getString(10);
 				RoleModel roleModel = new RoleModel(roleID, roleName);
 				AccountModel accountModel = new AccountModel(accountID, roleID, userName, "******", roleModel);
-				UserModel userModel = new UserModel(userID, accountID, name, phone, email, gender, accountModel);
+				UserModel userModel = new UserModel(userID, accountID, name, phone, email, gender, accountModel, image);
 				System.out.println(userModel.getGender());
 				userModels.add(userModel);
 			}
@@ -197,5 +198,72 @@ public class UserService extends BaseService {
 		} 
 		return cnt;
 	} 
-
+	
+	// query all teacher
+	
+	public static LinkedList<UserModel> allTeacher() {
+		LinkedList<UserModel> userModels = new LinkedList<UserModel>();
+		try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(
+					"SELECT User.*, Account.username, Account.roleID, Role.rolename FROM User INNER JOIN Account ON User.AccountID = Account.AccountID INNER JOIN Role ON Account.RoleID = Role.RoleID WHERE Role.RoleID = 2");
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				int userID = resultSet.getInt(1);
+				int accountID = resultSet.getInt(2);
+				String name = resultSet.getString(3);
+				String phone = resultSet.getString(4);
+				String email = resultSet.getString(5);
+				String image = resultSet.getString(6);
+				Boolean gender;
+				if (resultSet.getObject(7) == null) {
+					gender = null;
+				} else
+					gender = resultSet.getBoolean(7);
+				String userName = resultSet.getString(8);
+				int roleID = resultSet.getInt(9);
+				String roleName = resultSet.getString(10);
+				RoleModel roleModel = new RoleModel(roleID, roleName);
+				AccountModel accountModel = new AccountModel(accountID, roleID, userName, "******", roleModel);
+				UserModel userModel = new UserModel(userID, accountID, name, phone, email, gender, accountModel, image);
+				System.out.println(userModel.getGender());
+				userModels.add(userModel);
+			}
+			System.out.println("size cua user la: " + userModels.size());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userModels;
+	}
+	
+	//
+	public static UserModel getUserByID(int userID) {
+		UserModel userModel = new UserModel();
+		try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT user.*  FROM user where userid=?");
+			preparedStatement.setInt(1, userID);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				 int accountID = resultSet.getInt("AccountID");
+				 String name = resultSet.getString("Name");
+				 String phone = resultSet.getString("Phone");
+				 String email = resultSet.getString("gmail");
+				 boolean gender  = resultSet.getBoolean("gender");
+				 String image = resultSet.getString("image");
+				 userModel.setUserID(userID);
+				 userModel.setAccountID(accountID);
+				 userModel.setName(name);
+				 userModel.setPhone(phone);
+				 userModel.setEmail(email);
+				 userModel.setGender(gender);
+				 userModel.setImage(image);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return userModel;
+	}  
 }

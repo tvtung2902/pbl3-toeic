@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.pbl3.libs.MD5;
 import com.pbl3.model.AccountModel;
 import java.sql.Statement;
 

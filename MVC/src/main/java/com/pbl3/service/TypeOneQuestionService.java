@@ -5,20 +5,67 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-
-import com.pbl3.model.DataQuestionModel;
-import com.pbl3.model.PartModel;
+import com.pbl3.libs.Pair;
 import com.pbl3.model.QuestionModel;
-import com.pbl3.model.TestsModel;
 import com.pbl3.model.TypeOneQuestionModel;
 import com.pbl3.model.TypeQuestionModel;
-import com.pbl3.model.VocabListsModel;
-import jakarta.servlet.http.Part;
-
+ 
 public class TypeOneQuestionService extends BaseService{
+	//query all question type one: result
+	public static void allTypeOneQuestionResult(int historyOftestID, int testsID, ArrayList<Pair<QuestionModel, String>> pairs) {
+	    try {       
+	        Connection connection = getConnection();
+	        PreparedStatement preparedStatement = connection.prepareStatement("SELECT Question.*, TypeOneQuestion.Audio, TypeOneQuestion.Transcript, H.Answer FROM (SELECT historyoftest_question.QuestionID, historyoftest_question.Answer FROM historyoftest_question WHERE HistoryoftestID = ?) AS H RIGHT JOIN question ON H.QuestionID = question.QuestionID INNER JOIN TypeOneQuestion ON Question.QuestionID = TypeOneQuestion.questionID WHERE question.TestID = ? Order By Question.OrderNumber ASC");
+	        preparedStatement.setInt(1, historyOftestID);
+	        preparedStatement.setInt(2, testsID);
+	        ResultSet resultSet = preparedStatement.executeQuery();
+	        while (resultSet.next()) {
+	            int questionID = resultSet.getInt("questionID");
+	            Integer typeQuestionID = resultSet.getInt("typeQuestionID");
+	            String answerCorrect = resultSet.getString("answerCorrect");
+	            String answerExplain = resultSet.getString("answerExplain"); 
+	            int orderNumber = resultSet.getInt("orderNumber");
+	            String image = resultSet.getString("image");
+	            String audio = resultSet.getString("audio"); 
+	            String transcript = resultSet.getString("transcript");
+	            Integer dataQuestionID = resultSet.getInt("DataQuestionID");
+	            TypeOneQuestionModel typeOneQuestionModel = new TypeOneQuestionModel(questionID, typeQuestionID, 0, answerCorrect, answerExplain, orderNumber, image, null, dataQuestionID, null, audio, transcript) ;
+	            String answer = resultSet.getString("answer");
+	            Pair<QuestionModel, String> pair = new Pair<>(typeOneQuestionModel, answer);
+	            pairs.add(pair);
+	        } 
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
 	
-	// query all question type one and type question in 1 test  
+	// query all question : start 
+	public static void allTypeOneQuestionStart(int testID, QuestionModel[] questionModels) {
+	    try {       
+	        Connection connection = getConnection();
+	        PreparedStatement preparedStatement = connection.prepareStatement("SELECT Question.*, TypeOneQuestion.Audio, TypeOneQuestion.Transcript FROM Question INNER JOIN TypeOneQuestion ON Question.QuestionID = TypeOneQuestion.questionID WHERE Question.TestID = ?");
+	        preparedStatement.setInt(1, testID);
+	        ResultSet resultSet = preparedStatement.executeQuery();
+	        while (resultSet.next()) {
+	            int questionID = resultSet.getInt("questionID");
+	            Integer typeQuestionID = resultSet.getInt("typeQuestionID");
+	            String answerCorrect = resultSet.getString("answerCorrect");
+	            String answerExplain = resultSet.getString("answerExplain"); 
+	            int orderNumber = resultSet.getInt("orderNumber");
+	            String image = resultSet.getString("image");
+	            String audio = resultSet.getString("audio"); 
+	            String transcript = resultSet.getString("transcript");
+	            Integer dataQuestionID = resultSet.getInt("DataQuestionID");
+	            TypeOneQuestionModel typeOneQuestionModel = new TypeOneQuestionModel(questionID, typeQuestionID, 0, answerCorrect, answerExplain, orderNumber, image, null, dataQuestionID, null, audio, transcript) ;
+	            questionModels[typeOneQuestionModel.getOrderNumber() - 1] = typeOneQuestionModel;
+	        } 
+	        System.out.println("size cua typeOneQuestionModels: " + questionModels.length);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	// query all question type one and type question in 1 test - teacher
 	public static void allTypeOneQuestion(int testID, QuestionModel[] questionModels) {
 	    try {
 	        Connection connection = getConnection();
@@ -38,12 +85,7 @@ public class TypeOneQuestionService extends BaseService{
 	            String transcript = resultSet.getString("transcript");
 	            Integer dataQuestionID = resultSet.getInt("DataQuestionID");
 	            TypeQuestionModel typeQuestionModel = new TypeQuestionModel(typeQuestionID, typeQuestionName);
-//	            String dataQuestion = resultSet.getString("dataQuestion");
-//	            int orderNumberPart = resultSet.getInt("orderNumberPart");
-//	            int orderNumberData = resultSet.getInt("orderNumber");
-//	            DataQuestionModel dataQuestionModel = new DataQuestionModel(dataQuestionID, dataQuestion, transcript, testID, orderNumberPart, orderNumberData);
 	            TypeOneQuestionModel typeOneQuestionModel = new TypeOneQuestionModel(questionID, typeQuestionID, 0, answerCorrect, answerExplain, orderNumber, image, typeQuestionModel, dataQuestionID, null, audio, transcript) ;
-	            //Gán QuestionModel vào mảng 
 	            questionModels[typeOneQuestionModel.getOrderNumber() - 1] = typeOneQuestionModel;
 	        } 
 	        System.out.println("size cua typeOneQuestionModels: " + questionModels.length);

@@ -8,9 +8,10 @@ public class UserModel {
 	private String email;
 	private Boolean gender;
 	private AccountModel accountModel;
+	private String image;
 	
 	public UserModel(int userID, int accountID, String name, String phone, String email, Boolean gender,
-			AccountModel accountModel) {
+			AccountModel accountModel, String image) {
 		super();
 		this.userID = userID;
 		this.accountID = accountID;
@@ -19,10 +20,23 @@ public class UserModel {
 		this.email = email;
 		this.gender = gender;
 		this.accountModel = accountModel;
+		this.image = image;
 	}
 
 	public UserModel () {
 		
+	}
+
+
+	public UserModel(int userID, int accountID, String name, String phone, String email, Boolean gender, String image) {
+		super();
+		this.userID = userID;
+		this.accountID = accountID;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.image = image;
 	}
 	
 	public UserModel(String name, String phone, String email, Boolean gender) {
@@ -41,18 +55,15 @@ public class UserModel {
 		this.email = email;
 		this.gender = gender;
 	}
-
-
-	public UserModel(int userID, int accountID, String name, String phone, String email, Boolean gender) {
-		super();
-		this.userID = userID;
-		this.accountID = accountID;
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-		this.gender = gender;
-	}
 	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public AccountModel getAccountModel() {
 		return accountModel;
 	}

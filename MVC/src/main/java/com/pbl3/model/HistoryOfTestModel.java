@@ -8,7 +8,6 @@ public class HistoryOfTestModel {
     private int userID;
     private int testID;
     private Date date;
-    private int score;
     
     // Lay ngay thang nam
     public String showDate() {
@@ -20,29 +19,19 @@ public class HistoryOfTestModel {
         
     }
     
-    public HistoryOfTestModel(int userID, int testID, Date date, int score) {
+    public HistoryOfTestModel(int userID, int testID, Date date) {
         super();
         this.userID = userID;
         this.testID = testID;
         this.date = date;
-        this.score = score;
     }
 
-    public HistoryOfTestModel(int historyOfTestID, int userID, int testID, Date date, int score) {
+    public HistoryOfTestModel(int historyOfTestID, int userID, int testID, Date date) {
         super();
         this.historyOfTestID = historyOfTestID;
         this.userID = userID;
         this.testID = testID;
         this.date = date;
-        this.score = score;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
     }
 
     public int getHistoryOfTestID() {

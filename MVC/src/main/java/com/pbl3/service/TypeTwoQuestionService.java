@@ -4,14 +4,84 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import com.pbl3.libs.Pair;
 import com.pbl3.model.DataQuestionModel;
 import com.pbl3.model.QuestionModel;
-import com.pbl3.model.TypeOneQuestionModel;
 import com.pbl3.model.TypeQuestionModel;
 import com.pbl3.model.TypeTwoQuestionModel;
 
 public class TypeTwoQuestionService extends BaseService{
+	// query result
+	public static void allTypeTwoQuestionResult(int historyOftestID, int testsID, ArrayList<Pair<QuestionModel, String>> pairs) {
+	    try {
+	        Connection connection = getConnection();
+	        PreparedStatement preparedStatement = connection.prepareStatement("SELECT question.*, typetwoquestion.ContentAnswerA, typetwoquestion.ContentAnswerB, typetwoquestion.ContentAnswerC, typetwoquestion.ContentAnswerD, typetwoquestion.QuestionContent, dataquestion.DataQuestion, dataquestion.Transcript, dataquestion.OrderNumberPart, dataquestion.OrderNumber, H.Answer FROM (SELECT historyoftest_question.* FROM historyoftest_question WHERE HistoryoftestID = ?) AS H RIGHT JOIN question ON H.QuestionID = question.QuestionID  INNER JOIN typetwoquestion ON question.questionID = typetwoquestion.questionID LEFT JOIN dataquestion ON question.DataQuestionID = dataquestion.DataQuestionID WHERE question.TestID = ? Order By Question.OrderNumber ASC");
+	        preparedStatement.setInt(1, historyOftestID); 
+	        preparedStatement.setInt(2, testsID);
+	        ResultSet resultSet = preparedStatement.executeQuery();
+	        while (resultSet.next()) {
+	            int questionID = resultSet.getInt("questionID");
+	            Integer typeQuestionID = resultSet.getInt("typeQuestionID");
+	            String answerCorrect = resultSet.getString("answerCorrect");
+	            String answerExplain = resultSet.getString("answerExplain"); 
+	            int orderNumber = resultSet.getInt("orderNumber");
+	            String image = resultSet.getString("image");
+	            int dataQuestionID = resultSet.getInt("dataQuestionID");   
+	            String contentAnswerA = resultSet.getString("contentAnswerA");
+	            String contentAnswerB = resultSet.getString("contentAnswerB");
+	            String contentAnswerC = resultSet.getString("contentAnswerC");
+	            String contentAnswerD = resultSet.getString("contentAnswerD");
+	            String questionContent = resultSet.getString("questionContent");
+	            String dataQuestion = resultSet.getString("dataQuestion");
+	            String transcript = resultSet.getString("transcript");
+	            int orderNumberPart = resultSet.getInt("orderNumberPart"); 
+	            int orderNumberData = resultSet.getInt("orderNumber");
+	            DataQuestionModel dataQuestionModel = new DataQuestionModel(dataQuestionID, dataQuestion, transcript, 0, orderNumberPart, orderNumberData);
+	            TypeTwoQuestionModel typeTwoQuestionModel = new TypeTwoQuestionModel (questionID, typeQuestionID, 0, answerCorrect, answerExplain, orderNumber, image, null, dataQuestionID, dataQuestionModel, contentAnswerA, contentAnswerB, contentAnswerC, contentAnswerD, questionContent);
+	            String answer = resultSet.getString("answer");
+	            Pair<QuestionModel, String> pair = new Pair<>(typeTwoQuestionModel, answer);
+	            pairs.add(pair);
+	        }   
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	// query start
+	public static void allTypeTwoQuestionStart(int testID, QuestionModel[] questionModels) {
+	    try {
+	        Connection connection = getConnection();
+	        PreparedStatement preparedStatement = connection.prepareStatement("SELECT question.*, typetwoquestion.ContentAnswerA, typetwoquestion.ContentAnswerB, typetwoquestion.ContentAnswerC, typetwoquestion.ContentAnswerD, typetwoquestion.QuestionContent, dataquestion.DataQuestion, dataquestion.Transcript, dataquestion.OrderNumberPart, dataquestion.OrderNumber FROM question  INNER JOIN typetwoquestion ON question.questionID = typetwoquestion.questionID LEFT JOIN dataquestion ON question.DataQuestionID = dataquestion.DataQuestionID WHERE Question.TestID = ?");
+	        preparedStatement.setInt(1, testID); 
+	        ResultSet resultSet = preparedStatement.executeQuery();
+	        while (resultSet.next()) {
+	            int questionID = resultSet.getInt("questionID");
+	            Integer typeQuestionID = resultSet.getInt("typeQuestionID");
+	            String answerCorrect = resultSet.getString("answerCorrect");
+	            String answerExplain = resultSet.getString("answerExplain"); 
+	            int orderNumber = resultSet.getInt("orderNumber");
+	            String image = resultSet.getString("image");
+	            int dataQuestionID = resultSet.getInt("dataQuestionID");   
+	            String contentAnswerA = resultSet.getString("contentAnswerA");
+	            String contentAnswerB = resultSet.getString("contentAnswerB");
+	            String contentAnswerC = resultSet.getString("contentAnswerC");
+	            String contentAnswerD = resultSet.getString("contentAnswerD");
+	            String questionContent = resultSet.getString("questionContent");
+	            String dataQuestion = resultSet.getString("dataQuestion");
+	            String transcript = resultSet.getString("transcript");
+	            int orderNumberPart = resultSet.getInt("orderNumberPart");
+	            int orderNumberData = resultSet.getInt("orderNumber");
+	            DataQuestionModel dataQuestionModel = new DataQuestionModel(dataQuestionID, dataQuestion, transcript, testID, orderNumberPart, orderNumberData);
+	            TypeTwoQuestionModel typeTwoQuestionModel = new TypeTwoQuestionModel (questionID, typeQuestionID, testID, answerCorrect, answerExplain, orderNumber, image, null, dataQuestionID, dataQuestionModel, contentAnswerA, contentAnswerB, contentAnswerC, contentAnswerD, questionContent);
+	            questionModels[typeTwoQuestionModel.getOrderNumber() - 1] = typeTwoQuestionModel;
+	        }   
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
 	// query all question type one and type question in 1 test  
 	public static void allTypeTwoQuestion(int testID, QuestionModel[] questionModels) {
 	    try {
@@ -39,12 +109,10 @@ public class TypeTwoQuestionService extends BaseService{
 	            int orderNumberData = resultSet.getInt("orderNumber");
 	            TypeQuestionModel typeQuestionModel = new TypeQuestionModel(typeQuestionID, typeQuestionName);
 	            DataQuestionModel dataQuestionModel = new DataQuestionModel(dataQuestionID, dataQuestion, transcript, testID, orderNumberPart, orderNumberData);
-	            TypeTwoQuestionModel typeTwoQuestionModel = new TypeTwoQuestionModel (questionID, typeQuestionID, typeQuestionID, answerCorrect, answerExplain, orderNumberData, image, typeQuestionModel, dataQuestionID, dataQuestionModel, contentAnswerA, contentAnswerB, contentAnswerC, contentAnswerD, questionContent);
+	            TypeTwoQuestionModel typeTwoQuestionModel = new TypeTwoQuestionModel (questionID, typeQuestionID, testID, answerCorrect, answerExplain, orderNumber, image, typeQuestionModel, dataQuestionID, dataQuestionModel, contentAnswerA, contentAnswerB, contentAnswerC, contentAnswerD, questionContent);
 	            questionModels[typeTwoQuestionModel.getOrderNumber() - 1] = typeTwoQuestionModel;
 	            
 	        }   
-	        System.out.println(".................... "+questionModels[100].getOrderNumber());  
-	        System.out.println("size cua typeOneQuestionModels: " + questionModels.length);
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }

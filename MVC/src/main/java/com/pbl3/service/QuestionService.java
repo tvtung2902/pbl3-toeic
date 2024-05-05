@@ -6,11 +6,29 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 
 public class QuestionService extends BaseService{
+	// query all questionID in 1 test
+	public static LinkedList<Integer> allQuestionID(int testID) {
+		LinkedList<Integer> questionIDs = new LinkedList<Integer>();
+		try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT QuestionID FROM Question WHERE TestID = ?");
+			preparedStatement.setInt(1, testID);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				int QuestionID = resultSet.getInt(1);
+				questionIDs.add(QuestionID);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return questionIDs;
+	}
+	
 	// add question
 	public static int add(QuestionModel questionModel) {
 	    try {

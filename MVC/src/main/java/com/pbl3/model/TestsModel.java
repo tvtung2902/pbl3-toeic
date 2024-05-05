@@ -1,8 +1,5 @@
 package com.pbl3.model;
 
-import java.time.Year;
-import java.time.YearMonth;
-
 public class TestsModel {
 	private int testsID;
 	private String testsName;

@@ -1,3 +1,5 @@
+<%@page import="javax.swing.plaf.metal.MetalBorders.Flush3DBorder"%>
+<%@page import="com.pbl3.libs.Pair"%>
 <%@page import="com.pbl3.model.CourseModel"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="com.pbl3.model.HistoryOfTestModel"%>
@@ -95,7 +97,7 @@
                                                 <p class="inner-desc"><%=courseModel.getCourseDesc() %></p>
                                             </div>
                                             <div class="inner-number">
-                                            <%if((Long)request.getAttribute("days"+Integer.toString(courseModel.getCourseID()))>=0){ %>
+                                            <%if((Long)request.getAttribute("days"+Integer.toString(courseModel.getCourseID()))>0){ %>
                                                 <p>Còn lại:<%=request.getAttribute("days"+Integer.toString(courseModel.getCourseID())) %> ngày</p> <%}
                                             else{%>
                                             	<p>Khóa học đã hết hạn</p>
@@ -111,28 +113,44 @@
  
 
                         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                             <%
+							int number = ((LinkedList<Pair<HistoryOfTestModel, String>>) request.getAttribute("historyOfTestModels")).size();
+                        	if (number != 0) {
+							%>
                             <h3>
                                 Lịch sử làm đề:
 								<!-- code lịch sử đề thi ở đây -->
                             </h3>
+                            <br>
                             <div>
                                 <div>
-                                      
-                                      <%
-					for (HistoryOfTestModel h : (LinkedList<HistoryOfTestModel>) request.getAttribute("historyOfTestModels")) {
-					%>
-					<div>
-						<span>
-							Ngày thực hiện: <%=h.showDate()%>, Diem: <%=h.getScore()%>
-						</span>
-						<a href="/MVC/tests/result?history-of-test=<%=h.getHistoryOfTestID()%>">xem chi tiết</a>
-						<!-- Button trigger modal -->
-
-					</div>
-					<%
-					}
-					%> 
-                                      
+                        <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th scope="col">Số thứ tự</th>
+                                <th scope="col">Ngày làm</th>
+                                <th scope="col">Tên Đề Thi</th>
+                                <th scope="col">Kết quả</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            	<%
+                            	int i = 1; 
+								for (Pair<HistoryOfTestModel, String> p : (LinkedList<Pair<HistoryOfTestModel, String>>) request.getAttribute("historyOfTestModels")) {
+								%>
+                              <tr>
+                                <th scope="row"><%=i++%></th>
+                                <td><%=p.getFirst().getDate()%></td>
+                                <td><%=p.getSecond()%></td>
+                                <td><a href="/MVC/tests/result?history-of-test=<%=p.getFirst().getHistoryOfTestID()%>">Xem chi tiết</a></td>
+                              </tr>
+                              <%} %> 
+                            </tbody>
+                        </table>
+                        <%}%>
+						<%if(number == 0){%>
+							<h3>Bạn chưa làm đề thi nào!</h3>                          
+						<%}%>
 
                                 </div>
                             </div>

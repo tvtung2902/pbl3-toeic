@@ -5,27 +5,86 @@ public class CourseModel {
 	private String courseName;
 	private String courseDesc;
 	private double price;
-	private int duration;
+	private int duration;  
+	private int target;
+	private String image;
+	private int input;
+	private int teacherID;
+	private int  percentSalary;  
+	private int percentDiscount;  
 	
-	public CourseModel() {
-		
-	}
-	
-	public CourseModel(String courseName, String courseDesc, double price, int duration) {
+	public CourseModel(String courseName, String courseDesc, double price, int duration, int target, String image, int input, int teacherID) {
 		super();
 		this.courseName = courseName;
 		this.courseDesc = courseDesc;
 		this.price = price;
 		this.duration = duration;
+		this.target = target;
+		this.image = image;
+		this.input = input;
+		this.teacherID = teacherID;
 	}
 
-	public CourseModel(int courseID, String courseName, String courseDesc, double price, int duration) {
+	public CourseModel(int courseID, String courseName, String courseDesc, double price, int duration, int target, String image, int input, int teacherID) {
 		super();
 		this.courseID = courseID;
 		this.courseName = courseName;
 		this.courseDesc = courseDesc;
 		this.price = price;
 		this.duration = duration;
+		this.target = target;
+		this.image = image;
+		this.input = input;
+		this.teacherID = teacherID;
+	}
+
+	public CourseModel() {    
+		
+	}
+	
+	public CourseModel(String courseName, String courseDesc, double price, int duration,int teacherID) {
+		super();
+		this.courseName = courseName;
+		this.courseDesc = courseDesc;
+		this.price = price;
+		this.duration = duration;
+		this.teacherID=teacherID;
+	}
+
+
+
+	public CourseModel(int courseID, String courseName, String courseDesc, double price, int duration,int teacherID) {
+		super();
+		this.courseID = courseID;
+		this.courseName = courseName;
+		this.courseDesc = courseDesc;
+		this.price = price;
+		this.duration = duration;
+		this.teacherID=teacherID;
+	}
+	
+	public int getTeacherID() {
+		return teacherID;
+	}
+
+	public void setTeacherID(int teacherID) {
+		this.teacherID = teacherID;
+	}
+
+	public int getInput() {
+		return input;
+	}
+
+	public void setInput(int input) {
+		this.input = input;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image; 
 	}
 
 	public int getCourseID() {
@@ -58,5 +117,14 @@ public class CourseModel {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
+
+	public int getTarget() {
+		return target;
+	}
+
+	public void setTarget(int target) {
+		this.target = target;
+	}
+	
 }
 

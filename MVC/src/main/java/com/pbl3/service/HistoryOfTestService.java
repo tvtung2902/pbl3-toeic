@@ -8,9 +8,8 @@ import java.sql.Statement;
 import java.util.Date;
 import java.util.LinkedList;
 
-import com.pbl3.model.AccountModel;
+import com.pbl3.libs.Pair;
 import com.pbl3.model.HistoryOfTestModel;
-import com.pbl3.model.TestsModel;
 
 public class HistoryOfTestService extends BaseService {
 
@@ -22,7 +21,7 @@ public class HistoryOfTestService extends BaseService {
 			System.out.println("userid: " + userID);
 			Connection connection = getConnection();
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT historyoftest.*  FROM historyoftest WHERE testID = ? AND userID = ?;");
+					.prepareStatement("SELECT historyoftest.*  FROM historyoftest WHERE testID = ? AND userID = ? ORDER BY historyoftestid DESC");
 			preparedStatement.setInt(1, testID);
 			preparedStatement.setInt(2, userID);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -31,9 +30,7 @@ public class HistoryOfTestService extends BaseService {
 //				int userID = resultSet.getInt(2);
 //				int testID = resultSet.getInt(3);
 				Date date = (Date) resultSet.getDate(4);
-				int score = resultSet.getInt(5);
-				HistoryOfTestModel historyOfTestModel = new HistoryOfTestModel(historyOfTestID, userID, testID, date,
-						score);
+				HistoryOfTestModel historyOfTestModel = new HistoryOfTestModel(historyOfTestID, userID, testID, date);
 				historyOfTestModels.add(historyOfTestModel);
 			}
 			System.out.println("size cua historyOfTestModels: " + historyOfTestModels.size());
@@ -47,12 +44,12 @@ public class HistoryOfTestService extends BaseService {
 	}
 
 	/// query all history - n test - 1 user
-	public static LinkedList<HistoryOfTestModel> allHistoryOfTest(int userID) {
-		LinkedList<HistoryOfTestModel> historyOfTestModels = new LinkedList<HistoryOfTestModel>();
+	public static LinkedList<Pair<HistoryOfTestModel, String>> allHistoryOfTest(int userID) {
+		LinkedList<Pair<HistoryOfTestModel, String>> historyOfTestModels = new LinkedList<Pair<HistoryOfTestModel, String>>();
 		try {
 			Connection connection = getConnection();
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT *  FROM historyoftest WHERE historyoftest.userID = ?");
+					.prepareStatement("SELECT historyoftest.*, test.testName  FROM historyoftest INNER JOIN test ON historyoftest.testID = test.testID WHERE historyoftest.userID = ? ORDER BY historyoftestid DESC");
 			preparedStatement.setInt(1, userID);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -60,14 +57,11 @@ public class HistoryOfTestService extends BaseService {
 //				int userID = resultSet.getInt(2);
 				int testID = resultSet.getInt(3);
 				Date date = resultSet.getDate(4);
-				int score = resultSet.getInt(5);
-				HistoryOfTestModel historyOfTestModel = new HistoryOfTestModel(historyOfTestID, userID, testID, date,
-						score);
-				historyOfTestModels.add(historyOfTestModel);
+				String testName = resultSet.getString(5);
+				HistoryOfTestModel historyOfTestModel = new HistoryOfTestModel(historyOfTestID, userID, testID, date);
+				Pair<HistoryOfTestModel, String> pair = new Pair<> (historyOfTestModel, testName);
+				historyOfTestModels.add(pair);
 			}
-			System.out.println("size cua historyOfTestModels: " + historyOfTestModels.size());
-			if (historyOfTestModels.size() != 0)
-				System.out.println("ngay lam dau tien la: " + historyOfTestModels.get(0).showDate());
 			return historyOfTestModels;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -80,14 +74,12 @@ public class HistoryOfTestService extends BaseService {
 		try {
 			Connection connection = getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(
-					"INSERT INTO historyoftest (userID, testID, date, score) VALUES (?, ?, ?, ?)",
+					"INSERT INTO historyoftest (userID, testID, date) VALUES (?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setInt(1, historyOfTestModel.getUserID());
 			preparedStatement.setInt(2, historyOfTestModel.getTestID());
 			preparedStatement.setObject(3, historyOfTestModel.getDate());
-			preparedStatement.setInt(4, historyOfTestModel.getScore());
 			preparedStatement.executeUpdate();
-
 			ResultSet rs = preparedStatement.getGeneratedKeys();
 			int historyOfTestID = 0;
 			if (rs.next()) {
@@ -101,7 +93,6 @@ public class HistoryOfTestService extends BaseService {
 	}
 
 	// query testsID in historyoftest
-
 	public static int findTestsID(int historyoftestID) {
 		try {
 			Connection connection = getConnection();

@@ -112,8 +112,8 @@ public class UserController extends HttpServlet {
 		else {
 			gender = null;
 		}
-		UserModel userModel = new UserModel(userID, 0, name, phone, email, gender);
-		UserService.update(userModel); 
+//		UserModel userModel = new UserModel(userID, 0, name, phone, email, gender);
+//		UserService.update(userModel); 
 		resp.sendRedirect(req.getContextPath() + "/admin/users");
 	}
 	

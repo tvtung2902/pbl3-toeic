@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-@WebServlet(urlPatterns = { "/", "/register", "/login", "/logout" })
+@WebServlet(urlPatterns = {"/" ,"/register", "/login", "/logout" })
 public class HomepageController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("goi doGet HomepageController user");
@@ -59,7 +59,7 @@ public class HomepageController extends HttpServlet {
 		}
 	}
 
-	// chuyen den form dang ki
+	// chuyen den form dang ki 
 	public void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("goi register");
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/student/register.jsp");

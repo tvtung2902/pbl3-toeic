@@ -5,10 +5,6 @@ import java.io.IOException;
 import com.pbl3.libs.FileData;
 import com.pbl3.model.DataQuestionModel;
 import com.pbl3.service.DataQuestionService;
-import com.pbl3.service.QuestionService;
-import com.pbl3.service.VocabService;
-
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;

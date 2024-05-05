@@ -1,0 +1,12 @@
+package com.pbl3.model;
+
+import java.sql.Date;
+
+public class CouponModel {
+	private int CouponID; 
+	private String Code; 
+	private Date startDate; 
+	private Date EndDate; 
+	private int Quantity; 
+	private int QuantityUsed;
+}

@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root{
+    --color-one: #0EDC8D;
+    --color-two: #04182B;
+    --color-text: black;
+    --font: 'Be Vietnam Pro', serif; 
+}
+ *{
+    box-sizing: border-box;
+ }
+ 
+ body{
+    font-family: var(--font);
+    color: var(--color-text);
+} 
+
+/* menu */
+.menu{
+    background: var(--color-two);
+    width: 220px;
+    height: 100%;
+    position: fixed;
+    border-right: 3px solid var(--color-one);
+}
+.menu .logo{
+    display: flex;
+    align-items: center;
+    padding-left: 80px;
+    padding-top: 18px;
+}
+.menu .logo i{
+    width: 150px;
+    margin-right: 15px;
+    height: auto;
+    object-fit: cover;
+    color: white;
+    font-size: 40px;
+}
+.menu .logo:hover i{
+    color: var(--color-one);
+}
+.menu .item{
+    margin-top: 20px ;
+    border-radius: 20px;
+}
+.menu .item li{
+    list-style: none;
+    padding: 15px 0;
+    border-radius: 10px;
+}
+.menu .item li:hover{
+    background:var(--color-one) ;
+    cursor: pointer;
+}
+.menu .item li:nth-child(2){
+    border-left: 4px solid white;
+}
+.menu .item li i{
+    color: white;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 20px;
+    margin: 0 10px 0 10px;
+}
+.menu .item li:hover i{
+    color: var(--color-two);
+}
+.menu .item li a{
+    text-decoration: none;
+    color: white ;
+    font-weight: 300px;
+}
+.menu .item li:hover a{
+    color: var(--color-two);
+}
+/* end menu */ 
+
+/* main */
+
+.main{
+    width: calc(100% - 220px);
+    margin-left: 220px;
+    background: white;
+}
+.main .header{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    background: white;
+    padding: 15px 30px;
+    border-bottom: 3px solid var(--color-one);
+    position: fixed;
+    width: calc(100% - 220px);
+    z-index: 99;
+}
+
+.main .header .search{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 14px;
+    border: 1px solid var(--color-text);
+    border-radius: 10px;
+}
+.main .header .search i{
+    margin-right: 14px;
+}
+.main .header .search input{
+    border: none;
+    outline: none;
+    font-size: 14px ;
+}
+
+.main .header .profile{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+.main .header .profile i{
+    margin-right: 20px;
+    font-size: 19px;
+    font-weight: 400;
+}
+.main .header .profile img{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.name{
+    margin-top: 70px;
+    color: var(--color-two);
+    padding: 30px 30px 0 30px ;
+    font-size: 24px;
+    font-weight: 700;
+}     

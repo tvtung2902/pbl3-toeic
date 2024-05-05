@@ -1,0 +1,34 @@
+package com.pbl3.model;	
+public class ExerciseModel {
+	private int lessionID;
+private String exerciseName;
+private String exerciseSource;
+
+public ExerciseModel() {
+}
+public ExerciseModel(int lessionID, String exerciseName, String exerciseSource) {
+	super();
+	this.lessionID = lessionID;
+	this.exerciseName = exerciseName;
+	this.exerciseSource = exerciseSource;
+}
+public int getLessionID() {
+	return lessionID;
+}
+public void setLessionID(int lessionID) {
+	this.lessionID = lessionID;
+}
+public String getExerciseName() {
+	return exerciseName;
+}
+public void setExerciseName(String exerciseName) {
+	this.exerciseName = exerciseName;
+}
+public String getExerciseSource() {
+	return exerciseSource;
+}
+public void setExerciseSource(String exerciseSource) {
+	this.exerciseSource = exerciseSource;
+}
+
+}

@@ -1,0 +1,10 @@
+package com.pbl3.model;
+
+public class CouponModel {
+	private int CouponID; 
+	private String Code; 
+	private String StartDate; 
+	private String EndDate; 
+	Quantity, 
+	QuantityUsed;
+}

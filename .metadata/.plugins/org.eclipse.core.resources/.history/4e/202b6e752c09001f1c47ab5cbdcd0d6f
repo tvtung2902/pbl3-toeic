@@ -1,0 +1,124 @@
+<%@page import="java.util.LinkedList"%>
+<%@page import="com.pbl3.model.CourseModel"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+	<style>
+		<%@ include file="../../../assets/admin-css/base.css" %>
+        <%@ include file="../../../assets/admin-css/style-course.css" %>
+	</style>
+</head>
+ 
+<body>
+    <!-- Menu sidebar -->
+    <div class="menu">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+
+        <div class="item">
+
+            <li>
+                <i class="fa-solid fa-house"></i>
+                <a href="#">Tổng Quan</a>
+            </li>
+            <li>
+                <i class="fa-solid fa-book-open-reader"></i>
+                <a href="#">Quản lí khoá học</a>
+            </li>
+            <li>
+                <i class="fa-solid fa-users"></i>
+                <a href="#">Quản lí Người dùng</a>
+            </li>
+            <li>
+                <i class="fa-solid fa-file-lines"></i>
+                <a href="#">Quản lí Đề thi</a>
+            </li>
+            <li>
+                <i class="fa-solid fa-spell-check"></i>
+                <a href="#">Quản lí Từ vựng</a>
+            </li>
+
+        </div>
+    </div>
+    <!-- end Menu sidebar -->
+    <!-- main -->
+
+    <div class="main">
+        <div class="header">
+            <div class="n1">
+                <div class="search">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Tìm Kiếm">
+                </div>
+            </div>
+
+            <div class="profile">
+                <i class="fa fa-bell"></i>
+                <img src="https://scontent.fdad1-3.fna.fbcdn.net/v/t39.30808-6/426582775_1830141884166854_7338056820026232735_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFH4S07X-xQXblT-noSx0vIgcW4HwNrjiaBxbgfA2uOJhWvDdKMeoyaPmH58ILGumQzVJpA72hfu5eu7kRpm9yp&_nc_ohc=e1f0_nPunWYQ7kNvgFFPKY5&_nc_ht=scontent.fdad1-3.fna&oh=00_AfBteHpSZtrkV7IBVrlwHsdGSEMjbCj7TF6fzf8II_ShjA&oe=663A5B5C">
+            </div>
+        </div>
+
+        <h3 class="name">Quản lí khoá học</h3>
+
+        <div class="container">
+            <div class="card-header">
+                <a href="/MVC/admin/create-course" class="btn btn-primary">Thêm Mới</a>
+                <div class="search"> 
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Tìm Kiếm">
+                </div>
+            </div>
+
+            <div class="row">
+            	<%for(CourseModel c : (LinkedList<CourseModel>)request.getAttribute("courseModels")){%>
+                <div class="col-3">
+                    <div class="card">
+                        <img class="img-fluid" src="/MVC/<%=c.getImage()%>" alt="anh mo ta">
+                        <div class="card-body">  
+                            
+                            <h3><%=c.getCourseName()%></h3> 
+                            <ul>
+                                <li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0">Thời Hạn :</span><strong><%=c.getDuration()%></strong></li>
+                                <li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0">Giá :</span><strong><%=c.getPrice()%>đ</strong></li>
+                            </ul>
+                            <div class="button"> 
+                                <a href="/MVC/admin/edit-course?courseID=<%=c.getCourseID()%>" class="btn btn-primary">Sửa</a>
+                                <a href="#" class="btn btn-danger">Xoá</a>
+                            </div>            
+                        </div>
+                    </div>
+                </div> 
+				<%} %>
+            </div>
+			
+        </div>
+    </div>
+
+    <!-- end main -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

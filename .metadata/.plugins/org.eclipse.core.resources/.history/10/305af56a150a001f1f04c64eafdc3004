@@ -1,0 +1,91 @@
+package com.pbl3.controller.admin;
+import java.io.IOException;
+import java.util.LinkedList;
+
+import com.pbl3.model.CouponModel;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@MultipartConfig 
+@WebServlet(urlPatterns = { "/admin/course", "/admin/course/create", "/admin/course/edit", "/admin/course/delete"})
+public class CouponController extends HttpServlet{
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("goi doGet Coupon - ad");
+		String actionString = req.getServletPath();
+		System.out.println("actionstring la: " + actionString);
+		switch (actionString) {
+		case "/admin/coupon": {
+			System.out.println("goi doget /admin/coupon");
+			show(req, resp);
+			break;
+		}
+		case "/admin/coupon/create": {
+			System.out.println("goi doPost /admin/coupon/create");
+			create(req, resp);
+			break;
+		}
+		
+		case "/admin/coupon/edit": {
+			System.out.println("goi doPost /admin/coupon/edit");
+			edit(req, resp);
+			break;
+		} 
+		}
+	}
+	protected void show(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("goi ham show");
+		LinkedList<CouponModel> couponModels = new LinkedList<CouponModel>();
+	}
+	
+	protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+	}
+	
+	protected void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+	}
+	
+	protected void createSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+	}
+	
+	protected void editSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+	}
+	
+	protected void deleteSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("goi doPost coupon - ad");
+		String actionString = req.getServletPath();
+		System.out.println("actionstring la: " + actionString);
+		switch (actionString) {
+		case "/admin/coupon/create": {
+			System.out.println("goi doPost /admin/coupon/create");
+			createSubmit(req, resp);
+			break;
+		}
+		
+		case "/admin/coupon/edit": {
+			System.out.println("goi doPost /admin/coupon/edit");
+			editSubmit(req, resp);
+			break;
+		}
+		
+		case "/admin/coupon/delete": {
+			System.out.println("goi doPost /admin/coupon/delete");
+			deleteSubmit(req, resp);
+			break;
+		}
+		}
+	}
+}

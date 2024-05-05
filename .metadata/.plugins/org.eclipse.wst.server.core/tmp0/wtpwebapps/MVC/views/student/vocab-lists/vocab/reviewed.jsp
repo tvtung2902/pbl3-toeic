@@ -21,10 +21,6 @@
     <style>
     	<%@include file="../../../../assets/css/base.css"%>
     	 <%@include file="../../../../assets/css/styleReviewed.css"%>
-    	
-        .header .main-header .tu-vung{
-            color: var(--color-one);
-        }      
     </style>
     <!-- header  -->
 	<%@include file="../../re-use/header.jsp" %>

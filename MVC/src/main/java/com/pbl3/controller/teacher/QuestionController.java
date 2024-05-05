@@ -1,14 +1,10 @@
 package com.pbl3.controller.teacher;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import com.pbl3.libs.FileData;
 import com.pbl3.model.QuestionModel;
 import com.pbl3.model.TestsModel;
 import com.pbl3.model.TypeOneQuestionModel;
 import com.pbl3.model.TypeTwoQuestionModel;
-import com.pbl3.model.UserModel;
 import com.pbl3.service.DataQuestionService;
 import com.pbl3.service.PartService;
 import com.pbl3.service.QuestionService;
@@ -24,7 +20,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 @MultipartConfig
@@ -128,7 +123,7 @@ public class QuestionController extends HttpServlet {
 		int questionID = Integer.parseInt(req.getParameter("questionID"));
 		Integer typeQuestionID = Integer.parseInt(req.getParameter("typeQuestionID"));
 		Integer testsID = Integer.parseInt(req.getParameter("testsID"));
-		String answerCorrect = req.getParameter("answerCorrect");
+		String answerCorrect = req.getParameter("answerCorrect"); 
 		String answerExplain = req.getParameter("answerExplain");
 		int orderNumber = Integer.parseInt(req.getParameter("orderNumber"));
 		Integer dataQuestionID = null;
@@ -138,7 +133,7 @@ public class QuestionController extends HttpServlet {
 		// lay part anh ve 
 		Part part = req.getPart("image"); 
 		String image = null;
-		// neu co form-group img (kh phai part 2, 5) 
+		// neu co form-group img (kh phai part 2, 5)  
 		if (part != null) { 
 			System.out.println("part != null vi ko phai them o part 2 va 5");
 			String realPart = req.getServletContext().getRealPath("/data");

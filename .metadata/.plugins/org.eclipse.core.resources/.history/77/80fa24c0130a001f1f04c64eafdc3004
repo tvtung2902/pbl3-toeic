@@ -1,0 +1,6 @@
+package com.pbl3.model;
+
+public class Course_Coupon {
+	private int courseID;
+	private int couponID;
+}

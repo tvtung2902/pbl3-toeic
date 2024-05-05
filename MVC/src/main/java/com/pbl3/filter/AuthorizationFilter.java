@@ -35,6 +35,7 @@ public class AuthorizationFilter implements Filter {
         String urlString = httpServletRequest.getRequestURI();
         System.out.println("urlString la: " +urlString);
         if (urlString.startsWith("/MVC/admin")) {
+        	System.out.println("la addd"); 
             HttpSession session = httpServletRequest.getSession();
             UserModel userModel = (UserModel) (session != null ? session.getAttribute("user") : null);
             // Đã đăng nhập
@@ -51,8 +52,9 @@ public class AuthorizationFilter implements Filter {
                     // Nếu URL bắt đầu với "/admin", nhung ban la admin => cho phép truy cập tiếp theo
                     filterChain.doFilter(servletRequest, servletResponse);
                 }
-            }
-            else {
+                System.out.println(userModel.getAccountModel().getRoleModel().getRoleName() + "aaaaaaaaaaaaaaaa");
+            }  
+            else { 
             	System.out.println("chua dang nhap cu oi");
                 // Chưa đăng nhập, chuyển hướng đến trang đăng nhập
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");

@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.pbl3.model.VocabModel;
-import com.pbl3.service.BaseService;
-
 public class ReviewService extends BaseService{
 	//remember
 	public static void remember(int userID,int vocabID) {

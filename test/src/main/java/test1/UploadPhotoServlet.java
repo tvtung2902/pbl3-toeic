@@ -58,7 +58,7 @@ public class UploadPhotoServlet extends HttpServlet {
              
             // Ghi hình ảnh vào thư mục đã chỉ định
             part.write(Paths.get(realPart, fileName).toString()); 
-            String strx = "images/" + fileName;
+            String strx = "images/" + fileName; 
             // Chuyển hướng người dùng sau khi tải lên thành công (có thể bạn muốn chuyển hướng đến trang khác)
             try (PrintWriter printWriter = response.getWriter(); ){
                 printWriter.write("<!DOCTYPE html>\r\n"
