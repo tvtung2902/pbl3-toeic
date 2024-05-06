@@ -2,74 +2,57 @@ package com.pbl3.model;
 
 public class UserModel {
 	private int userID;
-	private int accountID;
 	private String name;
 	private String phone;
 	private String email;
 	private Boolean gender;
-	private AccountModel accountModel;
 	private String image;
+	private String userName;
+	private String password;
+	private RoleModel roleModel;
 	
-	public UserModel(int userID, int accountID, String name, String phone, String email, Boolean gender,
-			AccountModel accountModel, String image) {
-		super();
-		this.userID = userID;
-		this.accountID = accountID;
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-		this.gender = gender;
-		this.accountModel = accountModel;
-		this.image = image;
-	}
-
-	public UserModel () {
+	public UserModel() {
 		
 	}
-
-
-	public UserModel(int userID, int accountID, String name, String phone, String email, Boolean gender, String image) {
+	
+	public UserModel(String email, String userName, String password, RoleModel roleModel) {
+		super();
+		this.email = email;
+		this.userName = userName;
+		this.password = password;
+		this.roleModel = roleModel;
+	}
+	public UserModel(String name, String phone, String email, Boolean gender, String image, String userName,
+			String password, RoleModel roleModel) {
+		super();
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.image = image;
+		this.userName = userName;
+		this.password = password;
+		this.roleModel = roleModel;
+	}
+	public UserModel(int userID, String name, String phone, String email, Boolean gender, String image, String userName,
+			String password, RoleModel roleModel) {
 		super();
 		this.userID = userID;
-		this.accountID = accountID;
 		this.name = name;
 		this.phone = phone;
 		this.email = email;
 		this.gender = gender;
 		this.image = image;
+		this.userName = userName;
+		this.password = password;
+		this.roleModel = roleModel;
 	}
-	
-	public UserModel(String name, String phone, String email, Boolean gender) {
-		super();
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-		this.gender = gender;
+	public RoleModel getRoleModel() {
+		return roleModel;
 	}
 
-	public UserModel(int accountID, String name, String phone, String email, Boolean gender) {
-		super();
-		this.accountID = accountID;
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-		this.gender = gender;
-	}
-	
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-	public AccountModel getAccountModel() {
-		return accountModel;
-	}
-
-	public void setAccountModel(AccountModel accountModel) {
-		this.accountModel = accountModel;
+	public void setRoleModel(RoleModel roleModel) {
+		this.roleModel = roleModel;
 	}
 
 	public int getUserID() {
@@ -77,12 +60,6 @@ public class UserModel {
 	}
 	public void setUserID(int userID) {
 		this.userID = userID;
-	}
-	public int getAccountID() {
-		return accountID;
-	}
-	public void setAccountID(int accountID) {
-		this.accountID = accountID;
 	}
 	public String getName() {
 		return name;
@@ -102,14 +79,29 @@ public class UserModel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public Boolean getGender() {
 		return gender;
 	}
-
 	public void setGender(Boolean gender) {
 		this.gender = gender;
 	}
-
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	
 }

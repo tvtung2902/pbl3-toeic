@@ -44,20 +44,29 @@
 							</div>
 
 							<div class="form-group">
-								<label for="startDate">Thời gian bắt đầu</label> <input
-									type="datetime-local" id="startDate" name="startDate">
+								<label for="startDate">Thời gian bắt đầu</label> 
+								<br>
+								<input type="date" id="startDate" name="startDate">
+								   
 							</div>
 
 							<div class="form-group"> 
-								<label for="endDate">Thời gian kết thúc</label> <input
-									type="datetime-local" id="endDate" name="endDate">
+								<label for="endDate">Thời gian kết thúc</label> 
+								<br>
+								<input type="date" id="endDate" name="endDate">
+								
 							</div>
 
 							<div class="form-group">
 								<label for="quantity">Số Lượng</label> <input name="quantity"
 									type="number" class="form-control" id="quantity" step="1">
 							</div>
-
+							
+							<div class="form-group">
+								<label for="percent">Phần Trăm</label> <input name="percent"
+									type="number" class="form-control" id="percent" step="1">
+							</div>
+							
 							<div class="wrap-button">
 								<button type="submit" class="btn btn-success">Thêm</button>
 								<a href="/MVC/admin/course" type="button" class="btn btn-danger">Quay

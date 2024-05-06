@@ -3,7 +3,7 @@
 <%@page import="com.pbl3.model.CourseModel"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="com.pbl3.model.HistoryOfTestModel"%>
-<%@page import="com.pbl3.model.RegisterCourseModel"%>
+<%@page import="com.pbl3.model.Register_CourseModel"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!doctype html>

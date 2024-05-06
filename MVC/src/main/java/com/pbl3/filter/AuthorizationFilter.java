@@ -42,17 +42,17 @@ public class AuthorizationFilter implements Filter {
             if (userModel != null) {
             	System.out.println("ID userModel : " +userModel.getUserID());
                 // Kiểm tra quyền truy cập
-                if ((userModel.getAccountModel().getRoleModel().getRoleName()).equals("Học Viên")) 
+                if ((userModel.getRoleModel().getRoleName()).equals("Học Viên")) 
                     httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
-                else if ((userModel.getAccountModel().getRoleModel().getRoleName()).equals("Giáo Viên")) {
+                else if ((userModel.getRoleModel().getRoleName()).equals("Giáo Viên")) {
                 	httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/teacher");
                 }
-                else if ((userModel.getAccountModel().getRoleModel().getRoleName()).equals("Quản Trị Viên")) {
+                else if ((userModel.getRoleModel().getRoleName()).equals("Quản Trị Viên")) {
                 	System.out.println("vao thoai mai");
                     // Nếu URL bắt đầu với "/admin", nhung ban la admin => cho phép truy cập tiếp theo
                     filterChain.doFilter(servletRequest, servletResponse);
                 }
-                System.out.println(userModel.getAccountModel().getRoleModel().getRoleName() + "aaaaaaaaaaaaaaaa");
+                System.out.println(userModel.getRoleModel().getRoleName() + "aaaaaaaaaaaaaaaa");
             }  
             else { 
             	System.out.println("chua dang nhap cu oi");
@@ -68,16 +68,16 @@ public class AuthorizationFilter implements Filter {
             if (userModel != null) {
             	System.out.println("ID userModel : " +userModel.getUserID());
                 // Kiểm tra quyền truy cập
-                if ((userModel.getAccountModel().getRoleModel().getRoleName()).equals("Học Viên")) 
+                if ((userModel.getRoleModel().getRoleName()).equals("Học Viên")) 
                     httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
-                else if ((userModel.getAccountModel().getRoleModel().getRoleName()).equals("Giáo Viên")) {
+                else if ((userModel.getRoleModel().getRoleName()).equals("Giáo Viên")) {
                 	filterChain.doFilter(servletRequest, servletResponse); 
                 }
-                else if ((userModel.getAccountModel().getRoleModel().getRoleName()).equals("Quản Trị Viên")) {
+                else if ((userModel.getRoleModel().getRoleName()).equals("Quản Trị Viên")) {
                 	System.out.println("vao thoai mai");
                     // Nếu URL bắt đầu với "/admin", nhung ban la admin => cho phép truy cập tiếp theo
                     filterChain.doFilter(servletRequest, servletResponse);
-                }
+                } 
             }
             else {
             	System.out.println("chua dang nhap cu oi");

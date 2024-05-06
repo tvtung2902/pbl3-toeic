@@ -1,8 +1,8 @@
 package com.pbl3.model;
 
 public class TypeQuestionModel {
-	int typeQuestionID;
-	String typeQuestionName;
+	private int typeQuestionID;
+	private String typeQuestionName;
     
 	public TypeQuestionModel(int typeQuestionID, String typeQuestionName) {
 		super();

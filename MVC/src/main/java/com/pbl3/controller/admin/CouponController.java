@@ -1,14 +1,10 @@
 package com.pbl3.controller.admin;
 import java.io.IOException;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.LinkedList;
-
 import com.pbl3.libs.Coupon;
-import com.pbl3.libs.Pair;
 import com.pbl3.model.CouponModel;
-import com.pbl3.model.CourseModel;
 import com.pbl3.service.CouponService;
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -20,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @MultipartConfig 
 @WebServlet(urlPatterns = { "/admin/coupon", "/admin/coupon/create", "/admin/coupon/edit", "/admin/coupon/delete"})
 public class CouponController extends HttpServlet{
-	@Override
+	@Override 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("goi doGet Coupon - ad");
 		String actionString = req.getServletPath();
@@ -68,37 +64,39 @@ public class CouponController extends HttpServlet{
 			if(check) break;
 		}
 		req.setAttribute("code", code);
-		requestDispatcher.forward(req, resp); 
+		requestDispatcher.forward(req, resp);  
 	}
 	 
 	protected void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("goi doget edit ");
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/admin/coupon/edit-coupon.jsp"); 
 		int couponID = Integer.parseInt(req.getParameter("couponID"));
-		Pair<CouponModel, LinkedList<CourseModel>> couponModels = CouponService.find(couponID);
-		req.setAttribute("couponModels", couponModels);
+		CouponModel couponModel = CouponService.find(couponID);
+		req.setAttribute("couponModel", couponModel);
 		requestDispatcher.forward(req, resp);
 	}
 	
 	protected void createSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	    String code = req.getParameter("code");
-	    Timestamp startDate = Timestamp.valueOf(req.getParameter("startDate"));
-	    Timestamp endDate = Timestamp.valueOf(req.getParameter("endDate"));
+	    Date startDate = Date.valueOf(req.getParameter("startDate"));
+	    Date endDate = Date.valueOf(req.getParameter("endDate"));
 	    int quantity = Integer.parseInt(req.getParameter("quantity"));
-	    int quantityUsed = Integer.parseInt(req.getParameter("quantityUsed"));
-	    CouponModel couponModel = new CouponModel(code, startDate, endDate, quantity, quantityUsed);
+	    int quantityUsed = 0;
+	    int percent = Integer.parseInt(req.getParameter("percent"));
+	    CouponModel couponModel = new CouponModel(code, startDate, endDate, quantity, quantityUsed, percent);
 	    CouponService.add(couponModel);
 	    resp.sendRedirect(req.getContextPath() + "/admin/coupon"); // Chuyển hướng sau khi thêm thành công
-	}
+	} 
 
-	
+	 
 	protected void editSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	    int couponID = Integer.parseInt(req.getParameter("couponID"));
-	    String code = req.getParameter("code");
-	    Timestamp startDate = Timestamp.valueOf(req.getParameter("startDate"));
-	    Timestamp endDate = Timestamp.valueOf(req.getParameter("endDate"));
-	    int quantity = Integer.parseInt(req.getParameter("quantity"));
-	    int quantityUsed = Integer.parseInt(req.getParameter("quantityUsed"));
-	    CouponModel couponModel = new CouponModel(couponID, code, startDate, endDate, quantity, quantityUsed);
+	    Date startDate = Date.valueOf(req.getParameter("startDate"));
+	    Date endDate = Date.valueOf(req.getParameter("endDate"));
+	    int quantity = Integer.parseInt(req.getParameter("quantity"));      
+	    int percent = Integer.parseInt(req.getParameter("percent")); 
+	    CouponModel couponModel = new CouponModel(couponID, startDate, endDate, quantity, percent);
+	    System.out.println("aaaaaaaaaaaaa" + couponModel.getCouponID());
 	    CouponService.edit(couponModel);
 	    resp.sendRedirect(req.getContextPath() + "/admin/coupon"); // Chuyển hướng sau khi chỉnh sửa thành công
 	}

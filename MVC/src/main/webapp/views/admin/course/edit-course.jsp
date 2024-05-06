@@ -106,6 +106,23 @@
                 </div>
               </div>
             </div>
+            
+             <div class="row">
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="percentSalary">Phần Trăm Tiền Trả Cho Giáo Viên</label>
+                  <input name="percentSalary" type="number" class="form-control" id="percentSalary" value="<%=courseModel.getPercentSalary()%>">
+                </div> 
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="percentDiscount">Phầm Trăm Tiền Giảm Gía Khi Gia Hạn Khóa Học</label>
+                  <input name="percentDiscount" type="number" class="form-control" id="percentDiscount" value="<%=courseModel.getPercentSalary()%>">
+                </div>
+              </div>
+            </div>
             <div class="wrap-button">
 				<button type="submit" class="btn btn-success">Sửa</button>
           		<a href="/MVC/admin/course" type="button" class="btn btn-danger">Quay lại</a>

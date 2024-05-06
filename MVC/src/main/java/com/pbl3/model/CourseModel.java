@@ -13,7 +13,7 @@ public class CourseModel {
 	private int  percentSalary;  
 	private int percentDiscount;  
 	
-	public CourseModel(String courseName, String courseDesc, double price, int duration, int target, String image, int input, int teacherID) {
+	public CourseModel(String courseName, String courseDesc, double price, int duration, int target, String image, int input, int teacherID, int  percentSalary, int percentDiscount) {
 		super();
 		this.courseName = courseName;
 		this.courseDesc = courseDesc;
@@ -23,9 +23,11 @@ public class CourseModel {
 		this.image = image;
 		this.input = input;
 		this.teacherID = teacherID;
+		this.percentDiscount = percentDiscount;
+		this.percentSalary = percentSalary;
 	}
 
-	public CourseModel(int courseID, String courseName, String courseDesc, double price, int duration, int target, String image, int input, int teacherID) {
+	public CourseModel(int courseID, String courseName, String courseDesc, double price, int duration, int target, String image, int input, int teacherID, int percentSalary, int percentDiscount) {
 		super();
 		this.courseID = courseID;
 		this.courseName = courseName;
@@ -36,6 +38,8 @@ public class CourseModel {
 		this.image = image;
 		this.input = input;
 		this.teacherID = teacherID;
+		this.percentDiscount = percentDiscount;
+		this.percentSalary = percentSalary;
 	}
 
 	public CourseModel() {    
@@ -63,6 +67,22 @@ public class CourseModel {
 		this.teacherID=teacherID;
 	}
 	
+	public int getPercentSalary() {
+		return percentSalary;
+	}
+
+	public void setPercentSalary(int percentSalary) {
+		this.percentSalary = percentSalary;
+	}
+
+	public int getPercentDiscount() {
+		return percentDiscount;
+	}
+
+	public void setPercentDiscount(int percentDiscount) {
+		this.percentDiscount = percentDiscount;
+	}
+
 	public int getTeacherID() {
 		return teacherID;
 	}

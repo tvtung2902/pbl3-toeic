@@ -120,8 +120,4 @@ public class VocabModel {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
-	
-	
-	
 }

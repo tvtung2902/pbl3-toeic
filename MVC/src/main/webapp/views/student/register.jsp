@@ -129,8 +129,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div> 
+        </div> 
         <!-- end section-register -->
         <%@include file="re-use/footer.jsp" %>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

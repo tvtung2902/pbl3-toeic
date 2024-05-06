@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    <%@page import="com.pbl3.model.UserModel"%>
-<%@page import="com.pbl3.model.AccountModel"%>
  <header class="header">
     <div class="top-header">
         <div class="container">
@@ -44,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div class="main-header">
+    <div class="main-header"> 
         <div class="container">
             <div class="inner-main">
                 <div class="inner-logo">

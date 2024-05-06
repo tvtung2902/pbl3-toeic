@@ -1,20 +1,17 @@
 package com.pbl3.controller.student;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
 import com.pbl3.libs.Pair;
 import com.pbl3.model.CourseModel;
 import com.pbl3.model.LessionModel;
 import com.pbl3.model.PartModel;
-import com.pbl3.model.RegisterCourseModel;
+import com.pbl3.model.Register_CourseModel;
 import com.pbl3.model.UserModel;
 import com.pbl3.service.CourseService;
 import com.pbl3.service.PartService;
 import com.pbl3.service.RegisterCourseService;
 import com.pbl3.service.UserService;
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,7 +23,6 @@ import jakarta.servlet.http.HttpSession;
 public class CourseDetailController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String actionString = req.getServletPath();
         switch (actionString) {
 	        case "/courses/course-detail": {
@@ -43,7 +39,7 @@ public class CourseDetailController extends HttpServlet{
 		CourseModel courseModel=CourseService.findCourse(courseID);
 		UserModel teacher = UserService.getUserByID(courseModel.getTeacherID());
 		boolean registered=false;
-		RegisterCourseModel registerCourseModel = RegisterCourseService.isRegistered(userModel.getUserID(), courseID);
+		Register_CourseModel registerCourseModel = RegisterCourseService.isRegistered(userModel.getUserID(), courseID);
 		if(registerCourseModel!=null) {
 			long dayofcourse = RegisterCourseService.getDayOfCoure(userModel, courseModel);
 			req.setAttribute("dayofcourse", dayofcourse);

@@ -38,16 +38,17 @@
                     <input type="text" placeholder="Tìm Kiếm">
                 </div>
             </div>
-			            <div class="last-main">
+			    <div class="last-main">
                 <table class="table verticle-middle table-responsive-md" id="mytable">
                     <thead>
                         <tr>
                             <th onclick="sortTable(0)" scope="col">ID</th>
                             <th onclick="sortTable(1)" scope="col">Mã</th>
-                            <th onclick="sortTable(2)" scope="col">Ngày Bắt Đầu</th>
-                            <th onclick="sortTable(3)" scope="col">Ngày Kết Thúc</th>
-                            <th onclick="sortTable(4)" scope="col">Số Lượng</th>
-                            <th onclick="sortTable(5)" scope="col">Đã Nhập</th>
+                            <th onclick="sortTable(2)" scope="col">Phần Trăm</th>
+                            <th onclick="sortTable(3)" scope="col">Ngày Bắt Đầu</th>
+                            <th onclick="sortTable(4)" scope="col">Ngày Kết Thúc</th>
+                            <th onclick="sortTable(5)" scope="col">Số Lượng</th>
+                            <th onclick="sortTable(6)" scope="col">Đã Nhập</th>
                             <th scope="col">Áp dụng</th>
                             <th scope="col">Mở rộng</th>
                         </tr>
@@ -61,11 +62,15 @@
                             <td>
                         		<%=c.getCode()%>
                         	</td>
+                        	<td>
+                        		<%=c.getPercent()%> % 
+                        	</td>
+                        	
                             <td>
-                        		<%=c.getFormattedStartDate("dd-MM-yyyy HH:mm:ss")%>
+                        		<%=c.getFormattedStartDate("dd-MM-yyyy")%>
                         	</td>
                         	<td>
-                        		<%=c.getFormattedEndDate("dd-MM-yyyy HH:mm:ss")%>
+                        		<%=c.getFormattedEndDate("dd-MM-yyyy")%>
                         	</td>
               				<td>
               					<%=c.getQuantity() %>
@@ -74,7 +79,7 @@
               					<%=c.getQuantityUsed() %>
               				</td>
                             <td>
-                            	<a href="">Chi tiết</a>   
+                            	<a href="/MVC/admin/coupon-course?couponID=<%=c.getCouponID()%>">Chi tiết</a>   
                             </td>
                             <td>
                                 <div class="inner-td" style="display: inline-block;">

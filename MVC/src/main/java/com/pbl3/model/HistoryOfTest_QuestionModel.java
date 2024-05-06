@@ -1,9 +1,9 @@
 package com.pbl3.model;
 
 public class HistoryOfTest_QuestionModel {
-	int historyOfTestID;
-	int questionID;
-	String answer;
+	private int historyOfTestID;
+	private int questionID;
+	private String answer;
 	
 	public HistoryOfTest_QuestionModel(int historyOfTestID, int questionID, String answer) {
 		super();
@@ -35,6 +35,5 @@ public class HistoryOfTest_QuestionModel {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-	
-	
+
 }

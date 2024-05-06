@@ -1,3 +1,4 @@
+<%@page import="com.pbl3.model.CouponModel"%>
 <%@page import="com.pbl3.model.UserModel"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="com.pbl3.model.CourseModel"%>
@@ -33,7 +34,8 @@
 	<%@ include file="../re-use/sidebar.jsp"%>
 	<div class="main">
 		<%@ include file="../re-use/header.jsp"%>
-		<div class="container">
+		<%CouponModel couponModel = (CouponModel)request.getAttribute("couponModel");%>
+		<div class="container"> 
 			<div class="section-one"
 				style="margin-top: 95px; margin-bottom: 10px;">
 				<div class="head">
@@ -41,30 +43,37 @@
 				</div>
 				<div class="main-create">
 					<div class="wrap">
-						<form action="/MVC/admin/coupon/create" method="post">
+						<form action="/MVC/admin/coupon/edit?couponID=<%=couponModel.getCouponID()%>" method="post">
 
 							<div class="form-group">
 								<label for="code">Code</label> <input name="code" type="text"
 									class="form-control" id="name" readonly
-									value="<%=request.getAttribute("code")%>">
+									value="<%=couponModel.getCode()%>">
+							</div> 
+
+							<div class="form-group">
+								<label for="startDate">Thời gian bắt đầu</label> 
+								<br>
+								<input type="date" id="startDate" name="startDate" value="<%=couponModel.showDate(couponModel.getStartDate())%>">
+							</div>
+
+							<div class="form-group"> 
+								<label for="endDate">Thời gian kết thúc</label> 
+								<br>
+								<input type="date" id="endDate" name="endDate" value="<%=couponModel.showDate(couponModel.getEndDate())%>"> 	
 							</div>
 
 							<div class="form-group">
-								<label for="startDate">Thời gian bắt đầu</label> <input
-									type="datetime-local" id="startDate" name="startDate">
+								<label for="quantity">Số Lượng</label> <input value="<%=couponModel.getQuantity()%>" name="quantity"
+									type="number" class="form-control" id="quantity" step="1" <%=couponModel.getQuantity()%> min="<%=couponModel.getQuantityUsed()%>">
 							</div>
-
-							<div class="form-group">
-								<label for="endDate">Thời gian kết thúc</label> <input
-									type="datetime-local" id="endDate" name="endDate">
+							
+								<div class="form-group">
+								<label for="percent">Phần Trăm</label> <input name="percent"
+									type="number" class="form-control" id="percent" step="1" value="<%=couponModel.getPercent()%>">
 							</div>
-
-							<div class="form-group">
-								<label for="quantity">Số Lượng</label> <input name="quantity"
-									type="number" class="form-control" id="quantity" step="1">
-							</div>
-
-							<div class="wrap-button">
+							
+							<div class="wrap-button"> 
 								<button type="submit" class="btn btn-success">Sửa</button>
 								<a href="/MVC/admin/course" type="button" class="btn btn-danger">Quay
 									lại</a>

@@ -1,0 +1,15 @@
+package com.pbl3.libs;
+
+public class Time {
+	public String convertTime(String time) {
+	    // Tách giờ và phút từ chuỗi thời gian
+	    String[] parts = time.split(":");
+	    String hour = parts[0];
+	    String minute = parts[1];
+	    
+	    // Thêm "00" để có giây là "00"
+	    String formattedTime = hour + "-" + minute + "-00";
+
+	    return formattedTime;
+	}
+}

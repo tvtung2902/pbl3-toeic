@@ -1,0 +1,56 @@
+package com.pbl3.controller.admin;
+
+import java.io.IOException;
+import java.util.LinkedList;
+
+import com.pbl3.model.CouponModel;
+import com.pbl3.service.CouponService;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = { "/admin/coupon-course/create", "/admin/coupon-course/delete"})
+public class Coupon_CourseController extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Xử lý yêu cầu GET
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String actionString = req.getParameter("action");
+        switch (actionString) {
+            case "create": {
+                create(req, resp);
+                break;
+            }
+            case "delete": {
+                delete(req, resp);
+                break;
+            }
+            default: {
+                
+                break;
+            }
+        }
+    }
+
+    private void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int courseID = Integer.parseInt(req.getParameter("courseID"));
+        int couponID = Integer.parseInt(req.getParameter("couponID"));
+        resp.sendRedirect(req.getContextPath() + "/admin/coupon-course"); 
+    }
+
+    private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Xử lý chức năng xóa coupon-course
+        // Lấy thông tin từ request
+        int courseID = Integer.parseInt(req.getParameter("courseID"));
+        int couponID = Integer.parseInt(req.getParameter("couponID"));
+        // Thực hiện xóa coupon-course từ cơ sở dữ liệu
+        // CouponService.deleteCouponCourse(courseID, couponID);
+        // Chuyển hướng sau khi xóa thành công
+        resp.sendRedirect(req.getContextPath() + "/admin/coupon-course"); 
+    }
+}

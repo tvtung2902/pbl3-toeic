@@ -89,8 +89,11 @@ public class CourseController extends HttpServlet{
         String image = null;
 		String realPart = req.getServletContext().getRealPath("/data"); 
 		image = FileData.add(part, realPart); // tra ve null neu co form-group img nhung ko tai len 
-		CourseModel courseModel = new CourseModel(courseName, courseDesc, price, duration, target, image, input, teacherID);
-		CourseService.addCourse(courseModel);
+		int percentSalary = Integer.parseInt(req.getParameter("percentSalary"));
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaa" +percentSalary);
+		int percentDiscount = Integer.parseInt(req.getParameter("percentDiscount"));
+		CourseModel courseModel = new CourseModel(courseName, courseDesc, price, duration, target, image, input, teacherID, percentSalary, percentDiscount);
+		CourseService.add(courseModel);
 		resp.sendRedirect(req.getContextPath() + "/admin/course"); 
 	}
 	
@@ -110,7 +113,9 @@ public class CourseController extends HttpServlet{
 		if (image == null) {
 			image = req.getParameter("imageString"); 
 		}
-		CourseModel courseModel = new CourseModel(courseID ,courseName, courseDesc, price, duration, target, image, input, teacherID);
+		int percentSalary = Integer.parseInt(req.getParameter("percentSalary"));
+		int percentDiscount = Integer.parseInt(req.getParameter("percentDiscount"));
+		CourseModel courseModel = new CourseModel(courseID ,courseName, courseDesc, price, duration, target, image, input, teacherID, percentSalary, percentDiscount);
 		CourseService.edit(courseModel); 
 		resp.sendRedirect(req.getContextPath() + "/admin/course"); 
 	}

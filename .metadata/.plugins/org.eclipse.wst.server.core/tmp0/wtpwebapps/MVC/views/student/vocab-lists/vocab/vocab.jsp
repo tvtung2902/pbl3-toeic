@@ -52,18 +52,18 @@
                                     <button class="button-main button-main-two button-list" data-toggle="modal" data-target="#delete-list">Xóa danh sách</button>  
                                 </div> 
                               <div class="inner-desc">
-                                  <p><%=vocabListsModel.getDescription() %></p>
+                                  <p style="color: black;"><i><%=vocabListsModel.getDescription() %></i></p>
                               </div>
                       
-                              <!-- button  -->
+                              <!-- button  --> 
                               <%if(number>0) {%><a href="vocab/review?action=learn&listID=<%=request.getAttribute("listID")%>"class="button-main button-main-one button-train" >Luyện tập</a> <%} %>
                                
                               <!-- đếm số từ trong db -->
                               <div class="inner-number">
                               <%if(number>0){ %>
-                                  <p>Danh sách có <%=number %> từ</p>
+                                  <p style="color: black;"><i>Danh sách có <%=number %> từ</i></p>
                                   <%}else {%>
-                                  <p>Chưa có từ vựng nào trong danh sách.</p>
+                                  <p style="color: black;">Chưa có từ vựng nào trong danh sách.</p>
                                   <%} %>
                               </div>
                           </div>

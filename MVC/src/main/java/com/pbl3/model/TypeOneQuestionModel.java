@@ -1,8 +1,8 @@
 package com.pbl3.model;
 
 public class TypeOneQuestionModel extends QuestionModel{
-	String audio;
-	String transcript;
+	private String audio;
+	private String transcript;
 	
 	public TypeOneQuestionModel() {
 		super();

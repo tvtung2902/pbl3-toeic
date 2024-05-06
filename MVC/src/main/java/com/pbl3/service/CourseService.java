@@ -26,7 +26,9 @@ public class CourseService extends BaseService {
 				String image = resultSet.getString("image");
 				Integer input = resultSet.getInt("input");
 				Integer tacherID = resultSet.getInt("teacherID");
-				CourseModel courseModel = new CourseModel(courseID, courseName, courseDesc,price, duration, target, image ,input, tacherID);
+				Integer percentSalary = resultSet.getInt("percentSalary");
+				Integer percentDiscount = resultSet.getInt("percentDiscount");
+				CourseModel courseModel = new CourseModel(courseID, courseName, courseDesc,price, duration, target, image ,input, tacherID, percentSalary, percentDiscount);
 				courseModels.add(courseModel);      
 			}
 		} catch (SQLException e) {
@@ -51,10 +53,11 @@ public class CourseService extends BaseService {
 	}
 	
 	// add
-	public static void addCourse(CourseModel courseModel) {
+	public static void add(CourseModel courseModel) {
 	    try {
+	    	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaa" +courseModel.getPercentSalary());
 	        Connection connection = getConnection();
-	        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Course (CourseName, CourseDesc, Price, Duration, TeacherID, Target, Input, Image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+	        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Course (CourseName, CourseDesc, Price, Duration, TeacherID, Target, Input, Image, PercentSalary, PercentDiscount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	        preparedStatement.setString(1, courseModel.getCourseName());
 	        preparedStatement.setString(2, courseModel.getCourseDesc());
 	        preparedStatement.setDouble(3, courseModel.getPrice());
@@ -63,6 +66,8 @@ public class CourseService extends BaseService {
 	        preparedStatement.setInt(6, courseModel.getTarget());
 	        preparedStatement.setInt(7, courseModel.getInput());
 	        preparedStatement.setString(8, courseModel.getImage());
+	        preparedStatement.setInt(9, courseModel.getPercentSalary());
+	        preparedStatement.setInt(10, courseModel.getPercentDiscount());
 	        preparedStatement.executeUpdate();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -87,6 +92,8 @@ public class CourseService extends BaseService {
 	            int target = resultSet.getInt("Target");
 	            int input = resultSet.getInt("Input");
 	            String image = resultSet.getString("Image");
+	            int percentSalary = resultSet.getInt("percentSalary");
+	            int percentDiscount = resultSet.getInt("percentDiscount");
 	            // Set thông tin vào CourseModel
 	            courseModel.setCourseID(courseId);
 	            courseModel.setCourseName(courseName);
@@ -97,6 +104,8 @@ public class CourseService extends BaseService {
 	            courseModel.setTarget(target);
 	            courseModel.setInput(input);
 	            courseModel.setImage(image);
+	            courseModel.setPercentSalary(percentSalary);
+	            courseModel.setPercentDiscount(percentDiscount);
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -108,7 +117,7 @@ public class CourseService extends BaseService {
 	public static void edit(CourseModel courseModel) {
 	    try {
 	        Connection connection = getConnection();
-	        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Course SET CourseName = ?, CourseDesc = ?, Price = ?, Duration = ?, TeacherID = ?, Target = ?, Input = ?, Image = ? WHERE CourseID = ?");
+	        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Course SET CourseName = ?, CourseDesc = ?, Price = ?, Duration = ?, TeacherID = ?, Target = ?, Input = ?, Image = ?, PercentSalary = ?, PercentDiscount = ? WHERE CourseID = ?");
 	        preparedStatement.setString(1, courseModel.getCourseName());
 	        preparedStatement.setString(2, courseModel.getCourseDesc());
 	        preparedStatement.setDouble(3, courseModel.getPrice());
@@ -117,7 +126,9 @@ public class CourseService extends BaseService {
 	        preparedStatement.setInt(6, courseModel.getTarget());
 	        preparedStatement.setInt(7, courseModel.getInput());
 	        preparedStatement.setString(8, courseModel.getImage());
-	        preparedStatement.setInt(9, courseModel.getCourseID());
+	        preparedStatement.setInt(9, courseModel.getPercentSalary());
+	        preparedStatement.setInt(10, courseModel.getPercentDiscount());
+	        preparedStatement.setInt(11, courseModel.getCourseID());
 	        preparedStatement.executeUpdate();
 	    } catch (SQLException e) {   
 	        e.printStackTrace();
@@ -158,20 +169,17 @@ public class CourseService extends BaseService {
 		LinkedList<CourseModel> courseModels = new LinkedList<CourseModel>();
 		try {
 			Connection connection = getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM course Where courseID <> ? ");
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT CourseID, CourseName, Image FROM course Where courseID <> ? ");
 			preparedStatement.setInt(1, courseCurrentID);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
+				CourseModel courseModel = new CourseModel();
 				Integer courseID = resultSet.getInt("CourseID");
 				String courseName = resultSet.getString("CourseName");
-				String courseDesc = resultSet.getString("CourseDesc");
-				Double price = resultSet.getDouble("Price");
-				Integer duration = resultSet.getInt("Duration");
-				Integer target = resultSet.getInt("target");
 				String image = resultSet.getString("image");
-				Integer input = resultSet.getInt("input");
-				Integer tacherID = resultSet.getInt("teacherID");
-				CourseModel courseModel = new CourseModel(courseID, courseName, courseDesc,price, duration, target, image ,input, tacherID);
+				courseModel.setImage(image); 
+				courseModel.setCourseID(courseID);
+				courseModel.setCourseName(courseName);
 				courseModels.add(courseModel);      
 			}
 		} catch (SQLException e) {

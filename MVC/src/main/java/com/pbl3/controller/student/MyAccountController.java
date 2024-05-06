@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import com.pbl3.libs.Pair;
 import com.pbl3.model.CourseModel;
 import com.pbl3.model.HistoryOfTestModel;
-import com.pbl3.model.RegisterCourseModel;
+import com.pbl3.model.Register_CourseModel;
 import com.pbl3.model.UserModel;
 import com.pbl3.service.HistoryOfTestService;
 import com.pbl3.service.RegisterCourseService;

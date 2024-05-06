@@ -9,12 +9,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
 
 import com.pbl3.model.CourseModel;
-import com.pbl3.model.RegisterCourseModel;
+import com.pbl3.model.Register_CourseModel;
 import com.pbl3.model.UserModel;
 
 public class RegisterCourseService extends BaseService {
-	public static LinkedList<RegisterCourseModel> all() {
-		LinkedList<RegisterCourseModel> r = new LinkedList<RegisterCourseModel>();
+	public static LinkedList<Register_CourseModel> all() {
+		LinkedList<Register_CourseModel> r = new LinkedList<Register_CourseModel>();
 		try {
 			Connection connection = getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM register_course");
@@ -24,7 +24,7 @@ public class RegisterCourseService extends BaseService {
 				Integer userID = resultSet.getInt("UserID");
 				Date date =resultSet.getDate("Date");
 				Double Amount = resultSet.getDouble("TotalAmount");
-				RegisterCourseModel registerCourseModel=new RegisterCourseModel(courseID, userID, date, Amount);
+				Register_CourseModel registerCourseModel=new Register_CourseModel(courseID, userID, date, Amount);
 				r.add(registerCourseModel);
 			}
 		} catch (SQLException e) {
@@ -32,8 +32,8 @@ public class RegisterCourseService extends BaseService {
 		}
 		return r;
 	}
-	public static LinkedList<RegisterCourseModel> find(int UserID) {
-		LinkedList<RegisterCourseModel> r = new LinkedList<RegisterCourseModel>();
+	public static LinkedList<Register_CourseModel> find(int UserID) {
+		LinkedList<Register_CourseModel> r = new LinkedList<Register_CourseModel>();
 		try {
 			Connection connection = getConnection();
 			String sqlString="SELECT * FROM register_course WHERE UserID="+Integer.toString(UserID);
@@ -44,7 +44,7 @@ public class RegisterCourseService extends BaseService {
 				Integer userID = resultSet.getInt("UserID");
 				Date date =resultSet.getDate("Date");
 				Double Amount = resultSet.getDouble("TotalAmount");
-				RegisterCourseModel registerCourseModel=new RegisterCourseModel(courseID, userID, date, Amount);
+				Register_CourseModel registerCourseModel=new Register_CourseModel(courseID, userID, date, Amount);
 				r.add(registerCourseModel);
 			}
 		} catch (SQLException e) {
@@ -70,7 +70,6 @@ public class RegisterCourseService extends BaseService {
 				courseModels.add(courseModel);
 			} 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return courseModels;
@@ -86,7 +85,6 @@ public class RegisterCourseService extends BaseService {
 			if(resultSet.next())
 				 k= resultSet.getInt("Duration");
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return k;
@@ -114,8 +112,8 @@ public class RegisterCourseService extends BaseService {
 		}
 		return k;
 	}
-	public static RegisterCourseModel isRegistered(int userID,int courseID) {
-		RegisterCourseModel registerCourseModel= new RegisterCourseModel();
+	public static Register_CourseModel isRegistered(int userID,int courseID) {
+		Register_CourseModel registerCourseModel= new Register_CourseModel();
 		String sqlString="SELECT * FROM register_course WHERE CourseID="+Integer.toString(courseID) +" and userID="+Integer.toString(userID);
 		try {
 			Connection connection = getConnection();
