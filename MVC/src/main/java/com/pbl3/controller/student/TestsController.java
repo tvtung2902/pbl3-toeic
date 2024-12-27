@@ -20,6 +20,7 @@ import com.pbl3.service.HistoryOfTest_QuestionService;
 import com.pbl3.service.QuestionService;
 import com.pbl3.service.TypeOneQuestionService;
 import com.pbl3.service.TypeTwoQuestionService;
+import com.pbl3.service.User_TestsService;
 import com.pbl3.service.TestsService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -31,6 +32,7 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = { "/tests", "/tests/guide", "/tests/start", "/tests/result", "/tests/result-detail" })
 public class TestsController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -71,9 +73,8 @@ public class TestsController extends HttpServlet {
 	// show
 	protected void show(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("goi ham show");
-		LinkedList<TestsModel> testsModels = TestsService.all();
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/student/tests/tests.jsp");
-		req.setAttribute("testsModels", testsModels);
+		req.setAttribute("testsModels", User_TestsService.search(""));
 		requestDispatcher.forward(req, resp);
 	}
 

@@ -11,6 +11,13 @@
 	pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
+<style>
+.sub-audio{
+height:30px;
+width:25%;
+}
+</style>
+
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -83,13 +90,15 @@
 										<img src="/MVC/<%=typeOneQuestionModel.getImage()%>"
 											alt="anh_mo_ta">
 									</div>
-
+							<div class="audio sub-audio">
+								<audio src="/MVC/<%=typeOneQuestionModel.getAudio() %>" style="margin-top: -15px;" controls="controls"></audio>
+							</div>
 									<div class="content-text">
 										<span data-toggle="collapse" data-target="#coll<%=i%>">Xem
 											Transcript <span class="fas fa-caret-down ml-1"></span>
 										</span>
 										<div id="coll<%=i%>" class="collapse">
-											<div>
+											<div> 
 												<pre class="transcript-content"><%=typeOneQuestionModel.getTranscript()%></pre>
 											</div>
 										</div>
@@ -154,7 +163,9 @@
 									TypeOneQuestionModel typeOneQuestionModel = (TypeOneQuestionModel) (pairs.get(i).getFirst());
 								%>
 								<div class="question-group">
-
+							<div class="audio sub-audio">
+								<audio src="/MVC/<%=typeOneQuestionModel.getAudio() %>" style="margin-top: -15px;" controls="controls"></audio>
+							</div>
 									<div class="content-text">
 										<span data-toggle="collapse" data-target="#coll<%=i%>">Xem
 											Transcript <span class="fas fa-caret-down ml-1"></span>
@@ -235,10 +246,14 @@
 									for (; i < j + 3; i++) {
 										if ((i - 31) % 3 == 0) {
 								%>
+															<div class="audio sub-audio">
+								<audio src="/MVC/<%=typeTwoQuestionModel.getDataQuestionModel().getDataQuestion()%>" style="margin-top: -15px;" controls="controls"></audio>
+							</div>
 								<div class="content-text">
 									<span data-toggle="collapse" data-target="#coll<%=i%>">Xem
 										Transcript <span class="fas fa-caret-down ml-1"></span>
 									</span>
+									
 									<div id="coll<%=i%>" class="collapse">
 										<div>
 											<pre class="transcript-content"><%=typeTwoQuestionModel.getDataQuestionModel().getTranscript()%></pre>
@@ -306,7 +321,10 @@
 												<div class="inner-img">
 													<img src="/MVC/<%=pairs.get(image).getFirst().getImage()%>"
 														alt="">
-													<div class="content-text">
+													<div class="audio sub-audio" style="width:40%">
+														<audio src="/MVC/<%=typeTwoQuestionModel.getDataQuestionModel().getDataQuestion()%>" style="margin-top: 0px;" controls="controls"></audio>
+													</div>
+													<div class="content-text"style="margin-top: 15px;" >
 														<span data-toggle="collapse" data-target="#coll<%=i%>">Xem
 															Transcript <span class="fas fa-caret-down ml-1"></span>
 														</span>
@@ -410,6 +428,9 @@
 									for (; i < j + 3; i++) {
 										if ((i - 31) % 3 == 0) {
 								%>
+									<div class="audio sub-audio">
+								<audio src="/MVC/<%=typeTwoQuestionModel.getDataQuestionModel().getDataQuestion()%>" style="margin-top: -15px;" controls="controls"></audio>
+							</div>
 								<div class="content-text">
 									<span data-toggle="collapse" data-target="#coll<%=i%>">Xem
 										Transcript <span class="fas fa-caret-down ml-1"></span>
@@ -483,7 +504,10 @@
 														src="/MVC/<%=pairs.get(image1).getFirst().getImage()%>"
 														alt="">
 												</div>
-												<div class="content-text">
+												<div class="audio sub-audio" style="width:40%">
+														<audio src="/MVC/<%=typeTwoQuestionModel.getDataQuestionModel().getDataQuestion()%>" style="margin-top: 0px;" controls="controls"></audio>
+													</div>
+												<div class="content-text" style="margin-top:15px;">
 												<span data-toggle="collapse" data-target="#coll<%=i%>">Xem
 													Transcript <span class="fas fa-caret-down ml-1"></span>
 												</span>
@@ -999,8 +1023,8 @@
                     const targetId = this.getAttribute('href'); // Lấy ID của phần tử mục tiêu
                     const targetElement = document.querySelector(targetId); // Tìm phần tử mục tiêu
                     if (targetElement) {
-                        const offset = targetElement.offsetTop - (window.innerHeight / 2);
-                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                        window.scrollBy(0, -150); // Điều chỉnh khoảng cách
                     }
                 });
             });
@@ -1018,8 +1042,8 @@
                     const targetId = this.getAttribute('href'); // Lấy ID của phần tử mục tiêu
                     const targetElement = document.querySelector(targetId); // Tìm phần tử mục tiêu
                     if (targetElement) {
-                        const offset = targetElement.offsetTop - (window.innerHeight / 2);
-                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                        window.scrollBy(0, -150); // Điều chỉnh khoảng cách
                     }
                 });
             });
@@ -1037,8 +1061,8 @@
                     const targetId = this.getAttribute('href'); // Lấy ID của phần tử mục tiêu
                     const targetElement = document.querySelector(targetId); // Tìm phần tử mục tiêu
                     if (targetElement) {
-                        const offset = targetElement.offsetTop - (window.innerHeight / 2);
-                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                        window.scrollBy(0, -150); // Điều chỉnh khoảng cách
                     }
                 });
             });
@@ -1056,8 +1080,8 @@
                     const targetId = this.getAttribute('href'); // Lấy ID của phần tử mục tiêu
                     const targetElement = document.querySelector(targetId); // Tìm phần tử mục tiêu
                     if (targetElement) {
-                        const offset = targetElement.offsetTop - (window.innerHeight / 2);
-                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                        window.scrollBy(0, -150); // Điều chỉnh khoảng cách
                     }
                 });
             });
@@ -1075,8 +1099,8 @@
                     const targetId = this.getAttribute('href'); // Lấy ID của phần tử mục tiêu
                     const targetElement = document.querySelector(targetId); // Tìm phần tử mục tiêu
                     if (targetElement) {
-                        const offset = targetElement.offsetTop - (window.innerHeight / 2);
-                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                        window.scrollBy(0, -150); // Điều chỉnh khoảng cách
                     }
                 });
             });
@@ -1094,8 +1118,8 @@
                     const targetId = this.getAttribute('href'); // Lấy ID của phần tử mục tiêu
                     const targetElement = document.querySelector(targetId); // Tìm phần tử mục tiêu
                     if (targetElement) {
-                        const offset = targetElement.offsetTop - (window.innerHeight / 2);
-                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                        window.scrollBy(0, -150); // Điều chỉnh khoảng cách
                     }
                 });
             });

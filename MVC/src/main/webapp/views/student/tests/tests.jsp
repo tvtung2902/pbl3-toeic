@@ -1,3 +1,4 @@
+<%@page import="com.pbl3.model.User_TestsModel"%>
 <%@page import="com.pbl3.model.UserModel"%>
 <%@ page import="java.util.LinkedList" %>
 <%@ page import="com.pbl3.model.TestsModel" %>
@@ -30,13 +31,13 @@
                     <div class="inner-main">
                         <h2 class="inner-title">Đề Thi</h2>
                         <div class="inner-bar"></div>
-                        <p class="inner-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel reprehenderit molestiae perspiciatis asperiores. Qui assumenda nostrum ipsa quos ad excepturi alias, molestias fuga odit, repellendus laudantium eum consequuntur, quo velit!</p>
+                        <p class="inner-desc">Chúng tôi cung cấp bộ đề thi thử sát với thực tế và tài liệu học tập phong phú, giúp bạn chuẩn bị tốt nhất cho các kỳ thi tiếng Anh quốc tế.</p>
                         <div class="inner-button">
                             <!-- <div class="button-two button-1">
                                     <a href="#"class="button1">Khóa Học</a>
                             </div> -->
                             <div class="button-two button-2">
-                                    <a href="#"class="button2" method="post">Làm Đề Thi</a>
+                                    <a class="button2" method="post">Làm Đề Thi</a>
                             </div>
                         </div>
                     </div>
@@ -48,9 +49,9 @@
 	    <div class="tests">
         <div class="container">
             <div class="row">
-            	<% LinkedList<TestsModel> testsModels = (LinkedList<TestsModel>) request.getAttribute("testsModels");
+            	<% LinkedList<User_TestsModel> testsModels = (LinkedList<User_TestsModel>) request.getAttribute("testsModels");
             	if(testsModels != null) {
-                for (TestsModel t : testsModels) { %>
+                for (User_TestsModel t : testsModels) if(t.getStatus()){ %>
                 <div class="col-xl-3">
                     <a href="/MVC/tests/guide?testsID=<%= t.getTestsID()%>">
                         <div class="inner-wrap">
@@ -59,9 +60,8 @@
                             </div>
                             <div class="inner-content">
                                 <h3 class="inner-listname">
-                                    <%=t.getTestsName()%>
-                                </h3>
-                                <p class="inner-desc">Năm: <%=t.getYear()%></p>
+                                    <%=t.getTestName() %>
+                                </h3>  
                                 <!-- <p class="inner-number">số lượng</p> -->
                             	<div class="link">
                             		<a href="/MVC/tests/guide?testsID=<%= t.getTestsID() %>"> 
@@ -72,7 +72,11 @@
                             	</div>
                             </div>
                             <div class="inner-number">
-                                <p>số lượng người thi: </p>
+                            <p style="display: flex;
+    justify-content: space-between;"> 
+                            <span><i class="fa-solid fa-user-pen"></i> <%=t.getCountUser()%></span> 
+                            <span> Lượt thi: <%=t.getCountTimes()%></span>
+                            </p>
                             </div>
                         </div>
                     </a>

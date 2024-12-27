@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = { "/admin/coupon-course", "/admin/coupon-course/create", "/admin/coupon-course/delete"})
 public class Coupon_CourseController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	String actionString = req.getServletPath();
@@ -24,11 +25,11 @@ public class Coupon_CourseController extends HttpServlet {
                 break;
             }
             default: {
-                
+            	resp.sendRedirect(req.getContextPath() + "/error");
                 break;
             }
         }
-    }
+    }   
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -72,4 +73,8 @@ public class Coupon_CourseController extends HttpServlet {
         Coupon_CourseService.delete(coupon_CourseModel);
         resp.sendRedirect("/MVC/admin/coupon-course?couponID=" + couponID);
     }
+    public static void main(String[] args) {
+		System.err.println(1);
+	}
+    
 }  

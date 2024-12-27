@@ -14,7 +14,7 @@ public class TypeQuestionService extends BaseService{
 		LinkedList<TypeQuestionModel> typeQuestionModels = new LinkedList<TypeQuestionModel>();
 		try {
 			Connection connection = getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT typequestion.* FROM typequestion INNER JOIN typequestion_part ON typequestion.typequestionID = typequestion_part.typequestionID INNER JOIN part ON typequestion_part.partID = part.partID WHERE part.OrderNumber = ?");
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT typequestion.* FROM typequestion INNER JOIN typequestion_part ON typequestion.typequestionID = typequestion_part.typequestionID INNER JOIN part ON typequestion_part.partID = part.partID WHERE part.partID = ?");
 			preparedStatement.setInt(1, ordernumber); 
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {

@@ -29,6 +29,25 @@ public class QuestionService extends BaseService{
 		return questionIDs;
 	}
 	
+	// query all order in 1 test
+		public static LinkedList<Integer> allOrderNumber(int testID) {
+			LinkedList<Integer> orderNumbers = new LinkedList<Integer>();
+			try {
+				Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement("SELECT OrderNumber FROM Question WHERE TestID = ?");
+				preparedStatement.setInt(1, testID);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					int orderNumber = resultSet.getInt(1);
+					orderNumbers.add(orderNumber);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return orderNumbers;
+		}
+	
 	// add question
 	public static int add(QuestionModel questionModel) {
 	    try {
@@ -87,5 +106,18 @@ public class QuestionService extends BaseService{
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
-	}   
+	}
+	
+	// edit ordernumber by data
+	public static void edit(int DataQuestionID, int number) {
+	    try {
+	        Connection connection = getConnection();
+	        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE question SET OrderNumber = OrderNumber + ? WHERE DataQuestionID = ?");
+	        preparedStatement.setInt(1, number);
+	        preparedStatement.setInt(2, DataQuestionID); 
+	        preparedStatement.executeUpdate();     
+	    } catch (SQLException e) {  
+	        e.printStackTrace();
+	    }
+	}
 }

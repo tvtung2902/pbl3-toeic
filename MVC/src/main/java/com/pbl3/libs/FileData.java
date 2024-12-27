@@ -1,10 +1,7 @@
 package com.pbl3.libs;
 
 import jakarta.servlet.http.Part;
-
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -63,6 +60,20 @@ public class FileData {
 		}
 		part.write(Paths.get(realPart, fileName).toString());
 		String str = name + fileName;
+		return str;
+	}
+	
+	public static String addDataCourse(Part part, String realPart) throws IOException, ServletException {
+		String originalFileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+		if(originalFileName.equals("")){
+			return null;
+		}
+		String fileName = Check(realPart, originalFileName);
+		if (!Files.exists(Paths.get(realPart))) {
+			Files.createDirectories(Paths.get(realPart));
+		}
+		part.write(Paths.get(realPart, fileName).toString());
+		String str = "course-data/" + fileName;
 		return str;
 	}
 

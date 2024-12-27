@@ -8,7 +8,7 @@
 				<div class="inner-intro">
 					<div class="inner-img">
 						<img
-							src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/433753477_1478956322991228_8817898143870258149_n.png?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHOQ56a-PhYUvmg0U6zPAXD66iRjloPIg_rqJGOWg8iD5T35I3AeoGiHZnS-gexmUk8wy4flOwyMiI4q1HxpQTc&_nc_ohc=th6U7HCRyugAb4g9_EP&_nc_ht=scontent.fdad2-1.fna&oh=03_AdVriVWV4qHki7K7WO-GATc15X6Hf5KtCJKNTChvo4ZE3g&oe=66378D9F"
+							src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/433753477_1478956322991228_8817898143870258149_n.png?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=sWEEGEntG_AQ7kNvgFyaBZw&_nc_ht=scontent.fdad2-1.fna&oh=03_Q7cD1QGqeuVWzNyRpVnWuSmwavr76brpCK5XDNs9PQYnQX-7ZA&oe=666ABFDF"
 							alt="logo">
 					</div>
 					<p class="inner-desc">© 2024</p>

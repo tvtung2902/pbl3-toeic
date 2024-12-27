@@ -282,7 +282,35 @@
             padding-top:5px;
             border-top: 1px solid #eee;
         }
+	    .course .inner-img {
+            position: relative;
+        }
 
+        .course .inner-price {
+            color: #fff;
+            background-color: var(--color-one);
+            font-size: 14px;
+            font-weight: 600;
+            position: absolute;
+            right: 0;
+            top: 25px;
+            padding: 0;
+            padding-right: 0px;
+            padding-left: 0px;
+            line-height: 36px;
+            padding-right: 20px;
+            padding-left: 5px;
+        }
+
+        .course .inner-price::before {
+            position: absolute;
+            content: "";
+            left: -32px;
+            top: 0;
+            border: 18px solid var(--color-one);
+            border-left-color: transparent;
+            border-left-color: transparent;
+        }
 
 
               /* footer */

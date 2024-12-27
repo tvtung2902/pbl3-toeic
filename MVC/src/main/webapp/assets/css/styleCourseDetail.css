@@ -573,6 +573,13 @@ ul {
 	color: var(color-one);
 }
 
+#waiting{
+	margin:20px;
+	color:var(--color-one);
+	font-size:18px;
+	font-weight:600;
+}
+
 /* footer */
 footer {
 	margin-top: 150px;

@@ -582,7 +582,7 @@
 						<p class="number-part">Part 4</p>
 						<ul class="sidebar-4">
 							<%
-							for (int i = 71; i <= 99; i++) {
+							for (int i = 71; i <= 100; i++) {
 							%>
 							<li><a href="#question<%=i%>"><%=i%></a></li>
 							<%
@@ -593,7 +593,7 @@
 
 						<ul class="sidebar-5">
 							<%
-							for (int i = 100; i <= 130; i++) {
+							for (int i = 101; i <= 130; i++) {
 							%>
 							<li><a href="#question<%=i%>"><%=i%></a></li>
 							<%
@@ -683,8 +683,10 @@
                     const targetId = this.getAttribute('href'); // Lấy ID của phần tử mục tiêu
                     const targetElement = document.querySelector(targetId); // Tìm phần tử mục tiêu
                     if (targetElement) {
-                        const offset = targetElement.offsetTop - (window.innerHeight / 2);
-                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                        window.scrollBy(0, -150); // Điều chỉnh khoảng cách
+                        //const offset = targetElement.offsetTop - (window.innerHeight / 2);
+                        //window.scrollTo({ top: offset, behavior: 'smooth' });
                     }
                 });
             });
@@ -702,8 +704,10 @@
                     const targetId = this.getAttribute('href'); // Lấy ID của phần tử mục tiêu
                     const targetElement = document.querySelector(targetId); // Tìm phần tử mục tiêu
                     if (targetElement) {
-                        const offset = targetElement.offsetTop - (window.innerHeight / 2);
-                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                        window.scrollBy(0, -150); // Điều chỉnh khoảng cách
+                       // const offset = targetElement.offsetTop - (window.innerHeight / 2);
+                       // window.scrollTo({ top: offset, behavior: 'smooth' });
                     }
                 });
             });
@@ -721,8 +725,10 @@
                     const targetId = this.getAttribute('href'); // Lấy ID của phần tử mục tiêu
                     const targetElement = document.querySelector(targetId); // Tìm phần tử mục tiêu
                     if (targetElement) {
-                        const offset = targetElement.offsetTop - (window.innerHeight / 2);
-                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                        window.scrollBy(0, -150); // Điều chỉnh khoảng cách
+                       // const offset = targetElement.offsetTop - (window.innerHeight / 2);
+                       // window.scrollTo({ top: offset, behavior: 'smooth' });
                     }
                 });
             });
@@ -740,8 +746,10 @@
                     const targetId = this.getAttribute('href'); // Lấy ID của phần tử mục tiêu
                     const targetElement = document.querySelector(targetId); // Tìm phần tử mục tiêu
                     if (targetElement) {
-                        const offset = targetElement.offsetTop - (window.innerHeight / 2);
-                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                        window.scrollBy(0, -150); // Điều chỉnh khoảng cách
+                       // const offset = targetElement.offsetTop - (window.innerHeight / 2);
+                      //  window.scrollTo({ top: offset, behavior: 'smooth' });
                     }
                 });
             });
@@ -759,8 +767,10 @@
                     const targetId = this.getAttribute('href'); // Lấy ID của phần tử mục tiêu
                     const targetElement = document.querySelector(targetId); // Tìm phần tử mục tiêu
                     if (targetElement) {
-                        const offset = targetElement.offsetTop - (window.innerHeight / 2);
-                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                        window.scrollBy(0, -150); // Điều chỉnh khoảng cách
+                       // const offset = targetElement.offsetTop - (window.innerHeight / 2);
+                      //  window.scrollTo({ top: offset, behavior: 'smooth' });
                     }
                 });
             });
@@ -778,8 +788,10 @@
                     const targetId = this.getAttribute('href'); // Lấy ID của phần tử mục tiêu
                     const targetElement = document.querySelector(targetId); // Tìm phần tử mục tiêu
                     if (targetElement) {
-                        const offset = targetElement.offsetTop - (window.innerHeight / 2);
-                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                        window.scrollBy(0, -150); // Điều chỉnh khoảng cách
+                       // const offset = targetElement.offsetTop - (window.innerHeight / 2);
+                       // window.scrollTo({ top: offset, behavior: 'smooth' });
                     }
                 });
             });
@@ -873,7 +885,15 @@
             // Gọi phương thức submit() của form khi nút được nhấn
             form.submit();
         });
+        window.addEventListener('beforeunload', function (e) {
+            // Hủy sự kiện thoát mặc định
+            e.preventDefault();
+            // Hiển thị hộp thoại xác nhận
+            var confirmationMessage = 'Bạn có chắc muốn rời khỏi trang? Nếu rời đi, bài thi sẽ không được nộp.';
+            e.returnValue = confirmationMessage;
+            return confirmationMessage;
+        });
     </script>
 </body>
 
-</html>
+</html>   

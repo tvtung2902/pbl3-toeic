@@ -17,7 +17,7 @@ public class TypeOneQuestionService extends BaseService{
 	        Connection connection = getConnection();
 	        PreparedStatement preparedStatement = connection.prepareStatement("SELECT Question.*, TypeOneQuestion.Audio, TypeOneQuestion.Transcript, H.Answer FROM (SELECT historyoftest_question.QuestionID, historyoftest_question.Answer FROM historyoftest_question WHERE HistoryoftestID = ?) AS H RIGHT JOIN question ON H.QuestionID = question.QuestionID INNER JOIN TypeOneQuestion ON Question.QuestionID = TypeOneQuestion.questionID WHERE question.TestID = ? Order By Question.OrderNumber ASC");
 	        preparedStatement.setInt(1, historyOftestID);
-	        preparedStatement.setInt(2, testsID);
+	        preparedStatement.setInt(2, testsID);   
 	        ResultSet resultSet = preparedStatement.executeQuery();
 	        while (resultSet.next()) {
 	            int questionID = resultSet.getInt("questionID");
@@ -66,11 +66,13 @@ public class TypeOneQuestionService extends BaseService{
 	}
 
 	// query all question type one and type question in 1 test - teacher
-	public static void allTypeOneQuestion(int testID, QuestionModel[] questionModels) {
+	public static void allTypeOneQuestion(int testID, int begin, int end, QuestionModel[] questionModels) {
 	    try {
 	        Connection connection = getConnection();
-	        PreparedStatement preparedStatement = connection.prepareStatement("SELECT Question.*, TypeQuestion.TypeQuestionName, TypeOneQuestion.Audio, TypeOneQuestion.Transcript FROM TypeQuestion INNER JOIN Question ON TypeQuestion.TypeQuestionID = Question.TypeQuestionID INNER JOIN TypeOneQuestion ON Question.QuestionID = TypeOneQuestion.questionID WHERE Question.TestID = ?");
+	        PreparedStatement preparedStatement = connection.prepareStatement("SELECT Question.*, TypeQuestion.TypeQuestionName, TypeOneQuestion.Audio, TypeOneQuestion.Transcript FROM TypeQuestion INNER JOIN Question ON TypeQuestion.TypeQuestionID = Question.TypeQuestionID INNER JOIN TypeOneQuestion ON Question.QuestionID = TypeOneQuestion.questionID WHERE  Question.TestID = ? AND Question.OrderNumber >= ? AND Question.OrderNumber <= ?");
 	        preparedStatement.setInt(1, testID);
+	        preparedStatement.setInt(2, begin);
+	        preparedStatement.setInt(3, end);
 	        ResultSet resultSet = preparedStatement.executeQuery();
 	        while (resultSet.next()) {
 	            int questionID = resultSet.getInt("questionID");
@@ -86,7 +88,7 @@ public class TypeOneQuestionService extends BaseService{
 	            Integer dataQuestionID = resultSet.getInt("DataQuestionID");
 	            TypeQuestionModel typeQuestionModel = new TypeQuestionModel(typeQuestionID, typeQuestionName);
 	            TypeOneQuestionModel typeOneQuestionModel = new TypeOneQuestionModel(questionID, typeQuestionID, 0, answerCorrect, answerExplain, orderNumber, image, typeQuestionModel, dataQuestionID, null, audio, transcript) ;
-	            questionModels[typeOneQuestionModel.getOrderNumber() - 1] = typeOneQuestionModel;
+	            questionModels[typeOneQuestionModel.getOrderNumber() - begin + 1] = typeOneQuestionModel;
 	        } 
 	        System.out.println("size cua typeOneQuestionModels: " + questionModels.length);
 	    } catch (SQLException e) {

@@ -9,7 +9,6 @@ public class HistoryOfTestModel {
     private int testID;
     private Date date;
     
-    // Lay ngay thang nam
     public String showDate() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return simpleDateFormat.format(date);

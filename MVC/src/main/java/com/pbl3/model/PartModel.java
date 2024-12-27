@@ -4,7 +4,9 @@ public class PartModel {
 	int partID;
 	String partName;
 	int orderNumber;
+	public PartModel() {
 	
+	}
 	public PartModel(int partID, String partName) {
 		super();
 		this.partID = partID;

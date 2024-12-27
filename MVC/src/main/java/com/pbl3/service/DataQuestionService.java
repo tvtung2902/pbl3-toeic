@@ -66,10 +66,11 @@ public class DataQuestionService extends BaseService{
 	public static void edit (DataQuestionModel dataQuestionModel) {
 		try {
 			Connection connection = getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("UPDATE DataQuestion SET DataQuestion = ?, Transcript= ? WHERE DataQuestionID =?");
-			preparedStatement.setString(1, dataQuestionModel.getDataQuestion());
-			preparedStatement.setString(2, dataQuestionModel.getTranscript());
-			preparedStatement.setInt(3, dataQuestionModel.getDataQuestionID());
+			PreparedStatement preparedStatement = connection.prepareStatement("UPDATE DataQuestion SET ordernumber =? ,DataQuestion = ?, Transcript= ? WHERE DataQuestionID =?");
+			preparedStatement.setInt(1, dataQuestionModel.getOrderNumber());
+			preparedStatement.setString(2, dataQuestionModel.getDataQuestion());
+			preparedStatement.setString(3, dataQuestionModel.getTranscript());
+			preparedStatement.setInt(4, dataQuestionModel.getDataQuestionID());
 			System.out.println("getDataQuestionID" +dataQuestionModel.getDataQuestionID());
 			preparedStatement.executeUpdate();  
 		} 

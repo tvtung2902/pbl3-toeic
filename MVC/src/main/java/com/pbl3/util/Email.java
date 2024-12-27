@@ -1,7 +1,6 @@
 package com.pbl3.util;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -10,8 +9,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
 
 public class Email {
 
@@ -30,7 +27,6 @@ public class Email {
 		Authenticator auth = new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
-				// TODO Auto-generated method stub
 				return new PasswordAuthentication(from, password);
 			}
 		};

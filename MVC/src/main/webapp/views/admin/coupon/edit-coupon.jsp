@@ -25,25 +25,34 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<style> 
 		<%@ include file="../../../assets/admin-css/base.css" %>
-		<%@ include file="../../../assets/admin-css/style-course.css" %>  
-        <%@ include file="../../../assets/admin-css/style-createCourse.css" %>
+		<%@ include file="../../../assets/admin-css/style.css" %>  
+        <%@ include file="../../../assets/admin-css/style-edit.css" %>
 	</style>     
 </head>
 
 <body>
-	<%@ include file="../re-use/sidebar.jsp"%>
-	<div class="main">
-		<%@ include file="../re-use/header.jsp"%>
+<style>
+.menu .item li:nth-child(3) a{
+    color: var(--color-one);
+}
+.menu .item li:nth-child(3) i{
+    color: var(--color-one);
+}</style>
+	 <!-- Menu sidebar --> 
+     <%@ include file="../re-use/header.jsp" %>
+    <!-- Main -->
+    
+        <div class="main" id="main">
 		<%CouponModel couponModel = (CouponModel)request.getAttribute("couponModel");%>
 		<div class="container"> 
 			<div class="section-one"
-				style="margin-top: 95px; margin-bottom: 10px;">
+				style=" margin-bottom: 10px;">
 				<div class="head">
-					<h2 class="add">Sửa Coupon</h2>
-				</div>
+					<h2 class="add">Sửa Mã Giảm Giá</h2>
+				</div>    
 				<div class="main-create">
 					<div class="wrap">
-						<form action="/MVC/admin/coupon/edit?couponID=<%=couponModel.getCouponID()%>" method="post">
+						<form action="/MVC/admin/coupon/edit?couponID=<%=couponModel.getCouponID()%>" method="post"onsubmit="return validateFormEditCoupon();">
 
 							<div class="form-group">
 								<label for="code">Code</label> <input name="code" type="text"
@@ -54,36 +63,40 @@
 							<div class="form-group">
 								<label for="startDate">Thời gian bắt đầu</label> 
 								<br>
-								<input type="date" id="startDate" name="startDate" value="<%=couponModel.showDate(couponModel.getStartDate())%>">
+								<input type="date" id="startDate" name="startDate" value="<%=couponModel.showDate(couponModel.getStartDate())%>"onblur="checkStart();">
+								<p id="error-start" style="color:red;"></p>
 							</div>
 
 							<div class="form-group"> 
 								<label for="endDate">Thời gian kết thúc</label> 
 								<br>
-								<input type="date" id="endDate" name="endDate" value="<%=couponModel.showDate(couponModel.getEndDate())%>"> 	
+								<input type="date" id="endDate" name="endDate" value="<%=couponModel.showDate(couponModel.getEndDate())%>"onblur="checkEnd();">
+								 	<p id="error-end" style="color:red;"></p>
 							</div>
 
 							<div class="form-group">
 								<label for="quantity">Số Lượng</label> <input value="<%=couponModel.getQuantity()%>" name="quantity"
-									type="number" class="form-control" id="quantity" step="1" <%=couponModel.getQuantity()%> min="<%=couponModel.getQuantityUsed()%>">
+									type="number" class="form-control" id="quantity" step="1" <%=couponModel.getQuantity()%> <%if(couponModel.getQuantityUsed() > 0){%> min="<%=couponModel.getQuantityUsed()%>" <%}else{%>min = "1" <%}%> onblur="checkQuantity();">
+									<p id="error-quantity" style="color:red;"></p>
 							</div>
 							
 								<div class="form-group">
 								<label for="percent">Phần Trăm</label> <input name="percent"
-									type="number" class="form-control" id="percent" step="1" value="<%=couponModel.getPercent()%>">
-							</div>
+									type="number" class="form-control" id="percent" step="1" min = "1" value="<%=couponModel.getPercent()%>"onblur="checkPercent();">
+									<p id="error-percent" style="color:red;"></p>
+							</div>  
 							
 							<div class="wrap-button"> 
-								<button type="submit" class="btn btn-success">Sửa</button>
-								<a href="/MVC/admin/course" type="button" class="btn btn-danger">Quay
-									lại</a>
+								<button type="submit" class="edit-btn">Sửa</button>
+								<a href="/MVC/admin/coupon" type="button" class="btn add-btn back-btn">Quay
+									lại</a> 
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-
+    </div>
 	</div>
 
 	<script
@@ -94,7 +107,103 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
 		crossorigin="anonymous"></script>
-
+    <script>
+    function closefunc() {
+        const menu = document.getElementById("menu");
+        const main = document.getElementById("main");
+        menu.style.left = "-210px";
+        main.style.marginLeft = "0";
+        main.style.width = "100%"
+        document.getElementById("close-btn").classList.add("hidden");
+        document.getElementById("open-btn").classList.remove("hidden");
+    }
+    function openfunc() {
+        const menu = document.getElementById("menu");
+        const main = document.getElementById("main");
+        menu.style.left = "0";
+        main.style.marginLeft = "250px";
+        main.style.width = "calc(100% - 250px)"
+        document.getElementById("open-btn").classList.add("hidden");
+        document.getElementById("close-btn").classList.remove("hidden");
+    }
+    
+    function checkStart(){
+    	var isValid=false;
+    	var start = document.getElementById("startDate").value;
+    	 var errorName=document.getElementById("error-start");
+        if(start==''||start==null){
+             errorName.textContent="Bạn chưa chọn ngày bắt đầu!";
+        }
+        else{
+        	isValid=true;
+        	checkEnd();
+             errorName.textContent="";
+             
+        }
+        return isValid;
+     }
+    function checkEnd(){
+    	var isValid=false;
+    	var start = document.getElementById("startDate").value;
+     	var end = document.getElementById("endDate").value;
+    	 var startDate = new Date(start);
+   	 	var endDate = new Date(end);
+    	 var errorName=document.getElementById("error-end");
+        if(end==''||end==null){
+             errorName.textContent="Bạn chưa chọn ngày kết thúc!";
+        }else 
+        if(startDate>endDate){
+             errorName.textContent="Thời gian kết thúc phải lớn hơn thời gian bắt đầu";
+        }
+        else{
+        	isValid=true;
+             errorName.textContent="";
+        }
+        return isValid;
+     }
+    function checkQuantity(){
+    	var isValid=false;
+    	var name = document.getElementById("quantity").value;
+    	var regexName = /^\d+$/;
+    	 var errorName=document.getElementById("error-quantity");
+        if(name==''||name==null){
+             errorName.textContent="Số lượng không được để trống!";
+        }else 
+        if(!regexName.test(name)){
+             errorName.textContent="Số lượng không hợp lệ!";
+        }
+        else{
+        	isValid=true;
+             errorName.textContent="";
+        }
+        return isValid;
+     }
+    function checkPercent(){
+    	var isValid=false;
+    	var name = document.getElementById("percent").value;
+    	var regexName = /^(0|[1-9][0-9]?|100)$/;
+    	 var errorName=document.getElementById("error-percent");
+        if(name==''||name==null){
+             errorName.textContent="Phần trăm không được để trống!";
+        }else 
+        if(!regexName.test(name)){
+             errorName.textContent="Phần trăm không hợp lệ!";
+        }
+        else{
+        	isValid=true;
+             errorName.textContent="";
+        }
+        return isValid;
+     }
+    function validateFormEditCoupon() {
+		if( checkStart() && checkEnd() && checkQuantity() && checkPercent()){
+            alert("Sửa thành công!");
+            return true;
+		}else{
+			return false;
+		}
+    }
+    </script>
 
 </body>
 

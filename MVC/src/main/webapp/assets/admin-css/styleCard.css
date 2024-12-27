@@ -1,0 +1,132 @@
+/* card */
+
+.card-header {
+    display: flex;
+    align-items: center; /* căn giữa theo chiều dọc */
+ 
+}
+
+.card-header .btn {
+    margin-right: 10px; /* Khoảng cách giữa các button */
+}
+
+.card-header .search {
+    margin-left: auto; /* Dịch chuyển phần tử search sang phải cùng */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 14px;
+    border: 1px solid var(--color-text);
+    border-radius: 10px;
+}
+
+.card-header .search input{
+    border: none;
+    outline: none;
+
+    background: #f7f7f7;
+    font-size: 14px ;
+}
+
+.main .inner-main:hover{
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+     transition: all 0.5s;
+ }
+ .main a:hover{
+    text-decoration: none;
+ }
+ .main .inner-img img{
+     width: 100%;
+     height: auto;
+     aspect-ratio: 12/7;
+     object-fit:cover;
+     position: relative;
+     transition: 0.6s;
+ }
+.main .inner-price {
+    color: #fff;
+    background-color: var(--color-one);
+    font-size: 14px;
+    font-weight: 600;
+    position: absolute;
+    right: 0;
+    top: 25px;
+    padding: 0;
+    padding-right: 0px;
+    padding-left: 0px;
+    line-height: 36px;
+    padding-right: 20px;
+    padding-left: 5px;
+}
+
+.main .inner-price::before {
+    position: absolute;
+    content: "";
+    left: -32px;
+    top: 0;
+    border: 18px solid var(--color-one);
+    border-left-color: transparent;
+    border-left-color: transparent;
+}
+ .main .inner-img{
+ 	width:100%;
+ 	aspect-ratio: 12 / 7;
+     position: relative;
+     overflow:hidden;
+ }
+ .main .inner-img .inner-price{
+     position: absolute; 
+ }
+ .main .inner-main h2{
+     color: var(--color-two);
+     font-weight: 600;
+     font-size: 20px;
+     margin: 10px;
+ }
+ .main .inner-main .inner-desc{
+     font-weight: 500;
+     font-size: 16px;
+     margin: 10px;
+     color: var(--color-text);
+ }
+ .main .col-xl-4{
+ padding: 10px 5px;
+ }
+ .main .inner-main {
+     border: 1px solid #eee;
+     margin: 10px 5px;
+     transition: 0.8s;
+     position: relative;
+    height: 100%;
+    padding-bottom: 40px;
+ }
+ .main .inner-main:hover img{
+     transform: scale(1.1);
+ } 
+ .main .quality {
+     color: var(--color-text);
+     margin: 10px;
+ }
+ .main .inner-main:hover .inner-title{
+     color: var(--color-one);
+ }
+ .main .inner-main .button{
+    display: block;
+    width: calc(100% - 10px);
+    position: absolute;
+    bottom: 0px;
+    margin: 10px;
+ }
+  .main .inner-main .button .btn-edit{
+  font-size: 20px;
+	color:var(--color-one);
+ }
+  .main .inner-main .button .btn-delete{
+    font-size: 20px;
+	color: red;
+	position: absolute;
+    right: 10px;
+ }
+
+
+/* end main */

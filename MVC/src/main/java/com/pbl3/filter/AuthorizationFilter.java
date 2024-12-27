@@ -23,7 +23,7 @@ public class AuthorizationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     	System.out.println("goi init fiter");
-        this.servletContext = filterConfig.getServletContext();
+        this.setServletContext(filterConfig.getServletContext());
     }
 
     @Override
@@ -45,8 +45,8 @@ public class AuthorizationFilter implements Filter {
                 if ((userModel.getRoleModel().getRoleName()).equals("Học Viên")) 
                     httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
                 else if ((userModel.getRoleModel().getRoleName()).equals("Giáo Viên")) {
-                	httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/teacher");
-                }
+                	httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/teacher/course");
+                } 
                 else if ((userModel.getRoleModel().getRoleName()).equals("Quản Trị Viên")) {
                 	System.out.println("vao thoai mai");
                     // Nếu URL bắt đầu với "/admin", nhung ban la admin => cho phép truy cập tiếp theo
@@ -61,7 +61,7 @@ public class AuthorizationFilter implements Filter {
             }
         } 
         
-        else if (urlString.startsWith("/MVC/teacher")) {
+        else if (urlString.startsWith("/MVC/teacher/course")) {
             HttpSession session = httpServletRequest.getSession();
             UserModel userModel = (UserModel) (session != null ? session.getAttribute("user") : null);
             // Đã đăng nhập
@@ -87,14 +87,36 @@ public class AuthorizationFilter implements Filter {
         }
         
         else {
+        	HttpSession session = httpServletRequest.getSession();
+            UserModel userModel = (UserModel) (session != null ? session.getAttribute("user") : null);
         	System.out.println("vao thoai mai");
-            // Nếu URL không bắt đầu với "/admin", cho phép truy cập tiếp theo
-            filterChain.doFilter(servletRequest, servletResponse);
-        }
+        	if (userModel == null) {
+        		if (urlString.equals("/MVC/login")) {
+            		filterChain.doFilter(servletRequest, servletResponse);
+            	}
+            	else if (!urlString.equals("/MVC/") && !urlString.equals("/MVC/courses") && !urlString.equals("/MVC/tests") && !urlString.startsWith("/MVC/data")
+            			&& !urlString.equals("/MVC/register") && !urlString.equals("/MVC/forgot-password") && !urlString.equals("/MVC/reset-password") 
+            			) {
+            		httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login"); 
+                } 
+            	else filterChain.doFilter(servletRequest, servletResponse);
+        	}
+        	else { 
+        		System.out.println("else roi");   
+        		filterChain.doFilter(servletRequest, servletResponse);  
+        	}
+        } 
     }
 
-    @Override
-    public void destroy() {
-        // Công việc clean-up
+    @Override   
+    public void destroy() {    
     }
+
+	public ServletContext getServletContext() {
+		return servletContext;
+	}
+
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
+	}
 }

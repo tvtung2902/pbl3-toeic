@@ -126,10 +126,10 @@
         /* welcome */
 
             .welcome{
-                background-image: url(https://t3.ftcdn.net/jpg/06/98/15/28/360_F_698152816_iofj0EaoJp6jjKsHkMSoAEawmbKg3at0.jpg);
+                background-image: url(https://demo.graygrids.com/themes/edugrids/assets/images/hero/slider-bg1.jpg);
                 background-repeat: no-repeat;
                 height: 100vh;
-                background-size: cover;
+                background-size: cover; 
                 background-position: center center;
                 display: flex;
                 align-items: center;
@@ -307,7 +307,35 @@
         .courses .inner-main:hover .inner-title{
             color: var(--color-one);
         }
+		        .courses .inner-img {
+            position: relative;
+        }
 
+        .courses .inner-price {
+            color: #fff;
+            background-color: var(--color-one);
+            font-size: 14px;
+            font-weight: 600;
+            position: absolute;
+            right: 0;
+            top: 25px;
+            padding: 0;
+            padding-right: 0px;
+            padding-left: 0px;
+            line-height: 36px;
+            padding-right: 20px;
+            padding-left: 5px;
+        }
+
+        .courses .inner-price::before {
+            position: absolute;
+            content: "";
+            left: -32px;
+            top: 0;
+            border: 18px solid var(--color-one);
+            border-left-color: transparent;
+            border-left-color: transparent;
+        }
         /* about-us  */
 
         .about-us{
@@ -606,69 +634,3 @@
 	color: var(--color-two);
 }
 /*end button */
-
-/*section-login*/
-.section-login {
-	padding: 120px 0px;
-	background-color: #FAFAFA;
-}
-
-.section-login .container {
-	max-width: 960px;
-}
-
-.section-login .container .form-login {
-	background-color: #fff;
-	margin: 0px 159px;
-	padding: 50px;
-	border-radius: 15px;
-}
-
-.section-login .container .form-login .title {
-	color: #04182B;
-	font-size: 30px;
-	line-height: 1.42;
-	font-weight: 600;
-	margin-bottom: 25px;
-}
-
-.section-login .container .form-login .form-group {
-	margin-bottom: 25px;
-}
-
-.section-login .container .form-login .form-control {
-	font-size: 1.6rem;
-	font-size: 13px;
-	padding: 20px;
-}
-
-.section-login .container .form-login .form-group {
-	margin-bottom: 25px;
-}
-
-.section-login .container .form-login .button-login {
-	display: block;
-	margin-top: 40px;
-	width: 100%;
-	/* color: #000; */
-}
-
-.form-control:focus {
-	border-color: var(--color-one); /* Màu của border khi focus */
-	box-shadow: 0 0 0 0.2rem rgba(0, 255, 255, 0.25);
-	/* Đổ bóng khi focus */
-}
-
-.section-login .container .form-login .outer-link {
-	text-align: center;
-	margin-top: 20px;
-	color: var(--color-two);
-	font-weight: 500;
-	margin-bottom: 0;
-}
-
-.section-login .container .form-login .outer-link a {
-	color: var(--color-one);
-	font-weight: 600;
-}
-/*section-login*/

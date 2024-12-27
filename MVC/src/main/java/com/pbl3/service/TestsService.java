@@ -19,8 +19,9 @@ public class TestsService extends BaseService {
 			while(resultSet.next()) {
 				int testID = resultSet.getInt(1);
 				String testsName = resultSet.getString(2);
-				Integer year = resultSet.getInt(3);
-				TestsModel testsModel = new TestsModel(testID, testsName, year);   
+				TestsModel testsModel = new TestsModel ();
+				testsModel.setTestsID(testID);
+				testsModel.setTestsName(testsName);
 				testsModels.add(testsModel);             
 			}
 			System.out.println("size cua tests: " + testsModels.size());
@@ -39,14 +40,12 @@ public class TestsService extends BaseService {
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM test WHERE teacherID = ? ORDER BY testID DESC;");
 			preparedStatement.setInt(1, teacherID);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			while(resultSet.next()) {
-				int testID = resultSet.getInt(1);
-				String testsName = resultSet.getString(2);
-				Integer year = resultSet.getInt(3);
-				String audio = resultSet.getString(4);
-				boolean status = resultSet.getBoolean(5);
-//				int teacherID = resultSet.getInt(6); 
-				TestsModel testsModel = new TestsModel(testID, testsName, year, status, teacherID, audio);   
+			while(resultSet.next()) { 
+				int testID = resultSet.getInt("testID");
+				String testsName = resultSet.getString("testName");
+				String audio = resultSet.getString("audio");
+				boolean status = resultSet.getBoolean("status");
+				TestsModel testsModel = new TestsModel(testID, testsName, status, teacherID, audio);   
 				testsModels.add(testsModel);             
 			}
 			System.out.println("size cua tests: " + testsModels.size());
@@ -58,15 +57,16 @@ public class TestsService extends BaseService {
 	}
 	
 	// add tests
-	  public void add(TestsModel testsModel) {
+	  public static void add(TestsModel testsModel) {
 	        try {
 	            Connection connection = getConnection(); // Thay thế getConnection() bằng phương thức lấy kết nối tới cơ sở dữ liệu của bạn
-	            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO test (TestName, Year, Status, TeacherID) VALUES (?, ?, ?, ?)");
+	            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO test (TestName, Audio, Status, TeacherID) VALUES (?, ?, ?, ?)");
 	            preparedStatement.setString(1, testsModel.getTestsName());
-	            preparedStatement.setInt(2, testsModel.getYear());
+	            preparedStatement.setString(2, testsModel.getAudio());
 	            preparedStatement.setBoolean(3, testsModel.getStatus());
-	            preparedStatement.setInt(4, testsModel.getYear());
+	            preparedStatement.setInt(4, testsModel.getTeacherID());
 	            preparedStatement.executeUpdate();
+	            System.err.println("ok add");
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
@@ -76,14 +76,24 @@ public class TestsService extends BaseService {
 	  public static void edit (TestsModel testsModel) {	
 			try {
 				Connection connection = getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement("UPDATE test SET TestName = ?, Year = ?, audio = ?, status = ? WHERE testID =?"); 
+				PreparedStatement preparedStatement = connection.prepareStatement("UPDATE test SET TestName = ?, audio = ? WHERE testID =?"); 
 				preparedStatement.setString(1, testsModel.getTestsName());
-	            preparedStatement.setInt(2, testsModel.getYear());
-	            preparedStatement.setString(3, testsModel.getAudio());
-	            preparedStatement.setBoolean(4, testsModel.getStatus());
-	            preparedStatement.setInt(5, testsModel.getYear());
-				preparedStatement.setInt(6,testsModel.getTestsID());
+	            preparedStatement.setString(2, testsModel.getAudio());
+				preparedStatement.setInt(3, testsModel.getTestsID());
 				
+				preparedStatement.executeUpdate();
+			} catch (SQLException e) { 
+				e.printStackTrace();
+			}
+		}
+	  
+	  //set status
+	  public static void setStatus (TestsModel testsModel) {	
+			try {
+				Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement("UPDATE test SET  status = ? WHERE testID =?"); 
+	            preparedStatement.setBoolean(1, testsModel.getStatus());
+				preparedStatement.setInt(2, testsModel.getTestsID());   
 				preparedStatement.executeUpdate();
 			} catch (SQLException e) { 
 				e.printStackTrace();
@@ -113,14 +123,40 @@ public class TestsService extends BaseService {
 				ResultSet resultSet =preparedStatement.executeQuery();
 				resultSet.next();
 				testsModel.setTestsID(testsID);
-				testsModel.setTestsName(resultSet.getString(2));
-				testsModel.setYear(resultSet.getInt(3)); 
-				testsModel.setAudio(resultSet.getString(4));
-				testsModel.setStatus(resultSet.getBoolean(5));
-				testsModel.setTeacherID(resultSet.getInt(6));
+				testsModel.setTestsName(resultSet.getString("TestName"));
+				testsModel.setAudio(resultSet.getString("audio"));
+				testsModel.setStatus(resultSet.getBoolean("status"));
+				testsModel.setTeacherID(resultSet.getInt("teacherID"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return testsModel;
+		}
+		
+		public static int count () {
+			try {
+				Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement("Select Count(*) As Result From Test");
+				ResultSet resultSet = preparedStatement.executeQuery();
+				resultSet.next();
+				int count = resultSet.getInt("Result");
+				return count;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return 0;
+		}
+		
+	// delete
+		public static boolean delete(int testID) {
+			try {
+				Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement("Delete From Test Where testID = ?");
+				preparedStatement.setInt(1, testID);
+				preparedStatement.executeUpdate();
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
 		}
 }

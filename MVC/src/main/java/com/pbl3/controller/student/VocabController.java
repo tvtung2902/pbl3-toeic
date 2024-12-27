@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 import com.pbl3.libs.FileData;
+import com.pbl3.model.LessionModel;
 import com.pbl3.model.VocabListsModel;
 import com.pbl3.model.VocabModel;
+import com.pbl3.service.CourseService;
+import com.pbl3.service.LessionService;
 import com.pbl3.service.VocabListsService;
 import com.pbl3.service.VocabService;
 
@@ -19,9 +22,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
 @MultipartConfig 
-@WebServlet(urlPatterns = {"/vocab-lists/vocab", "/vocab-lists/vocab/create", "/vocab-lists/vocab/delete", "/vocab-lists/vocab/edit"})
+@WebServlet(urlPatterns = {"/vocab-lists/vocab", "/vocab-lists/vocab/create", "/vocab-lists/vocab/delete", "/vocab-lists/vocab/edit","/course/course-detail/vocab-lists/vocab"})
 public class VocabController extends HttpServlet {
-
+	private static final long serialVersionUID = 1L;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String actionString = req.getServletPath();
@@ -56,6 +59,10 @@ public class VocabController extends HttpServlet {
                 show(req, resp);
                 break;
             }
+            case "/course/course-detail/vocab-lists/vocab": {
+            	vocabInCourse(req, resp);
+                break;
+            }
         }
     }
 
@@ -74,6 +81,7 @@ public class VocabController extends HttpServlet {
         req.setAttribute("vocablistmodel",vocabListsModel );
         req.setAttribute("listID", listID);
         req.setAttribute("vocabModels", vocabModels);
+        req.setAttribute("courseModels", CourseService.allRecent(-1)); ;
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/student/vocab-lists/vocab/vocab.jsp");
         requestDispatcher.forward(req, resp);
     }
@@ -155,7 +163,27 @@ public class VocabController extends HttpServlet {
         int listID = Integer.parseInt(req.getParameter("listID"));
         resp.sendRedirect(req.getContextPath() + "/vocab-lists/vocab?listID=" + listID);
     }
-
+    public void vocabInCourse(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("goi ham show");
+        int lessionID = Integer.parseInt(req.getParameter("lessionID"));
+        System.out.println("lessionID id can show la: " + lessionID);
+        LessionModel lessionModel = LessionService.getLessionByID(lessionID);
+        int listID = lessionModel.getVocabListsModel().getListID();
+        LinkedList<VocabModel> vocabModels = VocabService.all(listID);
+        for (VocabModel vocabModel : vocabModels) {
+            System.out.println(vocabModel.getVocabID());
+        }
+        VocabListsModel vocabListsModel=VocabListsService.find(listID);
+        req.setAttribute("courseID", lessionModel.getCourseID());
+        int number=VocabListsService.count(listID);
+        req.setAttribute("number", number);
+        req.setAttribute("vocablistmodel",vocabListsModel );
+        req.setAttribute("listID", listID);
+        req.setAttribute("vocabModels", vocabModels);
+        req.setAttribute("courseModels", CourseService.allRecent(-1)); 
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/student/vocab-lists/vocab/vocabInCourse.jsp");
+        requestDispatcher.forward(req, resp);
+    }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("goi do post vocab-lists/vocab");

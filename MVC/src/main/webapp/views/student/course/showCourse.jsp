@@ -1,3 +1,4 @@
+<%@page import="com.pbl3.libs.Pair"%>
 <%@page import="com.pbl3.service.CourseService"%>
 <%@page import="com.pbl3.model.CourseModel"%>
 <%@page import="java.util.LinkedList"%>
@@ -42,13 +43,13 @@
                     <div class="inner-main">
                         <h2 class="inner-title">Khóa Học</h2>
                         <div class="inner-bar"></div>
-                        <p class="inner-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel reprehenderit molestiae perspiciatis asperiores. Qui assumenda nostrum ipsa quos ad excepturi alias, molestias fuga odit, repellendus laudantium eum consequuntur, quo velit!</p>
+                        <p class="inner-desc">Chúng tôi cung cấp các khóa học từ căn bản đến nâng cao, bao gồm nhiều mức đầu ra của tiếng anh TOEIC</p>
                         <div class="inner-button">
                             <!-- <div class="button-two button-1">
                                     <a href="#"class="button1">Khóa Học</a>
                             </div> -->
                             <div class="button-two button-2">
-                                    <a href="#"class="button2" method="post">Xem Khóa Học</a>
+                                    <a class="button2" method="post">Xem Khóa Học</a>
                             </div>
                         </div>
                     </div>
@@ -64,26 +65,32 @@
             <div class="row">
             <%
             int i = 0;
-            LinkedList<CourseModel> list=(LinkedList<CourseModel>)request.getAttribute("courseModels");
+            LinkedList<Pair<CourseModel,Integer>> list=(LinkedList<Pair<CourseModel,Integer>>)request.getAttribute("courseModels");
 			
-            for (CourseModel c :list) {
+            for (Pair<CourseModel,Integer> c :list) {
 			%>
                 <div class="col-xl-4">
-                    <a href="/MVC/courses/course-detail?courseID=<%=c.getCourseID()%>">
+                    <a href="/MVC/course/course-detail?courseID=<%=c.getFirst().getCourseID()%>">
                         <div class="inner-wrap">
                             <div class="inner-img">
-                                <img src="https://ags-study.com/wp-content/uploads/2020/03/iStock-639710652-1080x675-1.jpg" alt="listvocab">
+                                <img src="/MVC/<%=c.getFirst().getImage()%>" alt="picCourse">
+                               <div class="inner-price">  
+                                    <%=c.getFirst().getPriceCH()%>
+                                </div>
                             </div>
                             <div class="inner-content">
                                 <h3 class="inner-name">
-                                    <%=c.getCourseName() %>
+                                    <%=c.getFirst().getCourseName() %>
                                 </h3>
-                                <p class="inner-desc"><%=c.getCourseDesc() %></p>
+                                <%if(c.getFirst().getInput()>0){ %>
+                            <p class="inner-desc">Khóa học này danh cho học viên có đầu vào <%=c.getFirst().getInput() %>+ và mục tiêu đạt điểm <%=c.getFirst().getTarget() %>+</p>
+                            <%}else{ %>
+                            <p class="inner-desc">Dành cho các bạn với mục tiêu đạt điểm TOEIC tại các mức đầu ra <%=c.getFirst().getTarget() %>+</p>
+                            <%} %> 
                             </div>
                             <div class="inner-number">
                                 <p>
-
-								<%= request.getAttribute("soluong"+Integer.toString(c.getCourseID())) %> học viên                      
+								Số lượng học viên: <%=c.getSecond() %>                     
                                 </p>
                             </div>
                         </div>

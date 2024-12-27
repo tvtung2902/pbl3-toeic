@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @MultipartConfig 
 @WebServlet(urlPatterns = { "/admin/coupon", "/admin/coupon/create", "/admin/coupon/edit", "/admin/coupon/delete"})
 public class CouponController extends HttpServlet{
+	private static final long serialVersionUID = 1L;
 	@Override 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("goi doGet Coupon - ad");
@@ -37,16 +38,46 @@ public class CouponController extends HttpServlet{
 			System.out.println("goi doPost /admin/coupon/edit");
 			edit(req, resp);
 			break;
-		} 
+		}
+		default : { 
+			resp.sendRedirect(req.getContextPath() + "/error");
+		}
 		}
 	}
+//	protected void show(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		System.out.println("goi ham show");
+//		LinkedList<CouponModel> couponModels = CouponService.all();
+//		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/admin/coupon/coupon.jsp");
+//		req.setAttribute("couponModels", couponModels); 
+//	    requestDispatcher.forward(req, resp);
+//	}
+	
 	protected void show(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("goi ham show");
-		LinkedList<CouponModel> couponModels = CouponService.all();
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/admin/coupon/coupon.jsp");
-		req.setAttribute("couponModels", couponModels); 
-	    requestDispatcher.forward(req, resp);
+	    System.out.println("goi ham show");
+	    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/admin/coupon/coupon.jsp");
+	    String method = req.getParameter("method");
+	    String keyword = req.getParameter("keyword");
+	    if (keyword == null) {
+	        keyword = "";
+	    }
+	    if (method == null) {
+	        method = "CouponID";
+	    } 
+	    int page = 1;
+	    if (req.getParameter("page") != null && !req.getParameter("page").isEmpty()) {
+	        page = Integer.parseInt(req.getParameter("page"));
+	    }       
+	    int limit = 8;      
+	    LinkedList<CouponModel> couponModels = CouponService.all(method, keyword, limit, page);
+	    int totalRecord = CouponService.countSearch(method, keyword);
+	    int totalPage = (int)Math.ceil(1.0 * totalRecord / limit);
+	    System.out.println("totalRecord: " + totalRecord);
+	    System.out.println("totalPage: " + totalPage);
+	    req.setAttribute("totalPage", totalPage);  
+	    req.setAttribute("couponModels", couponModels);
+	    requestDispatcher.forward(req, resp); 
 	}
+
 	
 	protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/admin/coupon/create-coupon.jsp");
@@ -62,7 +93,7 @@ public class CouponController extends HttpServlet{
 				}
 			}
 			if(check) break;
-		}
+		}    
 		req.setAttribute("code", code);
 		requestDispatcher.forward(req, resp);  
 	}

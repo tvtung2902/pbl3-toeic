@@ -6,15 +6,37 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import com.pbl3.libs.Pair;
 import com.pbl3.model.CourseModel;
 
 public class CourseService extends BaseService {
 
-	public static LinkedList<CourseModel> all() {
-		LinkedList<CourseModel> courseModels = new LinkedList<CourseModel>();
+	public static LinkedList<Pair<CourseModel, Integer>> search(String keyword, int TeacherID) {
+		LinkedList<Pair<CourseModel, Integer>> list= new LinkedList<Pair<CourseModel,Integer>>();
+		String queryString="";
+		if(TeacherID==-1) {
+		 queryString="select course.*, SoLuongHocVien from course left  join (SELECT "
+					+ "register_course.courseid, "
+					+ "COUNT(DISTINCT userid,courseid) SoLuongHocVien "
+					+ "FROM "
+					+ "register_course where status = \"confirmed\" "
+					+ "GROUP BY "
+					+ "register_course.courseid) dk on course.courseid=dk.courseid WHERE CourseName LIKE \"%"+keyword+"%\" "
+					+ "order by SoLuongHocVien desc";
+		}
+		else {
+			 queryString="select course.*, SoLuongHocVien from course left  join (SELECT "
+						+ "register_course.courseid, "
+						+ "COUNT(DISTINCT userid,courseid) SoLuongHocVien "
+						+ "FROM "
+						+ "register_course where status = \"confirmed\" "
+						+ "GROUP BY "
+						+ "register_course.courseid) dk on course.courseid=dk.courseid WHERE CourseName LIKE \"%"+keyword+"%\"  and teacherID= "+ TeacherID
+						+ " order by SoLuongHocVien desc";
+		}
 		try {
 			Connection connection = getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM course ORDER BY courseID DESC");
+			PreparedStatement preparedStatement = connection.prepareStatement(queryString);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
 				Integer courseID = resultSet.getInt("CourseID");
@@ -28,25 +50,26 @@ public class CourseService extends BaseService {
 				Integer tacherID = resultSet.getInt("teacherID");
 				Integer percentSalary = resultSet.getInt("percentSalary");
 				Integer percentDiscount = resultSet.getInt("percentDiscount");
-				CourseModel courseModel = new CourseModel(courseID, courseName, courseDesc,price, duration, target, image ,input, tacherID, percentSalary, percentDiscount);
-				courseModels.add(courseModel);      
+				CourseModel courseModel=new CourseModel(courseID,courseName, courseDesc, price, duration, target, image, input, tacherID, percentSalary, percentDiscount);
+				Integer soLuongInteger = resultSet.getInt("SoLuongHocVien");
+				Pair<CourseModel, Integer> pair =new Pair<CourseModel, Integer>(courseModel, soLuongInteger);
+				list.add(pair);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return courseModels;
+		return list;
 	}
 	public static int count(int courseID) {
 		int k=0;
 		try {
 			Connection connection = getConnection();
-			String sqlString="select count(*) from register_course where CourseID ="+Integer.toString(courseID);
+			String sqlString="select COUNT(DISTINCT userid) from register_course where status = \"confirmed\" and CourseID ="+Integer.toString(courseID);
 			PreparedStatement preparedStatement = connection.prepareStatement(sqlString);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			resultSet.next();
 			 k=resultSet.getInt(1);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return k;
@@ -55,7 +78,6 @@ public class CourseService extends BaseService {
 	// add
 	public static void add(CourseModel courseModel) {
 	    try {
-	    	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaa" +courseModel.getPercentSalary());
 	        Connection connection = getConnection();
 	        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Course (CourseName, CourseDesc, Price, Duration, TeacherID, Target, Input, Image, PercentSalary, PercentDiscount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	        preparedStatement.setString(1, courseModel.getCourseName());
@@ -73,7 +95,19 @@ public class CourseService extends BaseService {
 	        e.printStackTrace();
 	    }
 	}
-	
+    public static boolean delete(int courseID) {
+        try {
+        	System.out.println(courseID);
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM course WHERE courseID = ?");
+            preparedStatement.setInt(1, courseID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 	// find
 	public static CourseModel find(int courseID) {
 	    CourseModel courseModel = new CourseModel();
@@ -94,7 +128,6 @@ public class CourseService extends BaseService {
 	            String image = resultSet.getString("Image");
 	            int percentSalary = resultSet.getInt("percentSalary");
 	            int percentDiscount = resultSet.getInt("percentDiscount");
-	            // Set thông tin vào CourseModel
 	            courseModel.setCourseID(courseId);
 	            courseModel.setCourseName(courseName);
 	            courseModel.setCourseDesc(courseDesc);
@@ -134,42 +167,13 @@ public class CourseService extends BaseService {
 	        e.printStackTrace();
 	    }
 	}
-
-	
-	public static CourseModel findCourse(int courseID) {
-		CourseModel courseModel=new CourseModel();
-		try {
-			Connection connection = getConnection();
-			String sqlString="select * from course where CourseID ="+Integer.toString(courseID);
-			PreparedStatement preparedStatement = connection.prepareStatement(sqlString);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while(resultSet.next()) {
-//				int courseID= resultSet.getInt("courseID");
-				String nameString=resultSet.getString("CourseName");
-				String descString=resultSet.getString("CourseDesc");
-				double price = resultSet.getDouble("Price");
-				int duration=resultSet.getInt("Duration"); 
-				int teacherid=resultSet.getInt("teacherID");   
-				courseModel.setCourseID(courseID);
-				courseModel.setCourseName(nameString);
-				courseModel.setCourseDesc(descString);
-				courseModel.setPrice(price);
-				courseModel.setDuration(duration);
-				courseModel.setTeacherID(teacherid);
-			} 
-		} catch (Exception e) {
-			// TODO: handle exception 
-			e.printStackTrace();
-		}
-		return courseModel;
-	}
 	
 	// query 
 	public static LinkedList<CourseModel> allRecent(int courseCurrentID) {
 		LinkedList<CourseModel> courseModels = new LinkedList<CourseModel>();
 		try {
 			Connection connection = getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT CourseID, CourseName, Image FROM course Where courseID <> ? ");
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT CourseID, CourseName, Image FROM course Where courseID <> ? ORDER BY CourseID LIMIT 3");
 			preparedStatement.setInt(1, courseCurrentID);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
@@ -187,4 +191,54 @@ public class CourseService extends BaseService {
 		}
 		return courseModels;
 	}
+	
+	public static int count() {
+		try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("Select Count(*) As Result From Course");
+			ResultSet resultset = preparedStatement.executeQuery();
+			resultset.next();
+			int count = resultset.getInt("Result");
+			return count;
+		} catch (Exception e) {
+		}
+		return 0;
+	}
+	
+	public static LinkedList<Pair<CourseModel, Integer>> getTop3() {
+		LinkedList<Pair<CourseModel, Integer>> list= new LinkedList<Pair<CourseModel,Integer>>();
+		try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("select course.*, SoLuongHocVien from course join (SELECT \r\n"
+					+ "    register_course.courseid,\r\n"
+					+ "    COUNT(DISTINCT userid,courseid) SoLuongHocVien\r\n"
+					+ "FROM \r\n"
+					+ "   register_course where status = \"confirmed\"\r\n"
+					+ "GROUP BY \r\n"
+					+ "   register_course.courseid) dk on course.courseid=dk.courseid\r\n"
+					+ "order by SoLuongHocVien desc limit 3;");
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Integer courseID = resultSet.getInt("CourseID");
+				String courseName = resultSet.getString("CourseName");
+				String courseDesc = resultSet.getString("CourseDesc");
+				Double price = resultSet.getDouble("Price");
+				Integer duration = resultSet.getInt("Duration");
+				Integer target = resultSet.getInt("target");
+				String image = resultSet.getString("image");
+				Integer input = resultSet.getInt("input");
+				Integer tacherID = resultSet.getInt("teacherID");
+				Integer percentSalary = resultSet.getInt("percentSalary");
+				Integer percentDiscount = resultSet.getInt("percentDiscount");
+				CourseModel courseModel=new CourseModel(courseID,courseName, courseDesc, price, duration, target, image, input, tacherID, percentSalary, percentDiscount);
+				Integer soLuongInteger = resultSet.getInt("SoLuongHocVien");
+				Pair<CourseModel, Integer> pair =new Pair<CourseModel, Integer>(courseModel, soLuongInteger);
+				list.add(pair);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 }

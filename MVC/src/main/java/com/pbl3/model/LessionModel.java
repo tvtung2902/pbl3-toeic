@@ -7,10 +7,14 @@ public class LessionModel {
 	private String lessionName;
 	private int orderNumber;
 	private String video;
-	private ExerciseModel exerciseModel;
+	private String exercise;
 	private VocabListsModel vocabListsModel;
+	
+	public LessionModel() {
+		
+	}
 	public LessionModel(int lessionID, int courseID, int partID, String lessionName, int orderNumber, String video,
-			ExerciseModel exerciseModel, VocabListsModel vocabListsModel) {
+			String exercise, VocabListsModel vocabListsModel) {
 		super();
 		this.lessionID = lessionID;
 		this.courseID = courseID;
@@ -18,7 +22,7 @@ public class LessionModel {
 		this.lessionName = lessionName;
 		this.orderNumber = orderNumber;
 		this.video = video;
-		this.exerciseModel = exerciseModel;
+		this.exercise = exercise;
 		this.vocabListsModel = vocabListsModel;
 	}
 	public int getLessionID() {
@@ -57,17 +61,25 @@ public class LessionModel {
 	public void setVideo(String video) {
 		this.video = video;
 	}
-	public ExerciseModel getExerciseModel() {
-		return exerciseModel;
+	public String getExercise() {
+		return exercise;
 	}
-	public void setExerciseModel(ExerciseModel exerciseModel) {
-		this.exerciseModel = exerciseModel;
+	public void setExercise(String exercise) {
+		this.exercise = exercise;
 	}
 	public VocabListsModel getVocabListsModel() {
 		return vocabListsModel;
 	}
 	public void setVocabListsModel(VocabListsModel vocabListsModel) {
 		this.vocabListsModel = vocabListsModel;
+	}
+	@Override
+	public String toString() {
+		if (video != null && video.equals("null")) System.out.println("ki tu null");
+		if (exercise != null && exercise.equals("null")) System.out.println("ki tu null");
+				return "LessionModel [lessionID=" + lessionID + ", courseID=" + courseID + ", partID=" + partID
+				+ ", lessionName=" + lessionName + ", orderNumber=" + orderNumber + ", video=" + video + ", exercise="
+				+ exercise + ", vocabListsModel=" + vocabListsModel + "]";
 	}
 	
 }

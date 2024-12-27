@@ -23,7 +23,7 @@
     
      <style>
     	<%@include file="../../../../assets/css/base.css"%>
-    	 <%@include file="../../../../assets/css/styleCourseDetail.css"%>
+    	 <%@include file="../../../../assets/css/styleCourseDetail.css"%>  
     	 
     footer .container{
         max-width: 1296px;
@@ -36,15 +36,13 @@
 	<%@include file="../re-use/header.jsp" %>
     <!--end  header  -->
     
-    <%	long dayofcourse=0;
+    <%	
     	CourseModel courseModel= (CourseModel)request.getAttribute("courseModel");
     	UserModel teacher= (UserModel)request.getAttribute("teacher");
-    	boolean registered =(boolean)request.getAttribute("registered");
-    	if(registered){
-    		 dayofcourse = (long)request.getAttribute("dayofcourse");
-    	}
     	ArrayList<Pair<PartModel, LinkedList<LessionModel>>> arrayList= (ArrayList<Pair<PartModel,LinkedList<LessionModel>>>)request.getAttribute("arraylist");
-    %>
+   		String status=(String)request.getAttribute("statusString");
+   		System.out.printf("trạng thái:"+status);
+    	%>
   
      <!-- welcome -->
     <div class="welcome">
@@ -54,7 +52,11 @@
                     <div class="inner-main">
                         <h2 class="inner-title"><%=courseModel.getCourseName() %></h2>
                         <div class="inner-bar"></div>
-                        <p class="inner-desc"><%=courseModel.getCourseDesc() %>
+                       <%if(courseModel.getInput()>0){ %>
+                            <p class="inner-desc">Khóa học này danh cho học viên có đầu vào <%=courseModel.getInput() %>+ và mục tiêu đạt điểm <%=courseModel.getTarget() %>+</p>
+                            <%}else{ %>
+                            <p class="inner-desc">Dành cho các bạn với mục tiêu đạt điểm TOEIC tại các mức đầu ra <%=courseModel.getTarget() %>+</p>
+                            <%} %>
                         </p>
                         <div class="inner-button">
                             <!-- <div class="button-two button-1">
@@ -136,19 +138,23 @@
 														for(LessionModel lessionModel:(arrayList.get(i).getSecond())){ %>
 														     <div class="inner-wrap">
                                                                 <p class="check-lock">Bài <%=lessionModel.getOrderNumber() %>: <%=lessionModel.getLessionName() %></p>
-                                                                <ul>
+                                                          <ul>
+                                                          
+                                                          			<%if(lessionModel.getVideo() !=null){ %>
                                                                     <li>
-                                                                        <a href="#" class="check"><strong>Lý thuyết: </strong> 
-                                                                            (chỗ này là video)</a>
-                                                                    </li>
-																	<%if(lessionModel.getExerciseModel()!=null){ %>
+                                                                        <a href="/MVC/course/course-detail/learn?lessionID=<%=lessionModel.getLessionID()%>" class="check"><strong>Lý thuyết: </strong> 
+                                                                            video bài giảng</a>
+                                                                    </li> 
+                                                                    <%}%>
+																	<%if(lessionModel.getExercise() != null){ %>
 																	<li>
-                                                                        <a href="#" class="check"><strong>Luyện tập: </strong> <%=lessionModel.getExerciseModel().getExerciseName() %></a>
-                                                                    </li>
+																	
+                                                                        <a href="/MVC/<%=lessionModel.getExercise()%>?lessionID=<%=lessionModel.getLessionID()%>" class="check"><strong>Luyện tập: </strong> Bài tập về: <%=lessionModel.getLessionName()%></a>
+                                                                    </li> 
 																	<%} %>
-																	<%if(lessionModel.getVocabListsModel()!=null){ %>
+																<%if(lessionModel.getVocabListsModel()!=null){ %>
 																    <li>
-                                                                        <a href="#" class="check"><strong>Từ vựng: </strong><%=lessionModel.getVocabListsModel().getNameList() %></a>
+                                                                        <a href="/MVC/course/course-detail/vocab-lists/vocab?lessionID=<%=lessionModel.getLessionID()%>" class="check"><strong>Từ vựng: </strong><%=lessionModel.getVocabListsModel().getNameList() %></a>
                                                                     </li>
 																<%} %>
                                                                 </ul>
@@ -160,7 +166,6 @@
                                             </div>
 						<%} %>
                                         </div>
-                                        </p>
                                     </div>
                                     <div class="tab-pane fade" id="teacher" role="tabpanel"
                                         aria-labelledby="teacher-tab">
@@ -173,7 +178,9 @@
                                                     </div>
                                                     <div class="inner-main">
                                                         <div class="inner-name"><%=teacher.getName() %></div>
-                                                        <div class="inner-desc">mô tả giáo viên(bổ sung vô nha mày)</div>
+                                                        <%if(teacher.getDescription() != null ){ %>
+                                                        <div class="inner-desc"><%=teacher.getDescription()%></div>
+                                                        <%} %>
                                                         <div class="inner-email">
                                                             <i class="fa-regular fa-envelope"></i>
                                                             <span><%=teacher.getEmail() %></span>
@@ -188,13 +195,24 @@
                             <div class="inner-buy" id="button-buy">
                                 <div class="inner-button">
                                     <div class="button-two button-1">
-                                        <a href="#" class="button1">Mua Khóa Học</a>
+                                        <a href="/MVC/course/course-detail/pay?action=buy&courseID=<%=courseModel.getCourseID() %>" class="button1">Mua Khóa Học</a>
                                     </div>
                                     <!-- <div class="button-two button-2">
                                             <a href="#"class="button2" method="post"></a>
                                     </div> -->
                                 </div>
                             </div>
+                            <div class="inner-buy hidden" id="button-extend">
+                                <div class="inner-button">
+                                    <div class="button-two button-1">
+                                        <a href="/MVC/course/course-detail/pay?action=extend&courseID=<%=courseModel.getCourseID()%>" class="button1">Gia hạn</a>
+                                    </div> 
+                                    <!-- <div class="button-two button-2">
+                                            <a href="#"class="button2" method="post"></a>
+                                    </div> -->
+                                </div> 
+                            </div>
+							<p class="hidden"id="waiting">Đang chờ xác nhận </P>
                         </div>
                     </div>
                 </div>
@@ -206,7 +224,7 @@
                         <div class="inner-content">
           					<ul>
                         	<%for(CourseModel c : (LinkedList<CourseModel>)request.getAttribute("courseModels")){ %>
-                        	    <a href="/MVC/courses/course-detail?courseID=<%=c.getCourseID()%>"> 
+                        	    <a href="/MVC/course/course-detail?courseID=<%=c.getCourseID()%>"> 
                         		<li class="single-course row">
                         			<div class= "image col-3">
                         				<img alt="anh" src="/MVC/<%=c.getImage()%>">
@@ -233,32 +251,36 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script> 
     <script>
-             <% 
-     boolean check=true;
-     if(!registered) check=false;
-     else if(dayofcourse<0) check=false;
-     %>
-   	var userHasPermission = <%=Boolean.toString(check) %> ;
-        // Lấy tất cả các thẻ div có lớp là "myDiv"
+        <%if(status.equals("isRegister")){%>
         document.getElementById("button-buy").classList.add("hidden");
+        <%}%>
+        
+        <%if(status.equals("outTime")){%>
+        document.getElementById("button-buy").classList.add("hidden");
+        document.getElementById("button-extend").classList.remove("hidden");
+        <%}%>
+        
+        <%if(!status.equals("isRegister")){%>
         var divElements = document.getElementsByClassName("check");
-
-        // Lặp qua tất cả các phần tử div được lấy
         for (var i = 0; i < divElements.length; i++) {
             var div = divElements[i];
-            if (!userHasPermission) {
                 div.classList.add("disabled"); // Thêm lớp 'disabled'
-            }
         }
         var divElements = document.getElementsByClassName("check-lock");
-        if (!userHasPermission) {
-            for (var i = 0; i < divElements.length; i++) {
-            var div = divElements[i];
-            var icon = document.createElement("i");
-		    icon.classList.add("fa-solid", "fa-lock");
-            div.appendChild(icon);
-            }  
-            }
+        for (var i = 0; i < divElements.length; i++) {
+        var div = divElements[i];
+        var icon = document.createElement("i");
+	    icon.classList.add("fa-solid", "fa-lock");
+        div.appendChild(icon); 
+        }
+        <%}%>
+        
+        <%if(status.equals("waiting")){%>
+        document.getElementById("button-buy").classList.add("hidden");
+        document.getElementById("waiting").classList.remove("hidden");
+        <%}%>
+
+
 
 
         $(document).ready(function () {

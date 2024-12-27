@@ -20,14 +20,12 @@ public class VocabListsService extends BaseService{
 			preparedStatement.setInt(1, userID);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
-				int listID = resultSet.getInt(1);
-//				int userID = resultSet.getInt(2);
-				Integer courseID = resultSet.getInt(3);
-				String nameList = resultSet.getString(4);
-				String description = resultSet.getString(5);
-				VocabListsModel vocabListsModel = new VocabListsModel(listID, userID, courseID, nameList, description);   
-				vocabListsModels.add(vocabListsModel);
-//				System.out.println(vocabListsModels.get(0).getNameList());             
+				int listID = resultSet.getInt("listID");
+				Integer UserID = resultSet.getInt("UserID");
+				String nameList = resultSet.getString("nameList");
+				String description = resultSet.getString("description");
+				VocabListsModel vocabListsModel = new VocabListsModel(listID, UserID, nameList, description);
+				vocabListsModels.add(vocabListsModel);          
 			}
 			System.out.println("size cua list: " + vocabListsModels.size());
 			return vocabListsModels; 
@@ -41,23 +39,16 @@ public class VocabListsService extends BaseService{
 	public static void add(VocabListsModel vocabListsModel) {
 		try {
 			Connection connection = getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO vocabularylist (ListID, UserID, LessionID, NameList, Description) VALUES (?, ?, ?, ?, ?)"); 
-			preparedStatement.setInt(1, vocabListsModel.getListID());
-			preparedStatement.setInt(2, vocabListsModel.getUserID());
-			if (vocabListsModel.getLessionID() != null) {
-			    preparedStatement.setInt(3, vocabListsModel.getLessionID());
-			} else {
-			    preparedStatement.setObject(3, null);
-			}
-			preparedStatement.setString(4, vocabListsModel.getNameList());
-			preparedStatement.setString(5, vocabListsModel.getDescription());
+			PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO vocabularylist (UserID, NameList, Description) VALUES (?, ?, ?)"); 
+			preparedStatement.setInt(1, vocabListsModel.getUserID());
+			preparedStatement.setString(2, vocabListsModel.getNameList());
+			preparedStatement.setString(3, vocabListsModel.getDescription());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	// delete 
 	// delete
 			public static void delete (int listID) {
 				try {
@@ -83,6 +74,7 @@ public class VocabListsService extends BaseService{
 					e.printStackTrace();
 				}
 			}
+			
 		//find
 			public static VocabListsModel find(int ListID) {
 				VocabListsModel vocabListsModel= new VocabListsModel();
@@ -93,13 +85,11 @@ public class VocabListsService extends BaseService{
 					ResultSet resultSet =preparedStatement.executeQuery();
 					if(resultSet.next()) {
 						vocabListsModel.setListID(ListID);
-						vocabListsModel.setLession(resultSet.getInt("lessionid"));
 						vocabListsModel.setNameList(resultSet.getString("NameList"));
 						vocabListsModel.setDescription(resultSet.getString("Description"));
 						vocabListsModel.setUserID(resultSet.getInt("UserID"));
 					}
 				} catch (Exception e) {
-					// TODO: handle exception
 					e.printStackTrace();
 				}
 				return vocabListsModel;
@@ -116,7 +106,6 @@ public class VocabListsService extends BaseService{
 						k=resultSet.getInt(1);
 					}
 				} catch (Exception e) {
-					// TODO: handle exception
 					e.printStackTrace();
 				}
 				return k;

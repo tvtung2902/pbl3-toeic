@@ -1,3 +1,4 @@
+<%@page import="com.pbl3.model.CourseModel"%>
 <%@page import="com.pbl3.model.VocabListsModel"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="com.pbl3.model.VocabModel"%>
@@ -30,15 +31,10 @@
   		int number=(int)request.getAttribute("number");
   	%> 
   	
-    <div class="container">
+    <div class="container" style="margin-top: 30px">
         <div class="row">
-           <div class="col-12">
-                <div class="inner-imgbanner">
-                    <img src="https://images.unsplash.com/photo-1648061557966-8e30f972f0be?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-                </div>
-            </div>
             <div class="col-xl-8">
-                <div class="row">
+                <div class="row">   
                     <div class="col-12">
                         <div class="section-one"> 
                             <div class="container">
@@ -187,9 +183,11 @@
                                         <label for="example">Ví dụ:</label>
                                         <textarea id="example" name="example"><%=v.getExample()%></textarea> 
                                         <%if(v.getImage() != null) {%>
+									    <div class="img-vocab">
 									    <a href="/MVC/<%=v.getImage()%>" target="_blank" style="text-decoration: underline;">Ảnh hiện tại</a>
-									    <input type="checkbox" name="deleteImage" value="yes" id="deleteImageID">
+										<input type="checkbox" name="deleteImage" value="yes" id="deleteImageID" style="margin-left: 20px;">
 									    <label for="deleteImageID">Xóa</label>
+										</div>			 
 									    <input type="hidden" name="imageString" value="<%=v.getImage()%>">
 									    <label for="anh">Thay đổi ảnh mô tả:</label>
 									    <input id="anh" type="file" name="image">                          
@@ -212,13 +210,28 @@
                 </div>
             </div>
             <div class="col-xl-4">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="inner-sidebar">
-                            <p>Dây là sidebar</p>
+                 <div class="inner-sidebar">
+                        <div class="inner-title">
+                            <h3>Khóa học gần đây</h3>
+                        </div>
+                        <div class="inner-content">
+          					<ul> 
+                        	<%for(CourseModel c : (LinkedList<CourseModel>)request.getAttribute("courseModels")){ %>
+                        	    <a href="/MVC/course/course-detail?courseID=<%=c.getCourseID()%>"> 
+                        		<li class="single-course row">
+                        			<div class= "image col-3">
+                        				<img alt="anh" src="/MVC/<%=c.getImage()%>">
+                        			</div>
+                        			<div class="name col-9">
+                
+                        				<h6><%=c.getCourseName() %></h6>	 
+                        			</div>
+                        		</li>
+                        		</a>
+                        		<%} %>
+                        	</ul> 
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
@@ -256,23 +269,23 @@
                                              <h5 class="inner-title" id="add-listvocab">Sửa danh sách</h5>
                                          </div>
                                          <div class="modal-body">
-                                             <form method="post" action="/MVC/vocab-lists/edit">
-                                                 <div class="row">
-                                                     <div class="col-12">
-                                                         <div class="form-group">
-                                                         	 <input type="hidden" name="listID" value="<%=vocabListsModel.getListID()%>">
-                                                         	 <input type="hidden" name="userID" value="<%=vocabListsModel.getUserID()%>">
-                                                         	 <input type="hidden" name="CourseID" value="<%=vocabListsModel.getLessionID()%>">
-                                                             <label for="ten">Tên danh sách:</label>
-                                                             <input id="ten" name="nameList" type="text" required value="<%=vocabListsModel.getNameList()%>">
-                                                             <label for="mo-ta">Mô tả:</label>
-                                                             <textarea id="mo-ta" name="description"><%=vocabListsModel.getDescription()%></textarea>
-                                                             <label for="anh">Ảnh mô tả:</label>
-                                                             <input id="anh" type="file" name="pic"> 
-                                                             <button class="button">Sửa</button>
-                                                         </div>
-                                                     </div>
-                                                 </div>
+                                             <form method="post" action="/MVC/vocab-lists/edit" onsubmit="return validateFormEditList();">
+                                            <div class="row">
+                                                <div class="col-12" style="display:flex;     justify-content: center;">
+                                                    <div class="form-group" style="width: 80%;
+    margin: 0;
+    padding: 0;">
+                                                        <label for="ten">Tên danh sách*:</label>
+                                                        <input id="ten" name="nameList" type="text" onblur="checkTen();" value="<%=vocabListsModel.getNameList() %>">
+                                                        <p id="error-ten" style="color:red;"></p>
+                                                        <label for="mo-ta">Mô tả:</label> 
+                                                        <textarea id="mo-ta" name="description" onblur="checkMota();"><%=vocabListsModel.getDescription() %></textarea>
+                                                        <p id="error-mota" style="color:red;"></p>
+                                                        <input name = "listID" type="hidden" value="<%=vocabListsModel.getListID()%>">
+                                                        <button class="button">Sửa</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                              </form>
                                          </div>
                                      </div>
@@ -320,75 +333,8 @@
             </div>
 
         <!-- <footer> -->
-            <footer>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-3">
-                            <div class="inner-intro">
-                                <div class="inner-img">
-                                    <img src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/433753477_1478956322991228_8817898143870258149_n.png?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHOQ56a-PhYUvmg0U6zPAXD66iRjloPIg_rqJGOWg8iD5T35I3AeoGiHZnS-gexmUk8wy4flOwyMiI4q1HxpQTc&_nc_ohc=th6U7HCRyugAb4g9_EP&_nc_ht=scontent.fdad2-1.fna&oh=03_AdVriVWV4qHki7K7WO-GATc15X6Hf5KtCJKNTChvo4ZE3g&oe=66378D9F" alt="logo">
-                                </div>
-                                <p class="inner-desc">
-                                    © 2024
-                                </p>
-                            <div class="inner-list">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa-brands fa-facebook-f"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa-brands fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa-brands fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3">
-                            <div class="inner-box">
-                                <h3 class=".inner-title">
-                                    Về StudyTOEIC
-                                </h3>
-                                <a href="#">Về chúng tôi</a>
-                                <a href="#">Điều khoản dịch vụ</a>
-                                <a href="#">Chính sách bảo mật</a>
-                            </div>
-                        </div>
-                        <div class="col-xl-3">
-                            <div class="inner-box">
-                                <h3 class=".inner-title">
-                                    Thông tin StudyTOEIC
-                                </h3>
-                                <a href="#">Danh sách khóa học</a>
-                                <a href="tests">Danh sách đề thi</a>
-                                <a href="#">Hướng dẫn thanh toán</a>
-                            </div>
-                        </div>
-                        <div class="col-xl-3">
-                            <div class="inner-box">
-                                <h3 class=".inner-title">
-                                    Hỗ trợ
-                                </h3>
-                                <a href="#">Hướng dẫn sử dụng khóa học</a>
-                                <a href="#">Câu hỏi thường gặp</a>
-                                <a href="#">Liên hệ</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bottom-footer">
-                    <p>@ 2024 - Bản quyền thuộc về nhóm 68</p>
-                </div>
-            </footer>
-            <!-- end footer -->
+                <%@include file="../../re-use/footer.jsp" %>
+        <!-- end footer -->
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script> 
@@ -420,6 +366,51 @@
                 $('header').removeClass('hidentop');
             });
         });
+        
+        function checkTen(){
+        	var isValid=false;
+            var ten= document.getElementById('ten').value;
+            var regexTen = /^.{1,30}$/;
+            var errorTen=document.getElementById('error-ten');
+            if(ten==''||ten==null){
+                 errorTen.textContent="Tên danh sách không được để trống!";
+            }else 
+            if(!regexTen.test(ten)){
+                 errorTen.textContent="Tên danh sách không quá 30 kí tự";
+            }
+            else{
+            	isValid=true;
+                 errorTen.textContent="";
+                 
+            }
+            return isValid;
+         }
+        function checkMota(){
+        	var isValid=false;
+            var mota= document.getElementById('mo-ta').value;
+            var regexMota = /^.{1,100}$/;
+            var errorMota=document.getElementById('error-mota');
+            if(mota==''||mota==null){
+                return true;
+           }else 
+            if(!regexMota.test(mota)){
+                 errorMota.textContent="Mô tả danh sách không quá 100 kí tự";
+            }
+            else{
+            	isValid=true;
+                 errorMota.textContent="";
+                 
+            }
+            return isValid;
+         }
+        function validateFormEditList() {
+			if(checkTen() && checkMota() ){
+	            alert("Sửa thành công!");
+	            return true;
+			}else{
+				return false;
+			} 
+        }
     </script>
   </body>
 </html>

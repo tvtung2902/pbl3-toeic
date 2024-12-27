@@ -1,0 +1,77 @@
+        .inner-head h2 {
+            text-align: center;
+            padding: 20px 0;
+            margin: 0;
+        }
+        .inner-head{
+            margin-top: 20px;
+            color: #fff;
+    background-color: var(--color-two);
+        }
+/* course-detail */
+.course-detail {
+	margin-top: 20px;
+}
+
+.course-detail .inner-content {
+	padding: 0 10px;
+}
+
+
+.course-detail .card button {
+	color: black;
+	font-weight: 500;
+}
+
+.course-detail  .card button:hover {
+	text-decoration: none;
+	color: black;
+}
+
+.course-detail  .card .btn-link.focus, .btn-link:focus {
+	text-decoration: none;
+}
+
+.course-detail .card .card-header {
+	background: #fff;
+}
+
+.course-detail  .card {
+	border: 0px;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+}
+
+.course-detail .card .btn:focus {
+	outline: 0px;
+	box-shadow: none;
+}
+
+.course-detail .card .inner-wrap {
+	border: 1px dashed var(--color-one);
+	padding: 10px;
+	border-radius: 8px;
+	margin-bottom: 20px;
+}
+
+.course-detail .card .inner-wrap p {
+	color: #0EDC8D;
+	font-style: 18px;
+	font-weight: 600;
+	margin: 0;
+	margin-left: 15px;
+	margin-bottom: 8px;
+}
+
+.course-detail .card .inner-wrap ul {
+	list-style: none;
+	margin: 0;
+}
+
+.course-detail .card .inner-wrap ul li a {
+	color: black;
+	margin-top: 12px;
+}
+a:hover{
+    text-decoration: none !important;
+} 

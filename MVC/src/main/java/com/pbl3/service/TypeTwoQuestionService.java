@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import com.pbl3.libs.Pair;
 import com.pbl3.model.DataQuestionModel;
@@ -83,11 +84,13 @@ public class TypeTwoQuestionService extends BaseService{
 	}
 
 	// query all question type one and type question in 1 test  
-	public static void allTypeTwoQuestion(int testID, QuestionModel[] questionModels) {
+	public static void allTypeTwoQuestion(int testID, int begin, int end, QuestionModel[] questionModels) {
 	    try {
 	        Connection connection = getConnection();
-	        PreparedStatement preparedStatement = connection.prepareStatement("SELECT question.*, TypeQuestion.TypeQuestionName, typetwoquestion.ContentAnswerA, typetwoquestion.ContentAnswerB, typetwoquestion.ContentAnswerC, typetwoquestion.ContentAnswerD, typetwoquestion.QuestionContent, dataquestion.DataQuestion, dataquestion.Transcript, dataquestion.OrderNumberPart, dataquestion.OrderNumber FROM typequestion INNER JOIN  question ON typequestion.typequestionID = question.typequestionID INNER JOIN typetwoquestion ON question.questionID = typetwoquestion.questionID LEFT JOIN dataquestion ON question.DataQuestionID = dataquestion.DataQuestionID WHERE Question.TestID = ?");
+	        PreparedStatement preparedStatement = connection.prepareStatement("SELECT question.*, TypeQuestion.TypeQuestionName, typetwoquestion.ContentAnswerA, typetwoquestion.ContentAnswerB, typetwoquestion.ContentAnswerC, typetwoquestion.ContentAnswerD, typetwoquestion.QuestionContent, dataquestion.DataQuestion, dataquestion.Transcript, dataquestion.OrderNumberPart, dataquestion.OrderNumber FROM typequestion INNER JOIN  question ON typequestion.typequestionID = question.typequestionID INNER JOIN typetwoquestion ON question.questionID = typetwoquestion.questionID LEFT JOIN dataquestion ON question.DataQuestionID = dataquestion.DataQuestionID WHERE Question.TestID = ? AND Question.OrderNumber >= ? AND Question.OrderNumber <= ?");
 	        preparedStatement.setInt(1, testID); 
+	        preparedStatement.setInt(2, begin);   
+	        preparedStatement.setInt(3, end); 
 	        ResultSet resultSet = preparedStatement.executeQuery();
 	        while (resultSet.next()) {
 	            int questionID = resultSet.getInt("questionID");
@@ -99,7 +102,7 @@ public class TypeTwoQuestionService extends BaseService{
 	            String typeQuestionName = resultSet.getString("typeQuestionName");
 	            int dataQuestionID = resultSet.getInt("dataQuestionID");   
 	            String contentAnswerA = resultSet.getString("contentAnswerA");
-	            String contentAnswerB = resultSet.getString("contentAnswerB");
+	            String contentAnswerB = resultSet.getString("contentAnswerB"); 
 	            String contentAnswerC = resultSet.getString("contentAnswerC");
 	            String contentAnswerD = resultSet.getString("contentAnswerD");
 	            String questionContent = resultSet.getString("questionContent");
@@ -110,7 +113,7 @@ public class TypeTwoQuestionService extends BaseService{
 	            TypeQuestionModel typeQuestionModel = new TypeQuestionModel(typeQuestionID, typeQuestionName);
 	            DataQuestionModel dataQuestionModel = new DataQuestionModel(dataQuestionID, dataQuestion, transcript, testID, orderNumberPart, orderNumberData);
 	            TypeTwoQuestionModel typeTwoQuestionModel = new TypeTwoQuestionModel (questionID, typeQuestionID, testID, answerCorrect, answerExplain, orderNumber, image, typeQuestionModel, dataQuestionID, dataQuestionModel, contentAnswerA, contentAnswerB, contentAnswerC, contentAnswerD, questionContent);
-	            questionModels[typeTwoQuestionModel.getOrderNumber() - 1] = typeTwoQuestionModel;
+	            questionModels[typeTwoQuestionModel.getOrderNumber() - begin + 1] = typeTwoQuestionModel;
 	            
 	        }   
 	    } catch (SQLException e) {
@@ -151,5 +154,46 @@ public class TypeTwoQuestionService extends BaseService{
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
+	}
+	
+	public static void format(int testsID) {
+		QuestionModel[] questionModels = new QuestionModel[55];
+		for (int i = 0; i < 55; i++) {
+				questionModels[i] = new TypeTwoQuestionModel();
+
+		}
+		TypeTwoQuestionService.allTypeTwoQuestion(testsID, 147, 200, questionModels);
+		LinkedList<DataQuestionModel> dataQuestionModels =  DataQuestionService.all(testsID, 7);
+		ArrayList<Pair<DataQuestionModel, LinkedList<QuestionModel>>> arrayList = new ArrayList<Pair<DataQuestionModel, LinkedList<QuestionModel>>>();
+		for(DataQuestionModel dataQuestionModel : dataQuestionModels) {  
+			LinkedList<QuestionModel> list = new LinkedList<QuestionModel>();
+			for (QuestionModel questionModel : questionModels) {
+				System.err.println(questionModel);
+				if((questionModel.getDataQuestionID()== dataQuestionModel.getDataQuestionID())&&questionModel.getQuestionID()!=0) {
+					list.add(questionModel);
+				}
+			}		
+			Pair<DataQuestionModel, LinkedList<QuestionModel>> pair = new Pair<DataQuestionModel, LinkedList<QuestionModel>>(dataQuestionModel, list);
+			arrayList.add(pair);
+		}
+		int lastQuession=147;
+		int lastDataQuession=1;
+		for (Pair<DataQuestionModel, LinkedList<QuestionModel>> pair : arrayList) {
+			if(pair.getFirst().getOrderNumber()!=lastDataQuession) {
+				pair.getFirst().setOrderNumber(lastDataQuession);
+				DataQuestionService.edit(pair.getFirst());
+			}
+				lastDataQuession++;
+			for (QuestionModel q : pair.getSecond()) {
+				if(q.getOrderNumber()==lastQuession) {
+					lastQuession++;
+					continue;
+				}else {
+					q.setOrderNumber(lastQuession);
+					QuestionService.edit(q);
+					lastQuession++;
+				}
+			}
+		}
 	}
 }

@@ -117,13 +117,9 @@ public class VocabService extends BaseService{
 			LinkedList<VocabModel> vocabModels = new LinkedList<VocabModel>();
 			try {
 				Connection connection = getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement("select  vocabulary.* from vocabulary  inner join vocabularylist \r\n"
-						+ "on vocabulary.ListID=vocabularylist.ListID where vocabularylist.UserID=? \r\n"
-						+ "and  vocabulary.listid=? and (vocabid) not in \r\n"
-						+ "(select vocabid from review where status = 1)\r\n"
-						+ "order by VocabID asc limit 10;");
-				preparedStatement.setInt(1, userID);
-				preparedStatement.setInt(2, listID);	
+				PreparedStatement preparedStatement = connection.prepareStatement("select  * from vocabulary where vocabulary.listid = ? and (vocabid) not in (select vocabid from review where status = 1 and userID = ?) order by VocabID asc limit 10");
+				preparedStatement.setInt(1, listID);
+				preparedStatement.setInt(2, userID);
 				ResultSet resultSet = preparedStatement.executeQuery();
 				while(resultSet.next()) {
 					 int vocabID = resultSet.getInt(1);
@@ -143,7 +139,7 @@ public class VocabService extends BaseService{
 				e.printStackTrace();
 			}
 			return vocabModels;
-		}
+		} 
 		//lấy từ đã học
 		//lấy top 10
 		public static LinkedList<VocabModel> getVocabReviewed(int listID,int userID) {

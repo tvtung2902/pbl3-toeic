@@ -36,13 +36,13 @@
                     <div class="inner-main">
                         <h2 class="inner-title">Từ Vựng</h2>
                         <div class="inner-bar"></div>
-                        <p class="inner-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel reprehenderit molestiae perspiciatis asperiores. Qui assumenda nostrum ipsa quos ad excepturi alias, molestias fuga odit, repellendus laudantium eum consequuntur, quo velit!</p>
+                        <p class="inner-desc">Tại StudyTOEIC, chúng tôi hiểu rằng từ vựng là nền tảng quan trọng trong việc học tiếng Anh, vì vậy chúng tôi đã tạo ra các danh sách từ vựng đa dạng và phong phú, phù hợp với mọi trình độ và nhu cầu học tập.</p>
                         <div class="inner-button">
                             <!-- <div class="button-two button-1">
-                                    <a href="#"class="button1">Khóa Học</a>
+                                    <a class="button1">Khóa Học</a>
                             </div> -->
                             <div class="button-two button-2">
-                                    <a href="#"class="button2" method="post">Học Từ Vựng</a>
+                                    <a class="button2" method="post">Học Từ Vựng</a>
                             </div>
                         </div>
                     </div>
@@ -75,16 +75,18 @@
                                         <h5 class="inner-title" id="add-listvocab">Thêm danh sách</h5>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="post" action="/MVC/vocab-lists/create">
+                                        <form method="post" action="/MVC/vocab-lists/create" onsubmit="return validateForm();">
                                             <div class="row">
-                                                <div class="col-12">
-                                                    <div class="form-group">
+                                                <div class="col-12" style="display:flex;     justify-content: center;">
+                                                    <div class="form-group" style="width: 80%;
+    margin: 0;
+    padding: 0;">
                                                         <label for="ten">Tên danh sách*:</label>
-                                                        <input id="ten" name="name" type="text" required>
-                                                        <label for="mo-ta">Mô tả:</label>
-                                                        <textarea id="mo-ta" name="desc"></textarea>
-                                                        <label for="anh">Ảnh mô tả:</label>
-                                                        <input id="anh" type="file" name="pic">
+                                                        <input id="ten" name="name" type="text" onblur="checkTen();">
+                                                        <p id="error-ten" style="color:red;"></p>
+                                                        <label for="mo-ta">Mô tả:</label> 
+                                                        <textarea id="mo-ta" name="desc" onblur="checkMota();"></textarea>
+                                                        <p id="error-mota" style="color:red;"></p>
                                                         <button class="button">Thêm</button>
                                                     </div>
                                                 </div>
@@ -111,11 +113,10 @@
                                 <h3 class="inner-listname">
                                     <%=v.getNameList()%>
                                 </h3>
+                            <div class="inner-number">
+                            </div>
                                 <p class="inner-desc"><%=v.getDescription()%></p>
                                 <!-- <p class="inner-number">số lượng</p> -->
-                            </div>
-                            <div class="inner-number">
-                                <span>số lượng</span>
                             </div>
                             
                         </div>
@@ -136,6 +137,54 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous">
+	</script>
+	
+	<script>
+	function checkTen(){
+    	var isValid=false;
+        var ten= document.getElementById('ten').value;
+        var regexTen = /^.{1,30}$/;
+        var errorTen=document.getElementById('error-ten');
+        if(ten==''||ten==null){
+             errorTen.textContent="Tên danh sách không được để trống!";
+        }else 
+        if(!regexTen.test(ten)){
+             errorTen.textContent="Tên danh sách không quá 30 kí tự";
+        }
+        else{
+        	isValid=true;
+             errorTen.textContent="";
+             
+        }
+        return isValid;
+     }
+    function checkMota(){
+    	var isValid=false;
+        var mota= document.getElementById('mo-ta').value;
+        var regexMota = /^.{1,100}$/;
+        var errorMota=document.getElementById('error-mota');
+        if(mota==''||mota==null){
+            return true;
+       }else 
+        if(!regexMota.test(mota)){
+             errorMota.textContent="Mô tả danh sách không quá 100 kí tự";
+        }
+        else{
+        	isValid=true;
+             errorMota.textContent="";
+             
+        }
+        return isValid;
+     }
+    function validateForm() {
+		if(checkTen() && checkMota() ){
+            alert("Thêm thành công!");
+            return true;
+		}else{
+			return false;
+		}
+    }
+	</script>
 </body>
 </html>

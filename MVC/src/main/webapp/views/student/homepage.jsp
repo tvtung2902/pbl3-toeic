@@ -1,3 +1,8 @@
+<%@page import="com.pbl3.libs.Pair"%>
+<%@page import="com.pbl3.model.CourseModel"%>
+<%@page import="com.pbl3.model.CouponModel"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="com.pbl3.model.UserModel"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -32,7 +37,7 @@
             <div class="inner-main">
               <h5 class="inner-welcome">Học Ngay Từ Hôm Nay</h5>
               <h1 class="inner-title">Khóa Học Và Luyện Đề TOEIC Hàng Đầu</h1>
-              <p class="inner-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel reprehenderit molestiae perspiciatis asperiores. Qui assumenda nostrum ipsa quos ad excepturi alias, molestias fuga odit, repellendus laudantium eum consequuntur, quo velit!</p>
+              <p class="inner-desc">Chào mừng đến với StudyTOEIC - Nền tảng học tiếng anh và luyện thi TOEIC hàng đầu.</p>
               <div class="inner-button">
                 <div class="button-two button-1">
                   <a href="/MVC/courses" class="button1">Khóa Học</a>
@@ -54,7 +59,7 @@
                     <div class="inner-content">
                         <div class="inner-tag">Về StudyTOEIC</div>
                         <div class="inner-title">Chào Mừng Đến Với StudyTOEIC</div>
-                        <div class="inner-desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Inventore fugit, sit quis possimus nesciunt molestiae animi commodi molestias odio fuga, aperiam ex ullam repellat impedit, accusamus distinctio repellendus. Soluta, fugit!</div>
+                        <div class="inner-desc">Nền tảng học tiếng Anh hàng đầu! Chúng tôi cung cấp các khóa học và bộ đề thi chất lượng cao, giúp bạn nâng cao kỹ năng ngôn ngữ và tự tin vượt qua mọi kỳ thi. Với đội ngũ giảng viên giàu kinh nghiệm và tài liệu học tập phong phú, chúng tôi cam kết mang đến cho bạn trải nghiệm học tập hiệu quả và thú vị. Hãy cùng chúng tôi chinh phục đỉnh cao tri thức!</div>
                         <div class="inner-tick">
                             <ul>
                                 <li>
@@ -99,55 +104,36 @@
                             Các Khóa Học Nổi Bật
                         </h1>
                         <div class="inner-bar"> </div>
-                        <p class="inner-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse cumque velit natus, tenetur earum quidem temporibus quibusdam dolore quo eos tempore delectus molestiae rerum magni repellat similique deserunt officiis sapiente?</p>
+                        <p class="inner-desc"> Chúng tôi cung cấp các khóa học từ căn bản đến nâng cao, bao gồm nhiều mức đầu ra của tiếng anh TOEIC</p>
                     </div>
                 </div>
+                 <% for(Pair<CourseModel, Integer> c : (LinkedList<Pair<CourseModel, Integer>>)request.getAttribute("AllCourse")){ %>
                 <div class="col-xl-4">
-                    <a href="#">
+                    <a href="/MVC/course/course-detail?courseID=<%=c.getFirst().getCourseID() %>">
                         <div class="inner-main">
                             <div class="inner-img">
-                                <img src="https://demo.graygrids.com/themes/edugrids/assets/images/courses/courses-1.jpg" alt="picCourses">
+                                <img src="/MVC/<%=c.getFirst().getImage() %>" alt="picCourses">
+                                <div class="inner-price">
+                                    <%=c.getFirst().getPriceCH() %>
+                                </div>
                             </div>
-                            <h2 class="inner-title">Tên Khóa Học</h2>
-                            <p class="inner-desc">Mô tả khóa học</p>
+                            <h2 class="inner-title"><%=c.getFirst().getCourseName() %></h2>
+                           <%if(c.getFirst().getInput()>0){ %>
+                            <p class="inner-desc">Khóa học này danh cho học viên có đầu vào <%=c.getFirst().getInput() %>+ và mục tiêu đạt điểm <%=c.getFirst().getTarget() %>+</p>
+                            <%}else{ %>
+                            <p class="inner-desc">Dành cho các bạn với mục tiêu đạt điểm TOEIC tại các mức đầu ra <%=c.getFirst().getTarget() %>+</p>
+                            <%} %>
                             <div class="inner-quality">
-                                <p class="quality">Số lượng học viên</p>
+                                <p class="quality">Số lượng học viên: <%=c.getSecond() %></p>
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="col-xl-4">
-                    <a href="#">
-                        <div class="inner-main">
-                            <div class="inner-img">
-                                <img src="https://demo.graygrids.com/themes/edugrids/assets/images/courses/courses-1.jpg" alt="picCourses">
-                            </div>
-                            <h2 class="inner-title">Tên Khóa Học</h2>
-                            <p class="inner-desc">Mô tả khóa học</p>
-                            <div class="inner-quality">
-                                <p class="quality">Số lượng học viên</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xl-4">
-                    <a href="#">
-                        <div class="inner-main">
-                            <div class="inner-img">
-                                <img src="https://demo.graygrids.com/themes/edugrids/assets/images/courses/courses-1.jpg" alt="picCourses">
-                            </div>
-                            <h2 class="inner-title">Tên Khóa Học</h2>
-                            <p class="inner-desc">Mô tả khóa học</p>
-                            <div class="inner-quality">
-                                <p class="quality">Số lượng học viên</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+               <%} %>
             </div>
         </div>
     </div>
-    
+     
       <div class="teacher">
         <div class="container">
             <div class="row">
@@ -160,21 +146,21 @@
                             Giảng Viên Giàu Kinh Nghiệm
                         </h1>
                         <div class="inner-bar"> </div>
-                        <p class="inner-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse cumque velit natus, tenetur earum quidem temporibus quibusdam dolore quo eos tempore delectus molestiae rerum magni repellat similique deserunt officiis sapiente?</p>
+                        <p class="inner-desc">Với các giảng viên bản ngữ và giáo viên có nhiều năm kinh nghiệm trong lĩnh vực giảng dạy tiếng Anh, chúng tôi cam kết mang đến cho bạn kiến thức chuyên sâu và phương pháp học tập tốt nhất.</p>
                     </div>
-                </div>
-                <%for (int i = 0; i < 4; i++){ %>
+                </div> 
+                <%for(UserModel t : (LinkedList<UserModel>)request.getAttribute("AllTeacher")){ %>
                 <div class="col-xl-6">
-                    <div class="inner-info">
+                    <div class="inner-info"> 
                         <div class="inner-img">
-                            <img src="https://scontent.fdad2-1.fna.fbcdn.net/v/t39.30808-6/285153159_1427683054412741_8625096137060604296_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFFa7bVIyZtIoTz15-aKR3jZuPSz15-RlRm49LPXn5GVD97JmHx3uPnuk49fTva3jYwcmhPrtw-weMZVJ1xb_lo&_nc_ohc=pKdEh3BotUQAb42Em9_&_nc_ht=scontent.fdad2-1.fna&oh=00_AfCvMKNTHBEhlbBDFh-HyqN4r6HqK3rybNjkM2zy-XboBw&oe=66298C69" alt="eimi fukada">
+                        	<img <%if(t.getImage() != null){%> src="/MVC/<%=t.getImage()%>"<%}else{%>src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/433753477_1478956322991228_8817898143870258149_n.png?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=sWEEGEntG_AQ7kNvgFyaBZw&_nc_ht=scontent.fdad2-1.fna&oh=03_Q7cD1QGqeuVWzNyRpVnWuSmwavr76brpCK5XDNs9PQYnQX-7ZA&oe=666ABFDF"<%}%> alt="eimi fukada">
                         </div>
                         <div class="inner-main">
-                            <div class="inner-name">Trần Văn Tùng</div>
-                            <div class="inner-desc">Top 1 giáo viên Việt Nam: Toiec 990, IELTS 9.0 và nhiều thành tích khác.</div>
+                            <div class="inner-name"><%=t.getName() %></div>
+                            <div class="inner-desc"><%=t.getDescription() == null ? "" : t.getDescription()%></div>
                             <div class="inner-email">
                                 <i class="fa-regular fa-envelope"></i>
-                                <span>tranvantung.@gmail.com</span>
+                                <span><%=t.getEmail() %></span>
                             </div>
                         </div> 
                     </div>

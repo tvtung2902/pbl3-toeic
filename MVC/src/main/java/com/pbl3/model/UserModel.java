@@ -9,21 +9,25 @@ public class UserModel {
 	private String image;
 	private String userName;
 	private String password;
+	private boolean status;
 	private RoleModel roleModel;
+	private String description;
 	
 	public UserModel() {
 		
 	}
 	
-	public UserModel(String email, String userName, String password, RoleModel roleModel) {
+	public UserModel(String email, String userName, String password, RoleModel roleModel, boolean status, String name) {
 		super();
 		this.email = email;
 		this.userName = userName;
 		this.password = password;
 		this.roleModel = roleModel;
+		this.status = status;
+		this.name = name;
 	}
 	public UserModel(String name, String phone, String email, Boolean gender, String image, String userName,
-			String password, RoleModel roleModel) {
+			String password, RoleModel roleModel, boolean status, String description) {
 		super();
 		this.name = name;
 		this.phone = phone;
@@ -33,9 +37,11 @@ public class UserModel {
 		this.userName = userName;
 		this.password = password;
 		this.roleModel = roleModel;
+		this.status = status;
+		this.description = description;
 	}
 	public UserModel(int userID, String name, String phone, String email, Boolean gender, String image, String userName,
-			String password, RoleModel roleModel) {
+			String password, RoleModel roleModel, boolean status, String description) {
 		super();
 		this.userID = userID;
 		this.name = name;
@@ -46,6 +52,8 @@ public class UserModel {
 		this.userName = userName;
 		this.password = password;
 		this.roleModel = roleModel;
+		this.status = status;
+		this.description = description;
 	}
 	public RoleModel getRoleModel() {
 		return roleModel;
@@ -103,5 +111,18 @@ public class UserModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	public boolean getStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

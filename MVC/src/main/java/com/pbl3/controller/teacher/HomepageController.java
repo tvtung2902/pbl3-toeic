@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = { "/teacher" })
 public class HomepageController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("goi doGet HomepageController - teacher");
@@ -26,7 +27,7 @@ public class HomepageController extends HttpServlet {
 	}
 	
 	protected void home(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/teacher/homepage.jsp"); 
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/teacher/homepage.jsp"); 
 		requestDispatcher.forward(req, resp);
 	}
 }

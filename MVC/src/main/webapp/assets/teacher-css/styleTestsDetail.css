@@ -1,0 +1,14 @@
+@charset "UTF-8";
+.container{
+	max-height:90%;
+}
+        .inner-head h2 {
+            text-align: center;
+            padding: 20px 0;
+            margin: 0;
+        }
+        .inner-head{
+            margin-top: 20px;
+            color: #fff;
+    background-color: var(--color-two);
+        }

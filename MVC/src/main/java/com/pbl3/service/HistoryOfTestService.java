@@ -108,4 +108,24 @@ public class HistoryOfTestService extends BaseService {
 		}
 		return 0;
 	}
+	
+	// query userID in historyoftest
+		public static int findUserID(int historyoftestID) {
+			try {
+				Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("SELECT userID FROM historyoftest WHERE historyoftestID = ?");
+				preparedStatement.setInt(1, historyoftestID);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()){
+					int userID = resultSet.getInt("userID");
+					return userID;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return 0;
+		}
+	
+	
 }

@@ -2,12 +2,9 @@ package com.pbl3.controller.student;
 
 import java.io.IOException;
 import java.util.LinkedList;
-
 import com.pbl3.model.UserModel;
 import com.pbl3.model.VocabListsModel;
 import com.pbl3.service.VocabListsService;
-import com.pbl3.service.VocabService;
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet (urlPatterns = {"/vocab-lists", "/vocab-lists/create", "/vocab-lists/edit", "/vocab-lists/delete"})
 public class VocabListsController extends HttpServlet{
-	
+	private static final long serialVersionUID = 1L;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("goi doget ListsVocab-user");
@@ -37,6 +34,7 @@ public class VocabListsController extends HttpServlet{
 				delete(req, resp);
 				break;
 			}
+            
 		}
 	}
 	
@@ -59,41 +57,26 @@ public class VocabListsController extends HttpServlet{
 	
 	// create
 	protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("goi ham create");
-		RequestDispatcher reqDispatcher = req.getRequestDispatcher("/vocab-lists/create");
 		HttpSession session = req.getSession();
 		String nameList = req.getParameter("name");
 		String description = req.getParameter("desc");
 		UserModel userModel = (UserModel)session.getAttribute("user");
 		int userID = userModel.getUserID();
-		VocabListsModel vocabListsModel = new VocabListsModel(userID, null, nameList, description);
+		VocabListsModel vocabListsModel = new VocabListsModel(userID, nameList, description);
 		VocabListsService.add(vocabListsModel);
-//		System.out.println("them thanh cong");
 		resp.sendRedirect(req.getContextPath()+"/vocab-lists");
 	}
-	
+	 
 	// edit
 	protected void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("gọi hàm edit");
 		int listID = Integer.parseInt(req.getParameter("listID"));
-//		int userID = Integer.parseInt(req.getParameter("userID"));
-//		Integer courseID = Integer.parseInt(req.getParameter("courseID"));
 		String nameList = req.getParameter("nameList");
 		String description = req.getParameter("description");
 		System.out.println("listID cua list vua chinh sua: " +listID);
 		System.out.println("namelist sau khi chinh sua: " +nameList);
 		System.out.println("desc sau khi chinh sua: " + description);
-//		String description_temp = "";
-//		if(description == null) System.out.println("desc null");
-//		else {
-//			System.out.println("desc not null");
-//			for(int i = 0; i <description.length(); i++) {
-//				if (description.charAt(i) != ' ') {
-//					description_temp += description.charAt(i);
-//				}
-//			}
-//		}
-		VocabListsModel vocabListsModel = new VocabListsModel(listID, 0, 0, nameList, description);
+		VocabListsModel vocabListsModel = new VocabListsModel(listID, 0, nameList, description);
 		VocabListsService.edit(vocabListsModel);
 		resp.sendRedirect(req.getContextPath() + "/vocab-lists/vocab?listID="+Integer.toString(listID));
 	}
@@ -106,7 +89,7 @@ public class VocabListsController extends HttpServlet{
 		VocabListsService.delete(listID);
 		resp.sendRedirect(req.getContextPath() + "/vocab-lists");
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("goi doPost ListsVocab-user");
