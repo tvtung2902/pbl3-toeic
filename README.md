@@ -2,8 +2,6 @@
 
 ## Overview
 
-## Overview
-
 This project is an online TOEIC learning system with 3 main user roles: **Student**, **Teacher**, and **Admin**.  
 Students can create an account, register for courses to watch video lessons, learn vocabulary with flashcards, and take TOEIC practice tests.  
 Teachers can manage courses, questions, and vocabulary.  
