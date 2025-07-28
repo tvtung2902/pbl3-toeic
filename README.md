@@ -62,3 +62,12 @@ The system helps students prepare for the TOEIC exam through high-quality course
 - MySQL
 - Apache Tomcat
 
+---
+
+## License
+
+This project is open source and released under the MIT License.
+
+---
+
+Thanks for visiting!
