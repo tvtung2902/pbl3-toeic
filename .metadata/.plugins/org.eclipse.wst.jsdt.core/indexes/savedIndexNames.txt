@@ -1,8 +1,0 @@
-INDEX VERSION 1.4+E:\PBL3\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3271193799.index
-371763406.index
-1981139650.index
-3689519981.index
-1699663075.index
-3622394851.index
-3451106090.index
