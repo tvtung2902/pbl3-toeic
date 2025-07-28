@@ -40,7 +40,7 @@
 			<div class="inner-main">
 				<div class="inner-logo">
 					<a href="/MVC/"> <img
-						src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/433753477_1478956322991228_8817898143870258149_n.png?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=sWEEGEntG_AQ7kNvgFyaBZw&_nc_ht=scontent.fdad2-1.fna&oh=03_Q7cD1QGqeuVWzNyRpVnWuSmwavr76brpCK5XDNs9PQYnQX-7ZA&oe=666ABFDF"
+						src="/MVC/data/logo.png"
 						alt="logo">
 					</a>
 				</div>

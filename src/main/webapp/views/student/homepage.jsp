@@ -37,7 +37,7 @@
             <div class="inner-main">
               <h5 class="inner-welcome">Học Ngay Từ Hôm Nay</h5>
               <h1 class="inner-title">Khóa Học Và Luyện Đề TOEIC Hàng Đầu</h1>
-              <p class="inner-desc">Chào mừng đến với StudyTOEIC - Nền tảng học tiếng anh và luyện thi TOEIC hàng đầu.</p>
+              <p class="inner-desc">Khóa học TOEIC Online của chúng tôi giúp bạn đạt điểm cao trong kỳ thi một cách hiệu quả và tiện lợi. Với chương trình học linh hoạt, bạn có thể học mọi lúc, mọi nơi. Khóa học bao gồm bài giảng, bài tập thực hành và kiểm tra mô phỏng, cùng với sự hỗ trợ từ đội ngũ giảng viên giàu kinh nghiệm, giúp bạn tự tin đạt được mục tiêu TOEIC của mình.</p>
               <div class="inner-button">
                 <div class="button-two button-1">
                   <a href="/MVC/courses" class="button1">Khóa Học</a>
@@ -153,7 +153,7 @@
                 <div class="col-xl-6">
                     <div class="inner-info"> 
                         <div class="inner-img">
-                        	<img <%if(t.getImage() != null){%> src="/MVC/<%=t.getImage()%>"<%}else{%>src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/433753477_1478956322991228_8817898143870258149_n.png?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=sWEEGEntG_AQ7kNvgFyaBZw&_nc_ht=scontent.fdad2-1.fna&oh=03_Q7cD1QGqeuVWzNyRpVnWuSmwavr76brpCK5XDNs9PQYnQX-7ZA&oe=666ABFDF"<%}%> alt="eimi fukada">
+                        	<img <%if(t.getImage() != null){%> src="/MVC/<%=t.getImage()%>"<%}else{%>src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/433753477_1478956322991228_8817898143870258149_n.png?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=sWEEGEntG_AQ7kNvgFyaBZw&_nc_ht=scontent.fdad2-1.fna&oh=03_Q7cD1QGqeuVWzNyRpVnWuSmwavr76brpCK5XDNs9PQYnQX-7ZA&oe=666ABFDF"<%}%> alt="teacher">
                         </div>
                         <div class="inner-main">
                             <div class="inner-name"><%=t.getName() %></div>

@@ -31,7 +31,7 @@
                     <div class="inner-main">
                         <h2 class="inner-title">Đề Thi</h2>
                         <div class="inner-bar"></div>
-                        <p class="inner-desc">Chúng tôi cung cấp bộ đề thi thử sát với thực tế và tài liệu học tập phong phú, giúp bạn chuẩn bị tốt nhất cho các kỳ thi tiếng Anh quốc tế.</p>
+                        <p class="inner-desc">Chúng tôi cung cấp bộ đề thi thử sát với thực tế cùng với tài liệu học tập phong phú, đa dạng, được cập nhật thường xuyên. Những tài nguyên này sẽ giúp bạn chuẩn bị một cách toàn diện và hiệu quả nhất cho các kỳ thi tiếng Anh quốc tế</p>
                         <div class="inner-button">
                             <!-- <div class="button-two button-1">
                                     <a href="#"class="button1">Khóa Học</a>

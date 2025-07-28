@@ -58,6 +58,7 @@
                             <p class="inner-desc">Dành cho các bạn với mục tiêu đạt điểm TOEIC tại các mức đầu ra <%=courseModel.getTarget() %>+</p>
                             <%} %>
                         </p>
+                        <p class="inner-desc">Chúng tôi cung cấp các khóa học TOEIC từ trình độ căn bản đến nâng cao, phù hợp với nhiều mục tiêu đầu ra khác nhau như 450+, 600+, 750+ và 900+. Khóa học được thiết kế bài bản, bám sát cấu trúc đề thi thật, giúp học viên phát triển toàn diện kỹ năng nghe và đọc, từ vựng, ngữ pháp, cũng như chiến lược làm bài hiệu quả.</p>
                         <div class="inner-button">
                             <!-- <div class="button-two button-1">
                                     <a href="#"class="button1">Khóa Học</a>
