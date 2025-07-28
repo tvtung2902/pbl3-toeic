@@ -10,6 +10,27 @@ The system helps students prepare for the TOEIC exam through high-quality course
 
 ---
 
+## Demo
+
+**You can watch the video demo [here](https://www.youtube.com/watch?v=Ye9fkGXgbnQ)**
+
+<p align="center">
+  <img src="demo/course.png" width="90%"><br>
+  <em>Figure: Watch course videos</em>
+</p>
+
+<p align="center">
+  <img src="demo/test.png" width="90%"><br>
+  <em>Figure: Take TOEIC practice tests</em>
+</p>
+
+<p align="center">
+  <img src="demo/vocab.png" width="90%"><br>
+  <em>Figure: Learn vocabulary with flashcards</em>
+</p>
+
+---
+
 ## Main Features
 
 ### 1. Student
