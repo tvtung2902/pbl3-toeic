@@ -13,7 +13,7 @@ An online TOEIC learning system with 3 user roles: **Student**, **Teacher**, and
 
 ## Demo
 
-**You can watch the video demo [here](https://www.youtube.com/watch?v=Ye9fkGXgbnQ)**
+**You can watch the video demo [here](https://drive.google.com/file/d/1YowlzVQWDJHJkjJqOlcVe712PAFI7Ifx/view?usp=drive_link)**
 
 <p align="center">
   <img src="demo/course.png" width="90%"><br>
