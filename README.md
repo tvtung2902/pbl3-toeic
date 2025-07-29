@@ -36,7 +36,7 @@ An online TOEIC learning system with 3 user roles: **Student**, **Teacher**, and
 
 ### 1. Student
 
-- Register cource
+- Register course
 - Watch course videos
 - Learn vocabulary via flashcards
 - Take TOEIC practice tests (structured by parts)
